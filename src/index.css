@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Ticker ─────────────────────────────────── */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-track {
+  animation: ticker 40s linear infinite;
+}
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Hero slide transitions ──────────────────── */
+@keyframes slide-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.06); }
+}
+.slide-exit {
+  animation: slide-out 0.65s ease-in-out forwards;
+  will-change: opacity;
+}
+.slide-kenburns {
+  animation: kenburns 7s ease-out forwards;
+  will-change: transform;
+}
+
+/* ── Content fade-in-up ──────────────────────── */
+@keyframes fade-in-up {
+  0%   { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.55s ease both;
+}
+
+/* ── Activity board flip (forex board effect) ── */
+@keyframes board-flip-in {
+  0%   { opacity: 0; transform: translateY(-14px) scaleY(0.85); }
+  60%  { transform: translateY(2px) scaleY(1.02); }
+  100% { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+@keyframes board-flip-out {
+  0%   { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(14px); }
+}
+.board-flip-in  { animation: board-flip-in  0.45s cubic-bezier(0.22,1,0.36,1) both; }
+.board-flip-out { animation: board-flip-out 0.3s ease-in both; }
+
+/* ── Custom cursor ───────────────────────────── */
+@media (pointer: fine) {
+  /* Hide native cursor everywhere… */
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+  /* …but restore the native finger on clickable elements
+     (CustomCursor returns null when hovering, so no double cursor) */
+  a, button, [role="button"],
+  input[type="submit"], input[type="button"],
+  input[type="reset"], select, label {
+    cursor: pointer !important;
+  }
+  input, textarea {
+    cursor: text !important;
+  }
+}
+
+@layer base {
+  html {
+    font-family: 'Open Sans', sans-serif;
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+  }
+  #root {
+    width: 100%;
+    text-align: left;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', sans-serif;
+  }
+}

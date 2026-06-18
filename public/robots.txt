@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Portal routes are not part of the public site
+Disallow: /login
+Disallow: /admin
+Disallow: /teacher
+Disallow: /parent
+
+Sitemap: https://www.mosaischools.ug/sitemap.xml
