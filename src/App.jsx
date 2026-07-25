@@ -65,7 +65,7 @@ function App() {
   return (
     <AuthProvider>
       <CampusProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
         <ScrollRestoration />
         <CustomCursor />
         <CampusTransition />
