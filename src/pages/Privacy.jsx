@@ -115,11 +115,11 @@ export default function Privacy() {
               If you have any questions about this policy or how your information is handled, please reach out:
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <a href="mailto:info@mosaischools.ug" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
-                <Mail className="w-4 h-4" /> info@mosaischools.ug
+              <a href="mailto:mosaischools@gmail.com" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
+                <Mail className="w-4 h-4" /> mosaischools@gmail.com
               </a>
-              <a href="tel:+256700123456" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
-                <Phone className="w-4 h-4" /> +256 700 123 456
+              <a href="tel:+256759742146" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
+                <Phone className="w-4 h-4" /> +256 759 742 146
               </a>
             </div>
           </div>

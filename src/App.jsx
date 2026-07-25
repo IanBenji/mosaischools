@@ -1,8 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider }    from './context/AuthContext'
+import { CampusProvider }  from './context/CampusContext'
 import Navbar              from './components/Navbar'
 import Footer              from './components/Footer'
 import CustomCursor        from './components/CustomCursor'
+import CampusTransition    from './components/CampusTransition'
+import CampusPicker        from './components/CampusPicker'
 import ScrollToTop         from './components/ScrollToTop'
 import ScrollRestoration   from './components/ScrollRestoration'
 
@@ -61,9 +64,12 @@ import NotFound   from './pages/NotFound'
 function App() {
   return (
     <AuthProvider>
+      <CampusProvider>
       <BrowserRouter>
         <ScrollRestoration />
         <CustomCursor />
+        <CampusTransition />
+        <CampusPicker />
         <Routes>
 
           {/* ───── PORTAL — DISABLED (requires a backend) ─────────────────────
@@ -136,6 +142,7 @@ function App() {
 
         </Routes>
       </BrowserRouter>
+      </CampusProvider>
     </AuthProvider>
   )
 }

@@ -1,0 +1,173 @@
+import { Link } from 'react-router-dom'
+import {
+  CalendarDays, School, MapPin, UserCog, Users, GraduationCap,
+  Heart, Shield, Sparkles, Award, ArrowRight, Sprout,
+} from 'lucide-react'
+import { useCampus }   from '../context/CampusContext'
+import { MOSAI_ETHOS } from '../lib/campus'
+import PageHeader  from '../components/PageHeader'
+import Doodles     from '../components/Doodles'
+import WaveDivider from '../components/WaveDivider'
+
+import imgHeader from '../assets/TON_8855.webp'
+
+/* Bunono ABOUT — storybook design, shares no layout with the Nalugala About. */
+
+const CREAM = '#FFF8EE'
+const INK   = 'text-[#43261A]'
+const INK2  = 'text-[#7A5C4A]'
+
+const VALUE_ICONS  = { 'God-fearing': Shield, 'Love': Heart, 'Humility': Sparkles, 'Excellence': Award }
+const VALUE_COLORS = ['#FF8A6B', '#5FBB6E', '#FFC93C', '#6EC6F2']
+
+export default function AboutBunono() {
+  const { campusInfo } = useCampus()
+  const p = campusInfo.profile
+
+  const facts = [
+    { icon: CalendarDays,  label: 'Opened',      value: p.opened,      color: '#FF8A6B' },
+    { icon: School,        label: 'Classes',     value: p.classes,     color: '#FFC93C' },
+    { icon: Users,         label: 'Enrolment',   value: p.enrolment,   color: '#5FBB6E' },
+    { icon: UserCog,       label: 'Director',    value: p.director,    color: '#6EC6F2' },
+    { icon: GraduationCap, label: 'Headteacher', value: p.headteacher, color: '#9B7EDE' },
+    { icon: MapPin,        label: 'Where',       value: `${p.address}, ${p.area}`, color: '#FF8A6B' },
+  ].filter(f => f.value)
+
+  return (
+    <main className="bg-cream overflow-hidden">
+      <PageHeader
+        crumb="About"
+        title="About"
+        accentWord="Bunono"
+        subtitle="A warm, brand-new nursery and primary school in Bunono Village, Katabi — quality, affordable and holistic education in a safe, caring, learner-friendly home."
+        image={imgHeader}
+        nextBg={CREAM}
+      />
+
+      {/* Fun facts — colourful bubble cards */}
+      <section className="relative py-16">
+        <Doodles names={['star', 'balloon']} count={2} />
+        <div className="relative z-[3] max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <p className="font-heading font-extrabold text-mosai-red uppercase tracking-widest text-sm">Say hello 👋</p>
+            <h2 className={`font-heading font-extrabold text-4xl sm:text-5xl mt-2 ${INK}`}>
+              Meet{' '}
+              <span className="crayon-underline" style={{ '--crayon-color': '#FFC93C' }}>Bunono Campus</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {facts.map((f, i) => {
+              const Icon = f.icon
+              return (
+                <div
+                  key={f.label}
+                  className="bg-white rounded-[2rem] p-7 shadow-sm border-2 border-dashed hover:-translate-y-1.5 transition-transform duration-200"
+                  style={{ borderColor: f.color, transform: `rotate(${i % 2 ? 1 : -1}deg)` }}
+                >
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4 shadow-md" style={{ backgroundColor: f.color }}>
+                    <Icon className="w-7 h-7 text-white" />
+                  </div>
+                  <p className="font-body text-[11px] font-bold uppercase tracking-widest text-gray-400">{f.label}</p>
+                  <p className={`font-heading font-bold mt-1 leading-snug ${INK}`}>{f.value}</p>
+                </div>
+              )
+            })}
+          </div>
+          <div className="mt-8 flex items-center justify-center gap-3 bg-white rounded-full px-6 py-4 shadow-sm max-w-2xl mx-auto border-2 border-dashed border-crayon-grass">
+            <Sprout className="w-6 h-6 text-crayon-grass shrink-0" />
+            <p className={`font-body text-sm ${INK2}`}><span className={`font-bold ${INK}`}>Growing together!</span> {p.growth}.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Headteacher welcome — speech bubble */}
+      {p.welcome && (
+        <section className="relative bg-white py-16">
+          <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
+          <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 items-center">
+              <div className="mx-auto text-center">
+                <div className="w-28 h-28 rounded-full bg-mosai-red flex items-center justify-center shadow-lg ring-8 ring-cream">
+                  <span className="font-heading font-extrabold text-4xl text-white">
+                    {p.headteacher.split(' ').map(w => w[0]).slice(0, 2).join('')}
+                  </span>
+                </div>
+                <p className={`font-heading font-extrabold mt-3 ${INK}`}>{p.headteacher}</p>
+                <p className="font-body text-sm text-mosai-red font-semibold">Headteacher</p>
+              </div>
+              <div className="relative bg-cream rounded-[2rem] p-8 shadow-sm border-2 border-dashed border-crayon-coral">
+                <span className="absolute -left-3 top-10 hidden md:block w-6 h-6 bg-cream border-l-2 border-b-2 border-dashed border-crayon-coral rotate-45" />
+                <p className="font-body text-lg font-bold text-mosai-red mb-2">Welcome to the Mosai family! 👋</p>
+                <p className={`font-body leading-relaxed ${INK2}`}>{p.welcome}</p>
+                {p.staff && <p className={`font-body text-sm leading-relaxed mt-4 pt-4 border-t border-dashed border-crayon-coral ${INK2}`}>{p.staff}</p>}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Vision & Mission — two big blob cards */}
+      <section className="relative bg-cream py-16">
+        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
+        <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="bg-mosai-red text-white p-10 shadow-lg rotate-1" style={{ borderRadius: '46% 54% 42% 58% / 55% 42% 58% 45%' }}>
+              <p className="font-heading font-bold uppercase tracking-widest text-white/70 text-xs mb-3">Our Vision</p>
+              <p className="font-heading font-extrabold text-2xl leading-snug">{MOSAI_ETHOS.vision}</p>
+            </div>
+            <div className="bg-crayon-grass text-white p-10 shadow-lg -rotate-1" style={{ borderRadius: '58% 42% 55% 45% / 45% 55% 45% 55%' }}>
+              <p className="font-heading font-bold uppercase tracking-widest text-white/80 text-xs mb-3">Our Mission</p>
+              <p className="font-heading font-extrabold text-2xl leading-snug">{MOSAI_ETHOS.mission}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Core values — circles */}
+      <section className="relative bg-white py-16">
+        <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
+        <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className={`font-heading font-extrabold text-4xl sm:text-5xl ${INK}`}>
+              Our Core{' '}
+              <span className="crayon-underline" style={{ '--crayon-color': '#5FBB6E' }}>Values</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {MOSAI_ETHOS.values.map((v, i) => {
+              const Icon = VALUE_ICONS[v] || Sparkles
+              const color = VALUE_COLORS[i % VALUE_COLORS.length]
+              return (
+                <div key={v} className="text-center">
+                  <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full mx-auto flex items-center justify-center shadow-lg ring-4 ring-cream animate-doodle-float"
+                    style={{ backgroundColor: color, '--doodle-rot': '0deg', animationDelay: `${i * 0.4}s` }}>
+                    <Icon className="w-12 h-12 text-white" />
+                  </div>
+                  <p className={`font-heading font-extrabold text-lg mt-4 ${INK}`}>{v}</p>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="relative pt-20 pb-16" style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #E14B4B 30%, #B71C1C 100%)' }}>
+        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
+        <Doodles names={['star', 'flower']} count={2} />
+        <div className="relative z-[3] max-w-2xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="font-heading font-extrabold text-4xl text-white mb-4">Come Grow With Us</h2>
+          <p className="font-body text-white/90 mb-7">Applications for 2026 are open at Bunono Campus. We'd love to meet your family.</p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link to="/admissions" className="inline-flex items-center gap-2 bg-cream text-mosai-red-dark font-heading font-extrabold px-8 py-4 rounded-full shadow-lg hover:-translate-y-0.5 transition-all">
+              Enroll Your Child <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link to="/contact" className="inline-flex items-center gap-2 border-2 border-white/80 text-white font-heading font-extrabold px-8 py-4 rounded-full hover:bg-white/15 transition-all">
+              Visit Us
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}

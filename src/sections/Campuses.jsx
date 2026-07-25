@@ -27,12 +27,15 @@ const campuses = [
 
 export default function Campuses() {
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-14">
-          <span className="font-body text-sm font-semibold text-mosai-red uppercase tracking-widest">Where We Are</span>
-          <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-2">Our Campuses</h2>
+          <span className="font-heading text-sm font-extrabold text-mosai-red uppercase tracking-widest">Where We Are</span>
+          <h2 className="font-heading font-extrabold text-4xl sm:text-5xl text-mosai-blue-dark mt-2">
+            Our Two{' '}
+            <span className="crayon-underline" style={{ '--crayon-color': '#FFC93C' }}>Campuses</span>
+          </h2>
           <p className="font-body text-gray-500 mt-3 max-w-xl mx-auto">
             Two campuses along the Kampala-Entebbe corridor, offering families in Wakiso District world-class early education close to home.
           </p>
@@ -44,7 +47,7 @@ export default function Campuses() {
             return (
               <div
                 key={i}
-                className="group bg-white rounded-2xl border border-gray-100 hover:shadow-xl transition-all duration-300"
+                className="group bg-cream rounded-3xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="p-8">
                   {/* Badge + Name */}
