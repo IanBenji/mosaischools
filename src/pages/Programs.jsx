@@ -1,5 +1,9 @@
 ﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useCampus } from '../context/CampusContext'
+import PageHeader from '../components/PageHeader'
+import ProgramsBunono from './ProgramsBunono'
+import { feeRange } from '../lib/fees'
 import {
   Baby, BookOpen, GraduationCap, CheckCircle, ArrowRight,
   Clock, CreditCard, Globe, FlaskConical, Monitor, Waves,
@@ -47,8 +51,8 @@ const nurseryPrograms = [
       'Introduces numbers, shapes and colours through play',
       'Fosters independence and social interaction',
     ],
-    dayFee: '450,000',
-    boardFee: '600,000',
+    dayFee: 450000,
+    boardFee: 600000,
   },
   {
     icon: BookOpen,
@@ -75,8 +79,8 @@ const nurseryPrograms = [
       'Strengthens counting and early number sense',
       'Grows in emotional regulation and empathy',
     ],
-    dayFee: '450,000',
-    boardFee: '600,000',
+    dayFee: 450000,
+    boardFee: 600000,
   },
   {
     icon: Star,
@@ -103,8 +107,8 @@ const nurseryPrograms = [
       'Demonstrates strong listening and comprehension',
       'Transitions confidently to Primary 1',
     ],
-    dayFee: '450,000',
-    boardFee: '600,000',
+    dayFee: 450000,
+    boardFee: 600000,
   },
 ]
 
@@ -199,35 +203,28 @@ const curricula = [
 
 // â”€â”€ Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function Programs() {
+  const { campus } = useCampus()
+  if (campus === 'bunono') return <ProgramsBunono />
+  return <ProgramsNalugala />
+}
+
+function ProgramsNalugala() {
   const [activeTab, setActiveTab] = useState(0)
+  const { campus, campusInfo } = useCampus()
+  const p = campusInfo.profile
 
   return (
     <main className="bg-white">
 
-      {/* â”€â”€ 1. Page Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="relative min-h-[55vh] flex items-end overflow-hidden">
-        <img
-          src={imgHeader}
-          alt="MOSAI Schools programs"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-mosai-blue-dark/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-mosai-blue-dark/45 via-transparent to-transparent" />
-
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-36">
-          <nav className="flex items-center gap-2 font-body text-sm text-white/50 mb-4">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-white">Programs</span>
-          </nav>
-          <h1 className="font-heading font-extrabold text-5xl sm:text-6xl text-white leading-tight mb-4">
-            Our <span className="text-mosai-red">Programs</span>
-          </h1>
-          <p className="font-body text-white/75 text-lg max-w-xl leading-relaxed">
-            Age-appropriate learning from Baby Class to Primary — nurturing every learner's unique potential at every stage.
-          </p>
-        </div>
-      </section>
+      {/* â”€â”€ 1. Page Header (campus-specific design) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <PageHeader
+        crumb="Programs"
+        title="Our"
+        accentWord="Programs"
+        subtitle={`Age-appropriate learning at our ${campusInfo.name} Campus, from ${p.classes} — nurturing every learner's unique potential at every stage.`}
+        image={imgHeader}
+        nextBg="#153764"
+      />
 
       {/* â”€â”€ Sticky nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <nav className="bg-mosai-blue-dark sticky top-16 z-40">
@@ -332,12 +329,12 @@ export default function Programs() {
                   <div className="mt-4 bg-white rounded-2xl border border-gray-100 shadow-sm p-5 grid grid-cols-2 gap-4">
                     <div className="text-center">
                       <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-1">Day Scholar</p>
-                      <p className="font-heading font-extrabold text-xl text-mosai-blue-dark">UGX {prog.dayFee}</p>
+                      <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(prog.dayFee)}</p>
                       <p className="font-body text-xs text-gray-400">per term</p>
                     </div>
                     <div className="text-center border-l border-gray-100">
                       <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-1">Boarding</p>
-                      <p className="font-heading font-extrabold text-xl text-mosai-red">UGX {prog.boardFee}</p>
+                      <p className="font-heading font-extrabold text-lg text-mosai-red">UGX {feeRange(prog.boardFee)}</p>
                       <p className="font-body text-xs text-gray-400">per term</p>
                     </div>
                     <div className="col-span-2 flex items-center gap-2 justify-center pt-1 border-t border-gray-100">
@@ -412,12 +409,12 @@ export default function Programs() {
 
             {/* Content */}
             <div>
-              <span className="font-body text-xs font-bold text-mosai-red-light uppercase tracking-widest">Primary Section</span>
-              <h2 className="font-heading font-extrabold text-4xl mt-1 mb-3">
-                P.1, P.2 &amp; P.3 — <span className="text-mosai-red-light">Growing Every Year</span>
+              <span className="font-body text-xs font-bold text-mosai-red-light uppercase tracking-widest">Primary Section · {campusInfo.name} Campus</span>
+              <h2 key={campus} className="fade-in-up font-heading font-extrabold text-4xl mt-1 mb-3">
+                {p.primaryRange} — <span className="text-mosai-red-light">Growing Every Year</span>
               </h2>
               <p className="font-body text-blue-100 text-sm leading-relaxed mb-6">
-                Our primary section provides a rigorous yet joyful education combining Uganda's NCDC curriculum with Cambridge, IB and British/IPC frameworks. We currently offer P.1, P.2 and P.3 — adding one class each year until we reach P.7 — ensuring learners benefit from continuity of care and curriculum as they grow.
+                Our primary section provides a rigorous yet joyful education combining Uganda's NCDC curriculum with Cambridge, IB and British/IPC frameworks. At our {campusInfo.name} Campus we currently offer {p.primaryRange} — adding one class each year until we reach P.7 — ensuring learners benefit from continuity of care and curriculum as they grow.
               </p>
 
               {/* Academic activities */}
@@ -468,7 +465,7 @@ export default function Programs() {
               <div className="flex items-center gap-3 mb-7 bg-mosai-red/20 border border-mosai-red/30 rounded-xl px-5 py-3">
                 <Sprout className="w-5 h-5 text-mosai-red-light shrink-0" />
                 <p className="font-body text-sm text-blue-100">
-                  <span className="font-semibold text-white">Currently: P.1, P.2 &amp; P.3.</span> One new class added each year — growing alongside our learners all the way to P.7.
+                  <span className="font-semibold text-white">Currently: {p.primaryRange}.</span> One new class added each year — growing alongside our learners all the way to P.7.
                 </p>
               </div>
 
@@ -491,7 +488,7 @@ export default function Programs() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 text-white">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full mb-2 bg-mosai-blue">
-                    <GraduationCap className="w-3.5 h-3.5" /> P.1 · P.2 · P.3
+                    <GraduationCap className="w-3.5 h-3.5" /> {p.primaryRange}
                   </span>
                   <p className="font-heading font-extrabold text-2xl">Primary Section</p>
                   <p className="font-body text-xs text-white/70 mt-1">More classes added each year to P.7</p>
@@ -502,12 +499,12 @@ export default function Programs() {
               <div className="bg-white/10 border border-white/15 rounded-2xl p-5 grid grid-cols-2 gap-4">
                 <div className="text-center">
                   <p className="font-body text-xs text-blue-300 uppercase tracking-wide mb-1">Day Scholar</p>
-                  <p className="font-heading font-extrabold text-xl text-white">UGX 500,000</p>
+                  <p className="font-heading font-extrabold text-lg text-white">UGX {feeRange(500000)}</p>
                   <p className="font-body text-xs text-blue-300">per term</p>
                 </div>
                 <div className="text-center border-l border-white/15">
                   <p className="font-body text-xs text-blue-300 uppercase tracking-wide mb-1">Boarding</p>
-                  <p className="font-heading font-extrabold text-xl text-mosai-red-light">UGX 700,000</p>
+                  <p className="font-heading font-extrabold text-lg text-mosai-red-light">UGX {feeRange(700000)}</p>
                   <p className="font-body text-xs text-blue-300">per term</p>
                 </div>
                 <div className="col-span-2 flex items-center gap-2 justify-center pt-1 border-t border-white/10">
@@ -656,7 +653,7 @@ export default function Programs() {
             Find the Right Program for Your Child
           </h2>
           <p className="font-body text-gray-500 text-sm mb-7 leading-relaxed">
-            Not sure which class is the right fit? Our admissions team at Nalugala and Bunono campuses is happy to guide you. Applications are open now — spaces are limited.
+            Not sure which class is the right fit? Our admissions team at {campusInfo.name} Campus is happy to guide you. Applications are open now — spaces are limited.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link

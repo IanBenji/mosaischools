@@ -56,8 +56,11 @@ export default function Testimonial() {
 
         {/* Parent testimonials */}
         <div className="text-center mb-10">
-          <span className="font-body text-sm font-semibold text-mosai-red uppercase tracking-widest">Parent Voices</span>
-          <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-2">What Parents Say</h2>
+          <span className="font-heading text-sm font-extrabold text-mosai-red uppercase tracking-widest">Parent Voices</span>
+          <h2 className="font-heading font-extrabold text-4xl sm:text-5xl text-mosai-blue-dark mt-2">
+            What{' '}
+            <span className="crayon-underline" style={{ '--crayon-color': '#FFC93C' }}>Parents Say</span>
+          </h2>
         </div>
 
         <div className="relative bg-white rounded-3xl shadow-lg px-8 sm:px-14 py-12">

@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Menu, X, GraduationCap } from 'lucide-react'
+import { Menu, X, GraduationCap, MapPin, ChevronDown, Check } from 'lucide-react'
+import { CAMPUSES } from '../lib/campus'
+import { useCampus } from '../context/CampusContext'
 
 /* Portal Login UI is DISABLED (requires a backend). See the commented block
  * near the end of this file to restore it once authentication exists.
@@ -54,6 +56,26 @@ export default function Navbar() {
   // ALL pages: transparent until scrolled
   const isTransparent = !scrolled
 
+  // Active campus + switcher dropdown
+  const { campus, campusInfo, setCampus } = useCampus()
+  const isBunono = campus === 'bunono'
+  const [campusOpen, setCampusOpen] = useState(false)
+  const campusRef = useRef(null)
+
+  useEffect(() => {
+    function onDocClick(e) {
+      if (campusRef.current && !campusRef.current.contains(e.target)) setCampusOpen(false)
+    }
+    document.addEventListener('mousedown', onDocClick)
+    return () => document.removeEventListener('mousedown', onDocClick)
+  }, [])
+
+  function pickCampus(slug) {
+    setCampus(slug)
+    setCampusOpen(false)
+    setMenuOpen(false)
+  }
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', onScroll)
@@ -77,7 +99,8 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
 
-            {/* Logo */}
+            {/* Logo + campus switcher */}
+            <div className="flex items-center gap-3">
             <Link to="/" className="flex items-center gap-2 group">
               <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200 ${
                 isTransparent
@@ -96,6 +119,62 @@ export default function Navbar() {
                 </span>
               </span>
             </Link>
+
+            <div className="relative block" ref={campusRef}>
+              <button
+                type="button"
+                onClick={() => setCampusOpen(o => !o)}
+                aria-haspopup="listbox"
+                aria-expanded={campusOpen}
+                title="Switch campus"
+                className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 font-body text-xs font-semibold transition-colors duration-200 sm:px-3 ${
+                  isTransparent
+                    ? 'border-white/30 bg-white/10 text-white hover:bg-white/20'
+                    : isBunono
+                      ? 'border-mosai-red-light bg-mosai-red-light/60 text-mosai-red hover:bg-mosai-red-light'
+                      : 'border-mosai-blue-light bg-mosai-blue-light/60 text-mosai-blue hover:bg-mosai-blue-light'
+                }`}
+              >
+                <MapPin className={`w-3.5 h-3.5 shrink-0 ${isTransparent ? 'text-white' : isBunono ? 'text-mosai-red' : 'text-mosai-blue'}`} />
+                <span className={`hidden text-[9px] font-bold uppercase tracking-wider sm:inline ${isTransparent ? 'text-white/60' : 'opacity-60'}`}>
+                  Campus:
+                </span>
+                <span className="font-bold">{campusInfo.name}</span>
+                <span className={`hidden font-semibold md:inline ${isTransparent ? 'text-white/60' : 'opacity-60'}`}>· Switch</span>
+                <ChevronDown className={`w-3.5 h-3.5 opacity-70 transition-transform duration-200 ${campusOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {campusOpen && (
+                <div className="absolute left-0 top-full mt-2 w-72 rounded-2xl border border-gray-100 bg-white p-1.5 shadow-xl z-50" role="listbox">
+                  {Object.entries(CAMPUSES).map(([slug, c]) => {
+                    const isActive = slug === campus
+                    return (
+                      <button
+                        key={slug}
+                        type="button"
+                        role="option"
+                        aria-selected={isActive}
+                        onClick={() => pickCampus(slug)}
+                        className={`flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left transition-colors ${
+                          isActive ? (slug === 'bunono' ? 'bg-mosai-red-light' : 'bg-mosai-blue-light') : 'hover:bg-gray-50'
+                        }`}
+                      >
+                        <MapPin className={`mt-0.5 w-4 h-4 shrink-0 ${slug === 'bunono' ? 'text-mosai-red' : 'text-mosai-blue'}`} />
+                        <span className="flex-1 min-w-0">
+                          <span className="flex items-center gap-2 font-heading font-bold text-sm text-mosai-blue-dark">
+                            {c.name} Campus
+                            {isActive && <Check className={`w-3.5 h-3.5 ${slug === 'bunono' ? 'text-mosai-red' : 'text-mosai-blue'}`} />}
+                          </span>
+                          <span className="block font-body text-xs text-gray-500">{c.tagline}</span>
+                          <span className="block font-body text-xs text-gray-400">{c.location}</span>
+                        </span>
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+            </div>
 
             {/* Desktop nav links */}
             <div className="hidden md:flex items-center gap-0">
@@ -170,6 +249,34 @@ export default function Navbar() {
                     {link.label}
                   </NavLink>
                 ))}
+
+                {/* Campus switcher (mobile) */}
+                <div className={`mt-2 border-t pt-2 ${isTransparent ? 'border-white/10' : 'border-gray-100'}`}>
+                  <p className={`px-3 pb-1 font-body text-[10px] font-bold uppercase tracking-widest ${
+                    isTransparent ? 'text-white/40' : 'text-gray-400'
+                  }`}>
+                    Campus
+                  </p>
+                  {Object.entries(CAMPUSES).map(([slug, c]) => {
+                    const isActive = slug === campus
+                    return (
+                      <button
+                        key={slug}
+                        type="button"
+                        onClick={() => pickCampus(slug)}
+                        className={`flex w-full items-center gap-2 rounded-md px-3 py-2 font-body text-sm font-semibold transition-colors ${
+                          isActive
+                            ? isTransparent ? 'bg-white/15 text-white' : 'bg-mosai-blue-light text-mosai-blue'
+                            : isTransparent ? 'text-white/70 hover:bg-white/10' : 'text-gray-600 hover:bg-gray-50'
+                        }`}
+                      >
+                        <MapPin className={`w-4 h-4 ${slug === 'bunono' ? 'text-red-300' : isTransparent ? 'text-white/60' : 'text-mosai-blue'}`} />
+                        {c.name} Campus
+                        {isActive && <Check className="ml-auto w-4 h-4" />}
+                      </button>
+                    )
+                  })}
+                </div>
 
                 {/* ───── Portal Login (mobile) — DISABLED (requires a backend) ─────
                   <div className="mt-3 border-t border-white/10 pt-3 space-y-2">

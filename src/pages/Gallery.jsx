@@ -1,6 +1,9 @@
 ﻿import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { X, ZoomIn, ChevronLeft, ChevronRight, MapPin, ArrowRight, Images } from 'lucide-react'
+import PageHeader from '../components/PageHeader'
+import { useCampus } from '../context/CampusContext'
+import GalleryBunono from './GalleryBunono'
 
 // â”€â”€ Static imports give Vite-hashed URLs — no download until <img src> is set â”€â”€
 import imgCls1 from '../assets/TON_8855.webp'
@@ -115,6 +118,12 @@ function LazyImg({ src, alt, className, onVisible }) {
 
 // â”€â”€ Main component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function Gallery() {
+  const { campus } = useCampus()
+  if (campus === 'bunono') return <GalleryBunono />
+  return <GalleryNalugala />
+}
+
+function GalleryNalugala() {
   const [active,      setActive]   = useState('All')
   const [visibleCount,setVisible]  = useState(PAGE_SIZE)
   const [lightboxIdx, setLightbox] = useState(null)
@@ -155,39 +164,23 @@ export default function Gallery() {
   return (
     <main className="bg-white">
 
-      {/* â”€â”€ Page Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="relative min-h-[52vh] flex items-end overflow-hidden">
-        {/* Only the hero image loads eagerly — it's above the fold */}
-        <img
-          src={imgEvt1}
-          alt="Life at MOSAI Schools"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-          loading="eager"
-          decoding="async"
-        />
-        <div className="absolute inset-0 bg-mosai-blue-dark/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-mosai-blue-dark/45 via-transparent to-transparent" />
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-36">
-          <nav className="flex items-center gap-2 font-body text-sm text-white/50 mb-4">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-white">Gallery</span>
-          </nav>
-          <h1 className="font-heading font-extrabold text-5xl sm:text-6xl text-white leading-tight mb-4">
-            Photo <span className="text-mosai-red">Gallery</span>
-          </h1>
-          <p className="font-body text-white/75 text-lg max-w-xl leading-relaxed">
-            Life at MOSAI Schools. A glimpse into the daily joy, creativity and learning across our Nalugala and Bunono campuses.
-          </p>
-          <div className="flex items-center gap-3 mt-5">
-            <span className="font-body text-sm font-semibold text-white/60">{photos.length} photos</span>
-            <span className="w-1 h-1 bg-white/40 rounded-full" />
-            <span className="font-body text-sm font-semibold text-white/60">{CATEGORIES.length - 1} categories</span>
-            <span className="w-1 h-1 bg-white/40 rounded-full" />
-            <span className="font-body text-sm font-semibold text-white/60">2 campuses</span>
-          </div>
+      {/* â”€â”€ Page Header (campus-specific design) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <PageHeader
+        crumb="Gallery"
+        title="Photo"
+        accentWord="Gallery"
+        subtitle="Life at MOSAI Schools. A glimpse into the daily joy, creativity and learning across our Nalugala and Bunono campuses."
+        image={imgEvt1}
+        nextBg="#FFFFFF"
+      >
+        <div className="flex items-center gap-3">
+          <span className="font-body text-sm font-semibold text-white/80">{photos.length} photos</span>
+          <span className="w-1 h-1 bg-white/50 rounded-full" />
+          <span className="font-body text-sm font-semibold text-white/80">{CATEGORIES.length - 1} categories</span>
+          <span className="w-1 h-1 bg-white/50 rounded-full" />
+          <span className="font-body text-sm font-semibold text-white/80">2 campuses</span>
         </div>
-      </section>
+      </PageHeader>
 
       {/* â”€â”€ Filter Tabs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <div className="sticky top-16 z-40 bg-white border-b border-gray-100 shadow-sm">

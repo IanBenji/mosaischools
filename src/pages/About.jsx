@@ -3,7 +3,12 @@ import {
   Heart, Star, Shield, Lightbulb,
   MapPin, Globe, ArrowRight,
   BookOpen, FlaskConical, GraduationCap,
+  CalendarDays, Users, UserCog, School,
 } from 'lucide-react'
+import { useCampus } from '../context/CampusContext'
+import { MOSAI_ETHOS } from '../lib/campus'
+import PageHeader from '../components/PageHeader'
+import AboutBunono from './AboutBunono'
 
 import imgHeader   from '../assets/TON_8855.webp'
 import imgStory1   from '../assets/IMG_8682.webp'
@@ -117,45 +122,43 @@ const facilities = [
 const languages = ['English', 'Swahili', 'French', 'Chinese']
 
 export default function About() {
+  const { campus, campusInfo } = useCampus()
+  if (campus === 'bunono') return <AboutBunono />
+  const isBunono = campus === 'bunono'
+  const p = campusInfo.profile
+
+  const quickFacts = isBunono
+    ? [
+        { value: '2026',         label: 'Opened February'    },
+        { value: '100 Learners', label: 'And growing'        },
+        { value: 'Baby to P.4',  label: 'Growing to P.7'     },
+        { value: 'Day & Board',  label: 'Boys and Girls'     },
+      ]
+    : [
+        { value: '2025',         label: 'Year Founded'       },
+        { value: '2 Campuses',   label: 'Katabi, Wakiso'     },
+        { value: '4 Languages',  label: 'of Instruction'     },
+        { value: 'Baby to P.3',  label: 'Growing Each Year'  },
+      ]
+
   return (
     <main className="bg-white">
 
-      {/* 1 — Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="relative min-h-[60vh] flex items-end overflow-hidden">
-        <img
-          src={imgHeader}
-          alt="MOSAI Schools campus"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-          loading="eager"
-          decoding="async"
-        />
-        <div className="absolute inset-0 bg-mosai-blue-dark/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-mosai-blue-dark/50 via-transparent to-transparent" />
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 pt-44">
-          <nav className="flex items-center gap-2 font-body text-sm text-white/50 mb-5">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-white">About</span>
-          </nav>
-          <h1 className="font-heading font-extrabold text-5xl sm:text-6xl text-white leading-tight mb-4">
-            About <span className="text-mosai-red">MOSAI Schools</span>
-          </h1>
-          <p className="font-body text-white/70 text-lg max-w-xl leading-relaxed">
-            A private day and boarding nursery and primary school dedicated to unlocking the greatness in every child, in Katabi, Wakiso District, Uganda.
-          </p>
-        </div>
-      </section>
+      {/* 1 — Hero (campus-specific design) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <PageHeader
+        crumb="About"
+        title="About"
+        accentWord="MOSAI Schools"
+        subtitle="A private day and boarding nursery and primary school dedicated to unlocking the greatness in every child, in Katabi, Wakiso District, Uganda."
+        image={imgHeader}
+        nextBg="#153764"
+      />
 
       {/* 2 — Quick facts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <div className="bg-mosai-blue-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 sm:grid-cols-4">
-            {[
-              { value: '2025',        label: 'Year Founded'       },
-              { value: '2 Campuses',  label: 'Katabi, Wakiso'     },
-              { value: '4 Languages', label: 'of Instruction'     },
-              { value: 'Baby to P.3', label: 'Growing Each Year'  },
-            ].map((item, i) => (
+            {quickFacts.map((item, i) => (
               <div
                 key={item.value}
                 className={`py-8 px-6 text-center ${i < 3 ? 'border-r border-white/10' : ''} ${i >= 2 ? 'border-t border-white/10 sm:border-t-0' : ''}`}
@@ -167,6 +170,103 @@ export default function About() {
           </div>
         </div>
       </div>
+
+      {/* 2b — Campus profile (campus-aware) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div key={campus} className="fade-in-up">
+            <div className="text-center mb-12">
+              <span className={`inline-flex items-center gap-1.5 font-body text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full ${
+                isBunono ? 'bg-mosai-red-light text-mosai-red' : 'bg-mosai-blue-light text-mosai-blue'
+              }`}>
+                <MapPin className="w-3.5 h-3.5" /> {p.status}
+              </span>
+              <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-4">
+                {campusInfo.name} Campus
+              </h2>
+              <p className="font-body text-gray-500 mt-3 max-w-2xl mx-auto text-sm leading-relaxed">
+                {isBunono
+                  ? 'A private nursery and primary day and boarding school in Bunono Village, Katabi — providing quality, affordable and holistic education in a safe, caring and learner-friendly environment.'
+                  : 'Our flagship campus on Garuga Road — the birthplace of MOSAI Schools and home to our boarding facilities, swimming pool and modern digital classrooms.'}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {[
+                { icon: CalendarDays, label: 'Opened',            value: p.opened },
+                { icon: School,       label: 'Classes Offered',   value: p.classes },
+                { icon: MapPin,       label: 'Location',          value: p.address, sub: p.area },
+                { icon: UserCog,      label: 'Director',          value: p.director },
+                p.headteacher && { icon: Users, label: 'Headteacher', value: p.headteacher },
+                p.enrolment   && { icon: GraduationCap, label: 'Current Enrolment', value: p.enrolment },
+              ].filter(Boolean).map((item, i) => {
+                const Icon = item.icon
+                return (
+                  <div key={i} className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${isBunono ? 'bg-mosai-red-light' : 'bg-mosai-blue-light'}`}>
+                      <Icon className={`w-5 h-5 ${isBunono ? 'text-mosai-red' : 'text-mosai-blue'}`} />
+                    </div>
+                    <p className="font-body text-[11px] font-bold uppercase tracking-widest text-gray-400">{item.label}</p>
+                    <p className="font-heading font-bold text-mosai-blue-dark mt-1 leading-snug">{item.value}</p>
+                    {item.sub && <p className="font-body text-sm text-gray-400 mt-0.5">{item.sub}</p>}
+                  </div>
+                )
+              })}
+            </div>
+
+            <div className={`mt-5 rounded-2xl p-6 text-center ${isBunono ? 'bg-mosai-red-light/50' : 'bg-mosai-blue-light/50'}`}>
+              <p className="font-body text-sm text-gray-600">
+                <span className="font-bold text-mosai-blue-dark">Growing with your child.</span> {p.growth}.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2c — Headteacher's welcome (campus-aware, shown when present) â”€â”€ */}
+      {p.welcome && (
+        <section className="py-20 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div key={campus} className="fade-in-up grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+              {/* Identity card */}
+              <div className="lg:col-span-4">
+                <div className={`rounded-3xl p-8 text-center ${isBunono ? 'bg-mosai-red-light' : 'bg-mosai-blue-light'}`}>
+                  <div className={`w-24 h-24 rounded-full mx-auto flex items-center justify-center mb-4 ${isBunono ? 'bg-mosai-red' : 'bg-mosai-blue'}`}>
+                    <span className="font-heading font-extrabold text-3xl text-white">
+                      {p.headteacher.split(' ').map(w => w[0]).slice(0, 2).join('')}
+                    </span>
+                  </div>
+                  <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">{p.headteacher}</p>
+                  <p className={`font-body text-sm font-semibold ${isBunono ? 'text-mosai-red' : 'text-mosai-blue'}`}>Headteacher</p>
+                  <p className="font-body text-xs text-gray-500 mt-1">{campusInfo.name} Campus</p>
+                </div>
+              </div>
+
+              {/* Welcome + staff */}
+              <div className="lg:col-span-8">
+                <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">A Warm Welcome</span>
+                <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-mosai-blue-dark mt-2 mb-6">
+                  From Our Headteacher
+                </h2>
+                <span className="block font-heading font-black text-[7rem] leading-[0.5] text-mosai-red/10 select-none" aria-hidden>&ldquo;</span>
+                <p className="font-body text-gray-600 text-base leading-relaxed -mt-6">{p.welcome}</p>
+
+                {p.staff && (
+                  <div className="mt-8 flex items-start gap-4 rounded-2xl border border-gray-100 bg-gray-50 p-6">
+                    <div className={`w-11 h-11 shrink-0 rounded-xl flex items-center justify-center ${isBunono ? 'bg-mosai-red-light' : 'bg-mosai-blue-light'}`}>
+                      <Users className={`w-5 h-5 ${isBunono ? 'text-mosai-red' : 'text-mosai-blue'}`} />
+                    </div>
+                    <div>
+                      <p className="font-heading font-bold text-sm text-mosai-blue-dark mb-1">Our Staff</p>
+                      <p className="font-body text-sm text-gray-500 leading-relaxed">{p.staff}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 3 — Our Story â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-24 bg-white">
@@ -289,7 +389,7 @@ export default function About() {
               <div className="relative z-10">
                 <p className="font-body text-xs text-blue-300 uppercase tracking-widest font-semibold mb-5">Our Vision</p>
                 <p className="font-heading font-bold text-2xl leading-relaxed">
-                  To become a model centre of excellence in Science, Technology, Mathematics and Innovation.
+                  {MOSAI_ETHOS.vision}
                 </p>
               </div>
             </div>
@@ -299,7 +399,7 @@ export default function About() {
               <div className="relative z-10">
                 <p className="font-body text-xs text-red-200 uppercase tracking-widest font-semibold mb-5">Our Mission</p>
                 <p className="font-heading font-bold text-2xl leading-relaxed">
-                  To provide a conducive environment where learners can acquire knowledge, grow and develop to their full potential for self-reliance.
+                  {MOSAI_ETHOS.mission}
                 </p>
               </div>
             </div>

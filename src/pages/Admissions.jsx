@@ -8,6 +8,11 @@ import {
 import emailjs from '@emailjs/browser'
 import HCaptcha from '@hcaptcha/react-hcaptcha'
 import { checkRateLimit, sanitize } from '../lib/formSecurity'
+import { useCampus } from '../context/CampusContext'
+import { CAMPUSES } from '../lib/campus'
+import PageHeader from '../components/PageHeader'
+import AdmissionsBunono from './AdmissionsBunono'
+import { feeRange } from '../lib/fees'
 import headerImg  from '../assets/IMG_8754.webp'
 import photoA     from '../assets/TON_8855.webp'
 import photoB     from '../assets/IMG_8791.webp'
@@ -99,9 +104,12 @@ const downloads = [
 
 
 /* â”€â”€â”€ Application form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-function AppForm() {
+export function AppForm() {
+  const { campusInfo } = useCampus()
+  const campusNames = Object.values(CAMPUSES).map(c => `${c.name} Campus`)
   const blank = {
-    childFirst:'', childLast:'', dob:'', gender:'', classFor:'',
+    childFirst:'', childLast:'', dob:'', gender:'',
+    campus: `${campusInfo.name} Campus`, classFor:'',
     parentName:'', relation:'', phone:'', email:'',
     address:'', city:'', source:'', notes:'',
     website: '', // honeypot
@@ -153,6 +161,7 @@ function AppForm() {
           child_name:  sanitize(`${form.childFirst} ${form.childLast}`),
           child_dob:   sanitize(form.dob),
           child_gender:sanitize(form.gender),
+          campus:      sanitize(form.campus),
           class_for:   sanitize(form.classFor),
           start_term:  sanitize(form.startTerm ?? ''),
           parent_name: sanitize(form.parentName),
@@ -250,6 +259,7 @@ function AppForm() {
           {inp('Last Name', 'childLast', 'text', 'e.g. Nakato')}
           {inp('Date of Birth', 'dob', 'date')}
           {sel('Gender', 'gender', ['Female','Male','Prefer not to say'])}
+          {sel('Preferred Campus', 'campus', campusNames)}
           {sel('Applying For', 'classFor', ['Baby Class (Age 2–3)','Middle Class (Age 3–4)','Top Class (Age 5–6)'])}
           {sel('Start Term', 'startTerm', ['2025 Term 2','2025 Term 3','2026 Term 1'], true)}
         </div>
@@ -326,42 +336,42 @@ function AppForm() {
 
 /* â”€â”€â”€ Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 export default function Admissions() {
+  const { campus } = useCampus()
+  if (campus === 'bunono') return <AdmissionsBunono />
+  return <AdmissionsNalugala />
+}
+
+function AdmissionsNalugala() {
   const [activeClass, setActiveClass] = useState(0)
   const cls = classes[activeClass]
   const isRed = cls.color === 'red'
+  const { campus, campusInfo } = useCampus()
+  const isBunono = campus === 'bunono'
+  const p        = campusInfo.profile
+  const tel      = campusInfo.phone.replace(/\s+/g, '')
 
   return (
     <main className="bg-white">
 
       {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="relative min-h-[70vh] flex items-end overflow-hidden">
-        <img src={headerImg} alt="" className="absolute inset-0 w-full h-full object-cover object-center" />
-        <div className="absolute inset-0 bg-mosai-blue-dark/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-mosai-blue-dark/45 via-transparent to-transparent" />
-
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 pt-36">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 bg-mosai-red/80 backdrop-blur-sm rounded-full px-4 py-1.5 mb-5">
-              <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-              <span className="font-body text-xs font-semibold text-white tracking-wide">Now accepting applications for 2026</span>
-            </div>
-            <h1 className="font-heading font-extrabold text-5xl sm:text-6xl text-white leading-tight mb-4">
-              Join the<br /><span className="text-mosai-red">Mosai Family</span>
-            </h1>
-            <p className="font-body text-white/75 text-lg leading-relaxed mb-8 max-w-lg">
-              Spaces are limited. Secure your child's place in a school where every learner is known, valued and inspired to grow.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <a href="#apply" className="inline-flex items-center gap-2 bg-mosai-red hover:bg-mosai-red-dark text-white font-heading font-bold text-sm px-6 py-3 rounded-full shadow-lg transition-all duration-200">
-                Apply Now <ArrowRight className="w-4 h-4" />
-              </a>
-              <a href="#fees" className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/25 text-white font-heading font-bold text-sm px-6 py-3 rounded-full transition-all duration-200">
-                View Fees
-              </a>
-            </div>
-          </div>
+      <PageHeader
+        crumb="Admissions"
+        kicker="Now accepting applications for 2026"
+        title="Join the"
+        accentWord="Mosai Family"
+        subtitle="Spaces are limited. Secure your child's place in a school where every learner is known, valued and inspired to grow."
+        image={headerImg}
+        nextBg="#153764"
+      >
+        <div className="flex flex-wrap gap-3">
+          <a href="#apply" className="inline-flex items-center gap-2 bg-mosai-red hover:bg-mosai-red-dark text-white font-heading font-bold text-sm px-6 py-3 rounded-full shadow-lg transition-all duration-200">
+            Apply Now <ArrowRight className="w-4 h-4" />
+          </a>
+          <a href="#fees" className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/25 text-white font-heading font-bold text-sm px-6 py-3 rounded-full transition-all duration-200">
+            View Fees
+          </a>
         </div>
-      </section>
+      </PageHeader>
 
       {/* â”€â”€ Key numbers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="bg-mosai-blue-dark">
@@ -531,7 +541,7 @@ export default function Admissions() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-heading font-extrabold text-xl text-mosai-blue-dark">UGX 450,000</p>
+                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(450000)}</p>
                     <p className="font-body text-xs text-gray-400">per term</p>
                   </div>
                 </div>
@@ -546,7 +556,7 @@ export default function Admissions() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-heading font-extrabold text-xl text-mosai-blue-dark">UGX 600,000</p>
+                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(600000)}</p>
                     <p className="font-body text-xs text-gray-400">per term</p>
                   </div>
                 </div>
@@ -556,8 +566,8 @@ export default function Admissions() {
             {/* Primary */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
               <div className="bg-mosai-red px-6 py-5">
-                <p className="font-body text-xs text-red-200 uppercase tracking-widest mb-1">Primary Section</p>
-                <h3 className="font-heading font-extrabold text-xl text-white">P.1, P.2 &amp; P.3</h3>
+                <p className="font-body text-xs text-red-200 uppercase tracking-widest mb-1">Primary Section · {campusInfo.name}</p>
+                <h3 className="font-heading font-extrabold text-xl text-white">{p.primaryRange}</h3>
                 <p className="font-body text-sm text-red-200 mt-1">Adding one class each year to P.7</p>
               </div>
               <div className="px-6 py-5 space-y-4">
@@ -572,7 +582,7 @@ export default function Admissions() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-heading font-extrabold text-xl text-mosai-blue-dark">UGX 500,000</p>
+                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(500000)}</p>
                     <p className="font-body text-xs text-gray-400">per term</p>
                   </div>
                 </div>
@@ -587,7 +597,7 @@ export default function Admissions() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-heading font-extrabold text-xl text-mosai-blue-dark">UGX 700,000</p>
+                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(700000)}</p>
                     <p className="font-body text-xs text-gray-400">per term</p>
                   </div>
                 </div>
@@ -602,11 +612,11 @@ export default function Admissions() {
               {[
                 { icon: BookOpen,      text: 'Quality education — blended NCDC, Cambridge, IB & IPC curriculum' },
                 { icon: CheckCircle,   text: 'All learning materials and pre-printed books (provided by school)' },
-                { icon: GraduationCap, text: 'Access to playground, swimming pool and all school facilities' },
+                { icon: GraduationCap, text: isBunono ? 'Access to playground and all campus facilities' : 'Access to playground, swimming pool and all school facilities' },
                 { icon: Users,         text: 'All extracurricular and sports activities' },
                 { icon: Home,          text: 'Boarding only: accommodation, meals and pastoral supervision' },
                 { icon: Shirt,         text: 'School uniform is mandatory — available for purchase at school' },
-              ].map(({ icon: Icon, text }, i) => (
+              ].map(({ text }, i) => (
                 <div key={i} className="flex items-start gap-2.5">
                   <CheckCircle className="w-4 h-4 mt-0.5 shrink-0 text-mosai-blue" />
                   <span className="font-body text-sm text-gray-600">{text}</span>
@@ -714,8 +724,8 @@ export default function Admissions() {
                 <div className="absolute inset-0 bg-mosai-blue-dark/60" />
                 <div className="absolute bottom-4 left-4 text-white">
                   <p className="font-heading font-bold text-sm">Questions?</p>
-                  <a href="tel:+256700123456" className="font-body text-xs text-blue-200 hover:text-white transition-colors">
-                    +256 700 123 456
+                  <a href={`tel:${tel}`} className="font-body text-xs text-blue-200 hover:text-white transition-colors">
+                    {campusInfo.phone}
                   </a>
                 </div>
               </div>
@@ -790,14 +800,14 @@ export default function Admissions() {
               <span className="font-body text-xs font-bold text-blue-300 uppercase tracking-widest">We Are Here to Help</span>
               <h2 className="font-heading font-extrabold text-3xl text-white mt-2 mb-4">Admissions Inquiries</h2>
               <p className="font-body text-blue-100 text-sm leading-relaxed mb-7">
-                Our admissions team is happy to answer any questions and guide your family through every step. Reach out any time during office hours.
+                Our admissions team at <span className="font-semibold text-white">{campusInfo.name} Campus</span> is happy to answer any questions and guide your family through every step. Reach out any time during office hours.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div key={campus} className="fade-in-up grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  { icon: Phone,  label: 'Call or WhatsApp', value: '+256 700 123 456',          href: 'tel:+256700123456'                  },
-                  { icon: Mail,   label: 'Email',            value: 'admissions@mosaischools.ug', href: 'mailto:admissions@mosaischools.ug'  },
-                  { icon: MapPin, label: 'Visit Us',         value: 'Plot 14, Kira Road, Kampala',href: null                                 },
-                  { icon: Clock,  label: 'Office Hours',     value: 'Mon – Fri · 7:30 AM – 5:30 PM', href: null                             },
+                  { icon: Phone,  label: 'Call or WhatsApp', value: campusInfo.phone,             href: `tel:${tel}`                 },
+                  { icon: Mail,   label: 'Email',            value: campusInfo.email,             href: `mailto:${campusInfo.email}` },
+                  { icon: MapPin, label: 'Visit Us',         value: `${p.address}, ${p.area}`,    href: null                         },
+                  { icon: Clock,  label: 'Office Hours',     value: 'Mon – Fri · 7:30 AM – 5:30 PM', href: null                      },
                 ].map((item, i) => {
                   const Icon = item.icon
                   return (
@@ -826,7 +836,7 @@ export default function Admissions() {
                 <p className="font-body text-sm text-white/70 mb-4">
                   Visit every Tuesday and Thursday morning. Meet the team and see our classrooms and play areas first hand.
                 </p>
-                <a href="tel:+256700123456"
+                <a href={`tel:${tel}`}
                   className="inline-flex items-center gap-2 bg-mosai-red hover:bg-mosai-red-dark text-white font-heading font-bold text-sm px-5 py-2.5 rounded-full transition-colors duration-200">
                   <Phone className="w-4 h-4" /> Book Now
                 </a>

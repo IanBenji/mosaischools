@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom'
 import {
   MapPin, Phone, Mail, Clock, Send, ArrowRight,
   Building2, CheckCircle, AlertCircle, Calendar,
-  GraduationCap, CreditCard, BookOpen,
+  GraduationCap, CreditCard, BookOpen, MessageCircle,
 } from 'lucide-react'
 import emailjs from '@emailjs/browser'
 import HCaptcha from '@hcaptcha/react-hcaptcha'
 import { checkRateLimit, sanitize } from '../lib/formSecurity'
+import { useCampus } from '../context/CampusContext'
+import { CAMPUSES } from '../lib/campus'
+import PageHeader from '../components/PageHeader'
+import ContactBunono from './ContactBunono'
 
 import headerImg from '../assets/IMG_8829.webp'
-import campusImg from '../assets/TON_8735.webp'
 
 const SUBJECTS = [
   'General Inquiry',
@@ -21,7 +24,7 @@ const SUBJECTS = [
   'Other',
 ]
 
-function ContactForm() {
+export function ContactForm() {
   const blank = { name: '', email: '', phone: '', subject: '', message: '', website: '' }
   const [form, setForm]       = useState(blank)
   const [errs, setErrs]       = useState({})
@@ -243,93 +246,105 @@ function ContactForm() {
 
 // â”€â”€ Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function Contact() {
+  const { campus, campusInfo } = useCampus()
+  if (campus === 'bunono') return <ContactBunono />
+  const isBunono = campus === 'bunono'
+  const p        = campusInfo.profile
+  const tel      = campusInfo.phone.replace(/\s+/g, '')
+  const altTel   = campusInfo.altPhone ? campusInfo.altPhone.replace(/\s+/g, '') : null
+  const wa       = campusInfo.whatsapp.replace(/[^\d]/g, '')
+  const mapSrc   = `https://maps.google.com/maps?q=${encodeURIComponent(campusInfo.mapQuery)}&t=&z=14&ie=UTF8&iwloc=&output=embed`
+  const campusHero = campusInfo.hero.backgrounds[0]
+
   return (
     <main className="bg-white">
 
       {/* â”€â”€ 1. Page Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="relative min-h-[52vh] flex items-end overflow-hidden">
-        <img
-          src={headerImg}
-          alt="MOSAI Schools"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-mosai-blue-dark/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-mosai-blue-dark/45 via-transparent to-transparent" />
-
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-36">
-          <nav className="flex items-center gap-2 font-body text-sm text-white/50 mb-4">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-white">Contact</span>
-          </nav>
-          <h1 className="font-heading font-extrabold text-5xl sm:text-6xl text-white leading-tight mb-4">
-            Contact <span className="text-mosai-red">Us</span>
-          </h1>
-          <p className="font-body text-white/75 text-lg max-w-xl leading-relaxed mb-7">
-            We'd love to hear from you. Reach out with any questions about admissions, programs, or school life — our team responds within one working day.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href="tel:+256700123456"
-              className="inline-flex items-center gap-2 bg-mosai-red hover:bg-mosai-red-dark text-white font-heading font-bold text-sm px-6 py-3 rounded-full transition-colors duration-200 shadow-lg"
-            >
-              <Phone className="w-4 h-4" /> Call Us Now
-            </a>
-            <a
-              href="mailto:info@mosaischools.ug"
-              className="inline-flex items-center gap-2 border border-white/30 hover:bg-white/10 text-white font-heading font-bold text-sm px-6 py-3 rounded-full transition-colors duration-200 backdrop-blur-sm"
-            >
-              <Mail className="w-4 h-4" /> Send an Email
-            </a>
-          </div>
+      <PageHeader
+        crumb="Contact"
+        title="Contact"
+        accentWord="Us"
+        subtitle={`We'd love to hear from you. Reach out to our ${campusInfo.name} Campus with any questions about admissions, programs, or school life — our team responds within one working day.`}
+        image={headerImg}
+        nextBg="#FFFFFF"
+      >
+        <div className="flex flex-wrap gap-3">
+          <a
+            href={`tel:${tel}`}
+            className="inline-flex items-center gap-2 bg-mosai-red hover:bg-mosai-red-dark text-white font-heading font-bold text-sm px-6 py-3 rounded-full transition-colors duration-200 shadow-lg"
+          >
+            <Phone className="w-4 h-4" /> Call Us Now
+          </a>
+          <a
+            href={`mailto:${campusInfo.email}`}
+            className="inline-flex items-center gap-2 border border-white/40 hover:bg-white/10 text-white font-heading font-bold text-sm px-6 py-3 rounded-full transition-colors duration-200 backdrop-blur-sm"
+          >
+            <Mail className="w-4 h-4" /> Send an Email
+          </a>
         </div>
-      </section>
+      </PageHeader>
 
       {/* â”€â”€ 2. Contact Info Cards â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="bg-white pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 -mt-12 relative z-10">
 
-            {/* Location */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300 group sm:col-span-2 lg:col-span-1">
-              <div className="w-11 h-11 bg-mosai-red-light rounded-xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-200">
-                <MapPin className="w-5 h-5 text-mosai-red" />
+            {/* Location — active campus */}
+            <div key={campus} className="fade-in-up bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300 group sm:col-span-2 lg:col-span-1">
+              <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-200 ${isBunono ? 'bg-mosai-red-light' : 'bg-mosai-blue-light'}`}>
+                <MapPin className={`w-5 h-5 ${isBunono ? 'text-mosai-red' : 'text-mosai-blue'}`} />
               </div>
-              <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-1">Our Location</p>
+              <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-1">{campusInfo.name} Campus</p>
               <p className="font-heading font-bold text-sm text-mosai-blue-dark leading-snug">
-                Off Stabex Fuel Station — Garuga Road<br />
-                Along Kampala-Entebbe Road<br />
-                Katabi, Wakiso District, Uganda
+                {p.address}<br />
+                {p.area}<br />
+                Wakiso District, Uganda
               </p>
             </div>
 
-            {/* Campuses */}
+            {/* Campuses — active one highlighted */}
             <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300 group">
               <div className="w-11 h-11 bg-mosai-blue-light rounded-xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-200">
                 <Building2 className="w-5 h-5 text-mosai-blue" />
               </div>
-              <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-1">Campuses</p>
-              <p className="font-heading font-bold text-sm text-mosai-blue-dark mb-1">Nalugala Campus</p>
-              <p className="font-body text-xs text-gray-500 mb-3">Garuga Road · Est. Jan 2025</p>
-              <p className="font-heading font-bold text-sm text-mosai-blue-dark mb-1">Bunono Campus</p>
-              <p className="font-body text-xs text-gray-500">Katabi · Est. 2026</p>
+              <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-2">Our Campuses</p>
+              {Object.entries(CAMPUSES).map(([slug, c]) => {
+                const active = slug === campus
+                return (
+                  <div key={slug} className={`mb-2 last:mb-0 rounded-lg px-2 py-1.5 -mx-2 ${active ? (slug === 'bunono' ? 'bg-mosai-red-light' : 'bg-mosai-blue-light') : ''}`}>
+                    <p className="font-heading font-bold text-sm text-mosai-blue-dark flex items-center gap-1.5">
+                      {c.name} Campus
+                      {active && <span className={`text-[9px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded-full ${slug === 'bunono' ? 'bg-mosai-red text-white' : 'bg-mosai-blue text-white'}`}>You're here</span>}
+                    </p>
+                    <p className="font-body text-xs text-gray-500">{c.location} · Est. {c.profile.openedShort}</p>
+                  </div>
+                )
+              })}
             </div>
 
-            {/* Phone & Email */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300 group">
+            {/* Phone & Email — active campus */}
+            <div key={`contact-${campus}`} className="fade-in-up bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300 group">
               <div className="w-11 h-11 bg-mosai-red-light rounded-xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-200">
                 <Phone className="w-5 h-5 text-mosai-red" />
               </div>
               <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-1">Phone</p>
-              <a href="tel:+256700123456" className="font-heading font-bold text-sm text-mosai-blue-dark hover:text-mosai-blue transition-colors block mb-4">
-                +256 700 123 456
+              <a href={`tel:${tel}`} className="font-heading font-bold text-sm text-mosai-blue-dark hover:text-mosai-blue transition-colors block">
+                {campusInfo.phone}
+              </a>
+              {altTel && (
+                <a href={`tel:${altTel}`} className="font-heading font-bold text-sm text-mosai-blue-dark hover:text-mosai-blue transition-colors block">
+                  {campusInfo.altPhone}
+                </a>
+              )}
+              <a href={`https://wa.me/${wa}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 font-body text-xs font-semibold text-mosai-red hover:text-mosai-red-dark transition-colors mt-1.5 mb-4">
+                <MessageCircle className="w-3.5 h-3.5" /> Chat on WhatsApp
               </a>
               <div className="w-11 h-11 bg-mosai-blue-light rounded-xl flex items-center justify-center mb-3 group-hover:scale-105 transition-transform duration-200">
                 <Mail className="w-5 h-5 text-mosai-blue" />
               </div>
               <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-1">Email</p>
-              <a href="mailto:info@mosaischools.ug" className="font-heading font-bold text-sm text-mosai-blue-dark hover:text-mosai-blue transition-colors">
-                info@mosaischools.ug
+              <a href={`mailto:${campusInfo.email}`} className="font-heading font-bold text-sm text-mosai-blue-dark hover:text-mosai-blue transition-colors break-all">
+                {campusInfo.email}
               </a>
             </div>
 
@@ -377,11 +392,12 @@ export default function Contact() {
             {/* Right panel */}
             <div className="lg:col-span-2 space-y-5 lg:sticky lg:top-28">
 
-              {/* Google Map embed */}
+              {/* Google Map embed — active campus */}
               <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100" style={{ height: '280px' }}>
                 <iframe
-                  title="MOSAI Schools location — Garuga Road, Katabi, Wakiso District"
-                  src="https://maps.google.com/maps?q=Garuga+Road,+Katabi,+Wakiso+District,+Uganda&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                  key={campus}
+                  title={`MOSAI Schools ${campusInfo.name} Campus — ${campusInfo.mapQuery}`}
+                  src={mapSrc}
                   width="100%"
                   height="280"
                   style={{ border: 0 }}
@@ -391,11 +407,11 @@ export default function Contact() {
                 />
               </div>
 
-              {/* Map note */}
-              <div className="flex items-start gap-2.5 bg-mosai-blue-light rounded-xl px-4 py-3">
-                <MapPin className="w-4 h-4 text-mosai-blue mt-0.5 shrink-0" />
+              {/* Map note — active campus */}
+              <div className={`flex items-start gap-2.5 rounded-xl px-4 py-3 ${isBunono ? 'bg-mosai-red-light' : 'bg-mosai-blue-light'}`}>
+                <MapPin className={`w-4 h-4 mt-0.5 shrink-0 ${isBunono ? 'text-mosai-red' : 'text-mosai-blue'}`} />
                 <p className="font-body text-xs text-mosai-blue-dark leading-relaxed">
-                  <span className="font-semibold">Off Stabex Fuel Station</span> — Garuga Road, along Kampala-Entebbe Road, Katabi, Wakiso District, Uganda.
+                  <span className="font-semibold">{campusInfo.name} Campus</span> — {p.address}, {p.area}, Wakiso District, Uganda.
                 </p>
               </div>
 
@@ -408,33 +424,37 @@ export default function Contact() {
                     { label: 'Programs',       to: '/programs',          icon: BookOpen      },
                     { label: 'Fee Structure',  to: '/admissions',        icon: CreditCard    },
                     { label: 'School Gallery', to: '/gallery',           icon: Building2     },
-                  ].map(({ label, to, icon: Icon }) => (
+                  ].map((link) => {
+                    const Icon = link.icon
+                    return (
                     <Link
-                      key={label}
-                      to={to}
+                      key={link.label}
+                      to={link.to}
                       className="flex items-center justify-between py-2.5 border-b border-white/10 last:border-0 group text-white/80 hover:text-white transition-colors"
                     >
                       <div className="flex items-center gap-2.5">
                         <Icon className="w-4 h-4 text-mosai-red-light shrink-0" />
-                        <span className="font-body text-sm font-semibold">{label}</span>
+                        <span className="font-body text-sm font-semibold">{link.label}</span>
                       </div>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
                     </Link>
-                  ))}
+                    )
+                  })}
                 </div>
               </div>
 
-              {/* Campus image */}
+              {/* Campus image — active campus */}
               <div className="relative rounded-2xl overflow-hidden group shadow-md">
                 <img
-                  src={campusImg}
-                  alt="Nalugala Campus"
+                  key={campus}
+                  src={campusHero}
+                  alt={`${campusInfo.name} Campus`}
                   className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-mosai-blue-dark/80 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 text-white">
-                  <p className="font-heading font-bold text-sm">Nalugala Campus</p>
-                  <p className="font-body text-xs text-blue-200">Garuga Road, Katabi · Est. 2025</p>
+                  <p className="font-heading font-bold text-sm">{campusInfo.name} Campus</p>
+                  <p className="font-body text-xs text-blue-200">{campusInfo.location} · Est. {p.openedShort}</p>
                 </div>
               </div>
             </div>
@@ -452,23 +472,23 @@ export default function Contact() {
               </div>
               <div>
                 <h2 className="font-heading font-extrabold text-xl text-white">
-                  Schedule a Campus Visit
+                  Schedule a Visit to {campusInfo.name} Campus
                 </h2>
                 <p className="font-body text-blue-200 text-sm mt-1">
-                  Come and see MOSAI Schools in person. Our team is available Mon – Fri, 8:00 AM – 4:00 PM.
+                  Come and see our {campusInfo.name} Campus in person. Our team is available Mon – Fri, 8:00 AM – 4:00 PM.
                   <span className="text-mosai-red-light"> Offices also open during holidays for admissions.</span>
                 </p>
               </div>
             </div>
             <div className="flex gap-3 shrink-0">
               <a
-                href="tel:+256700123456"
+                href={`tel:${tel}`}
                 className="font-heading font-bold text-sm bg-mosai-red hover:bg-mosai-red-dark text-white px-6 py-3 rounded-full transition-colors duration-200 whitespace-nowrap"
               >
                 Call to Book
               </a>
               <a
-                href="mailto:info@mosaischools.ug"
+                href={`mailto:${campusInfo.email}`}
                 className="font-heading font-bold text-sm border border-white/30 hover:bg-white/10 text-white px-6 py-3 rounded-full transition-colors duration-200 whitespace-nowrap"
               >
                 Email Us
