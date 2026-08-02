@@ -6,6 +6,8 @@
  * exactly the kind of developer errand this whole feature is meant to remove.
  */
 
+import { SHEET_EDIT_URLS } from './sheets.js'
+
 const env = import.meta.env ?? {}
 
 const ENV_KEYS = {
@@ -20,6 +22,7 @@ const storageKey = (kind) => `mosai.sheetlink.${kind}`
 export function getSheetLink(kind) {
   const fromEnv = env[ENV_KEYS[kind]]
   if (fromEnv) return fromEnv
+  if (SHEET_EDIT_URLS[kind]) return SHEET_EDIT_URLS[kind]
   try {
     return localStorage.getItem(storageKey(kind)) || ''
   } catch {
@@ -36,9 +39,9 @@ export function setSheetLink(kind, url) {
   } catch { /* nothing worth breaking the page for */ }
 }
 
-/** True when the link came from .env and so cannot be changed from the page. */
+/** True when the link is set in the code or .env, so the page cannot change it. */
 export function isSheetLinkFixed(kind) {
-  return Boolean(env[ENV_KEYS[kind]])
+  return Boolean(env[ENV_KEYS[kind]] || SHEET_EDIT_URLS[kind])
 }
 
 /** A Google Sheets address, roughly. Enough to catch a pasted mistake. */

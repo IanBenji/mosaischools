@@ -15,6 +15,7 @@
  */
 
 import { csvToObjects, pick, truthy } from './csv.js'
+import { SHEET_URLS } from './sheets.js'
 
 // ── Dates ────────────────────────────────────────────────────────────────
 // Spreadsheet dates arrive as text. Accept the formats a Ugandan school office
@@ -186,17 +187,17 @@ const env = import.meta.env ?? {}
 
 export const DATASETS = {
   announcements: {
-    url:      env.VITE_SHEET_ANNOUNCEMENTS,
+    url:      env.VITE_SHEET_ANNOUNCEMENTS || SHEET_URLS.announcements,
     normalise: normaliseAnnouncement,
     fallback:  fallbackAnnouncements(),
   },
   events: {
-    url:      env.VITE_SHEET_EVENTS,
+    url:      env.VITE_SHEET_EVENTS || SHEET_URLS.events,
     normalise: normaliseEvent,
     fallback:  [],           // deliberately empty — see note below
   },
   documents: {
-    url:      env.VITE_SHEET_DOCUMENTS,
+    url:      env.VITE_SHEET_DOCUMENTS || SHEET_URLS.documents,
     normalise: normaliseDocument,
     fallback:  [],           // deliberately empty — see note below
   },
