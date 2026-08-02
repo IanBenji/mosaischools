@@ -12,7 +12,12 @@ import WaveDivider from '../components/WaveDivider'
 import { bunonoPhotos } from '../assets/bunono'
 
 import imgHeader     from '../assets/bunono/bunono-02.webp'  // morning assembly, Bunono
-import imgHeadmaster from '../assets/Bunono assets/headmaster.jpeg'
+/* Optimised into src/assets/bunono/ rather than read from the originals folder,
+ * which .gitignore excludes. Importing from there built fine on any machine that
+ * had the originals and failed everywhere else, including on the deploy host.
+ * Deliberately not named bunono-NN.webp, so the gallery glob does not pick up a
+ * staff portrait. */
+import imgHeadmaster from '../assets/bunono/headmaster.webp'
 import imgDirector   from '../assets/Director.webp'          // shared Director, same as Nalugala
 
 /* Bunono ABOUT — storybook design, shares no layout with the Nalugala About. */
