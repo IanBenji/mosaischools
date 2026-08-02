@@ -62,7 +62,7 @@ export default function Programs() {
             <span className="crayon-underline" style={{ '--crayon-color': '#FFC93C' }}>Programs</span>
           </h2>
           <p className="font-body text-gray-500 mt-4 max-w-xl mx-auto">
-            Age-appropriate programs that nurture every stage of early childhood and primary development, taught in four languages.
+            Age appropriate programs that nurture every stage of early childhood and primary development, taught in four languages.
           </p>
         </div>
 

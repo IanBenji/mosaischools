@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { X, Eye, EyeOff, GraduationCap, Users, BookOpen, Lock, Mail } from 'lucide-react'
+import { X, Eye, EyeOff, Users, BookOpen, Lock, Mail } from 'lucide-react'
+import mosaiLogo from '../assets/mosailogo-removebg-preview.png'
 
 const config = {
   parent: {
@@ -92,7 +93,7 @@ export default function LoginModal({ type, onClose, onSwitch }) {
             </div>
             <div>
               <div className="flex items-center gap-1.5 mb-0.5">
-                <GraduationCap className="w-3.5 h-3.5 text-gray-400" />
+                <img src={mosaiLogo} alt="MOSAI Schools" className="w-4 h-4 object-contain" />
                 <span className="font-body text-xs text-gray-400 font-medium">Mosai Schools</span>
               </div>
               <h2 className="font-heading font-extrabold text-xl text-mosai-blue-dark">{cfg.title}</h2>

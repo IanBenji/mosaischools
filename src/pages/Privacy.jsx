@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Shield, Mail, Phone } from 'lucide-react'
 
-const LAST_UPDATED = '11 June 2026'
+const LAST_UPDATED = '2 August 2026'
 
 export default function Privacy() {
   return (
@@ -42,8 +42,10 @@ export default function Privacy() {
           <Section title="1. Information We Collect">
             <p>We only collect information you choose to provide, including:</p>
             <ul>
-              <li><strong>Contact &amp; enquiry details</strong> — your name, email address, phone number, and the contents of any message you send through our contact or admissions forms.</li>
-              <li><strong>Admissions information</strong> — details you submit when enquiring about or applying for a place, such as the prospective learner's name and programme of interest.</li>
+              <li><strong>Contact &amp; enquiry details</strong>: your name, email address, phone number, and the contents of any message you send through our contact or admissions forms.</li>
+              <li><strong>Admissions information</strong>: details you submit when enquiring about or applying for a place, such as the prospective learner's name and programme of interest.</li>
+              <li><strong>Scholarship enquiries</strong>: information a parent or guardian chooses to share about a child's circumstances when applying for a scholarship. This is seen only by the staff assessing the application and is never published.</li>
+              <li><strong>Donation enquiries</strong>: your name, contact details and what you would like to support. We never ask for card, bank or mobile money details through this website.</li>
             </ul>
             <p>
               We do <strong>not</strong> sell your personal information, and we do not collect
@@ -62,7 +64,7 @@ export default function Privacy() {
           <Section title="3. How Your Information Is Handled">
             <p>
               Contact and admissions forms on this website are delivered to us by email through a
-              trusted third-party delivery service. Submissions are protected by anti-spam measures,
+              trusted third party delivery service. Submissions are protected by anti spam measures,
               including a CAPTCHA challenge. We retain enquiry messages only for as long as needed to
               respond to and follow up on your request.
             </p>
@@ -79,13 +81,42 @@ export default function Privacy() {
 
           <Section title="5. Cookies &amp; Analytics">
             <p>
-              This website uses only the cookies necessary for it to function. We do not currently
-              use third-party advertising cookies. If we introduce analytics in future, this policy
-              will be updated accordingly.
+              This website uses Google Analytics to understand how the site is used, so that we can
+              improve it for families. Google Analytics sets cookies and records information such as:
+            </p>
+            <ul>
+              <li>the number of visits and how many are first time visitors;</li>
+              <li>which pages were viewed, in what order, and for how long;</li>
+              <li>the approximate location (country, region and city) derived from the internet connection;</li>
+              <li>the type of device, browser and operating system used;</li>
+              <li>how the visitor reached us, such as a search engine, a social media link, or by typing the address.</li>
+            </ul>
+            <p>
+              <strong>We cannot identify you personally from this.</strong> Analytics reports show
+              anonymous, aggregated patterns, for example "42 people from Kampala read the Admissions
+              page on a mobile phone this week". They do not tell us any visitor's name, email address,
+              phone number or exact address, and we have no way of linking a visit to a particular
+              person. Your IP address is anonymised before it is stored. We only learn who you are if
+              you choose to tell us, by submitting a form or contacting us directly.
+            </p>
+            <p>
+              We do not use advertising cookies and we do not sell or share analytics data with
+              advertisers. You may opt out of Google Analytics entirely by installing Google's browser
+              add on, or by using your browser's "do not track" and cookie blocking settings.
             </p>
           </Section>
 
-          <Section title="6. Your Rights">
+          <Section title="6. Contacting Us on WhatsApp">
+            <p>
+              This website offers a button that opens a conversation with the school office on
+              WhatsApp. Choosing to message us takes you to WhatsApp, where your message, phone number
+              and WhatsApp profile name become visible to the member of staff who receives it, and are
+              handled under WhatsApp's own privacy terms as well as this policy. We use those details
+              only to answer your enquiry.
+            </p>
+          </Section>
+
+          <Section title="7. Your Rights">
             <p>
               You may request access to, correction of, or deletion of the personal information you
               have shared with us. To make a request, contact us using the details below and we will
@@ -93,7 +124,7 @@ export default function Privacy() {
             </p>
           </Section>
 
-          <Section title="7. Children's Privacy">
+          <Section title="8. Children's Privacy">
             <p>
               We understand the importance of safeguarding children's data. Information about learners
               is provided by parents or guardians and is used solely for admissions and school
@@ -101,7 +132,7 @@ export default function Privacy() {
             </p>
           </Section>
 
-          <Section title="8. Changes to This Policy">
+          <Section title="9. Changes to This Policy">
             <p>
               We may update this Privacy Policy from time to time. The "last updated" date at the top
               of this page reflects the most recent revision.

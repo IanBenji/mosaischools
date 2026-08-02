@@ -12,7 +12,7 @@ const pillars = [
     icon:     BookOpen,
     color:    '#6EC6F2',
     title:    'Excellence in Learning',
-    intro:    'A rich blended curriculum taught by qualified teachers in modern, well-equipped learning spaces.',
+    intro:    'A rich blended curriculum taught by qualified teachers in modern, well equipped learning spaces.',
     points: [
       'Qualified and continuously trained class teachers',
       'Digital interactive boards and computer labs',
@@ -40,9 +40,9 @@ const pillars = [
     icon:     Sparkles,
     color:    '#5FBB6E',
     title:    'Beyond the Classroom',
-    intro:    'Education at MOSAI goes further than textbooks — we nurture the whole child through sport, creativity and life skills.',
+    intro:    'Education at MOSAI goes further than textbooks, as we nurture the whole child through sport, creativity and life skills.',
     points: [
-      'On-site swimming pool with trained instructors',
+      'On site swimming pool with trained instructors',
       'Sports programme: soccer, netball, athletics, basketball',
       'Creative arts, music, drama and craft activities',
       'Practical skills: cooking, baking and urban farming',

@@ -1,19 +1,21 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Sparkles, ArrowRight, Baby, BookOpen, Star, GraduationCap,
   Heart, Shield, Award, Phone, MessageCircle, MapPin, Sun,
-  Users, Home as HomeIcon,
+  Users, Home as HomeIcon, ZoomIn,
 } from 'lucide-react'
 import { useCampus }   from '../context/CampusContext'
 import { MOSAI_ETHOS } from '../lib/campus'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
+import Lightbox    from '../components/Lightbox'
 
-import imgHero from '../assets/TON_8855.webp'
-import imgA    from '../assets/IMG_8791.webp'
-import imgB    from '../assets/IMG_8563.webp'
-import imgC    from '../assets/IMG_8829.webp'
-import imgD    from '../assets/IMG_8682.webp'
+import imgHero from '../assets/bunono/bunono-33.webp'  // joyful pool splash
+import imgA    from '../assets/bunono/bunono-25.webp'  // smiling in the pool
+import imgB    from '../assets/bunono/bunono-13.webp'  // pool play
+import imgC    from '../assets/bunono/bunono-06.webp'  // morning assembly
+import imgD    from '../assets/bunono/bunono-47.webp'  // campus playground
 
 /* ══════════════════════════════════════════════════════════════════════
  * BUNONO HOME — a wholly separate "storybook garden" design.
@@ -29,20 +31,28 @@ const INK  = 'text-[#43261A]'
 const INK2 = 'text-[#7A5C4A]'
 
 const CLASSES = [
-  { icon: Baby,          name: 'Baby Class',   age: 'Ages 2 – 3', color: '#FF8A6B', note: 'Gentle first steps into school' },
-  { icon: BookOpen,      name: 'Middle Class', age: 'Ages 3 – 4', color: '#FFC93C', note: 'Curiosity, play and early skills' },
-  { icon: Star,          name: 'Top Class',    age: 'Ages 5 – 6', color: '#5FBB6E', note: 'Getting ready for Primary 1' },
-  { icon: GraduationCap, name: 'Primary 1–4',  age: 'And growing', color: '#6EC6F2', note: 'A new class added every year' },
+  { icon: Baby,          name: 'Baby Class',   age: 'Ages 2 to 3', color: '#FF8A6B', note: 'Gentle first steps into school' },
+  { icon: BookOpen,      name: 'Middle Class', age: 'Ages 3 to 4', color: '#FFC93C', note: 'Curiosity, play and early skills' },
+  { icon: Star,          name: 'Top Class',    age: 'Ages 5 to 6', color: '#5FBB6E', note: 'Getting ready for Primary 1' },
+  { icon: GraduationCap, name: 'Primary 1 to 4',  age: 'And growing', color: '#6EC6F2', note: 'A new class added every year' },
 ]
 
-const VALUE_ICONS = { 'God-fearing': Shield, 'Love': Heart, 'Humility': Sparkles, 'Excellence': Award }
+const VALUE_ICONS = { 'God fearing': Shield, 'Love': Heart, 'Humility': Sparkles, 'Excellence': Award }
 const VALUE_COLORS = ['#FF8A6B', '#5FBB6E', '#FFC93C', '#6EC6F2']
+
+const SCRAPBOOK = [
+  { img: imgC, cap: 'Morning assembly',      rot: '-4deg' },
+  { img: imgD, cap: 'Our playground',        rot: '3deg'  },
+  { img: imgA, cap: 'Splash time',           rot: '-2deg' },
+  { img: imgB, cap: 'Big smiles, every day', rot: '4deg'  },
+]
 
 export default function HomeBunono() {
   const { campusInfo } = useCampus()
   const p   = campusInfo.profile
   const wa  = campusInfo.whatsapp.replace(/[^\d]/g, '')
   const tel = campusInfo.phone.replace(/\s+/g, '')
+  const [shotIdx, setShotIdx] = useState(null)
 
   return (
     <main className="bg-cream overflow-hidden">
@@ -94,7 +104,7 @@ export default function HomeBunono() {
               <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
                 {[
                   { icon: Users,        label: '100 Learners',   color: '#FFC93C' },
-                  { icon: GraduationCap, label: 'Baby – P.4',     color: '#5FBB6E' },
+                  { icon: GraduationCap, label: 'Baby to P.4',     color: '#5FBB6E' },
                   { icon: HomeIcon,      label: 'Day & Boarding', color: '#6EC6F2' },
                 ].map((s) => {
                   const Icon = s.icon
@@ -185,7 +195,7 @@ export default function HomeBunono() {
               <span className="crayon-underline" style={{ '--crayon-color': '#FFC93C' }}>Classes</span>
             </h2>
             <p className={`font-body mt-3 max-w-xl mx-auto ${INK2}`}>
-              From tiny first steps to confident primary learners — {p.classes}, growing one class every year to P.7.
+              From tiny first steps to confident primary learners: {p.classes}, growing one class every year to P.7.
             </p>
           </div>
 
@@ -222,19 +232,20 @@ export default function HomeBunono() {
             </h2>
           </div>
           <div className="flex flex-wrap justify-center gap-6">
-            {[
-              { img: imgC, cap: 'Playtime & friends', rot: '-4deg' },
-              { img: imgD, cap: 'Learning together', rot: '3deg'  },
-              { img: imgA, cap: 'Show & tell', rot: '-2deg'  },
-              { img: imgB, cap: 'Big smiles, every day', rot: '4deg' },
-            ].map((ph, i) => (
+            {SCRAPBOOK.map((ph, i) => (
               <figure
                 key={i}
-                className="bg-white p-3 pb-5 rounded-lg shadow-xl w-56 hover:-translate-y-2 hover:rotate-0 transition-transform duration-200"
+                onClick={() => setShotIdx(i)}
+                className="group cursor-pointer bg-white p-3 pb-5 rounded-lg shadow-xl w-56 hover:-translate-y-2 hover:rotate-0 transition-transform duration-200"
                 style={{ transform: `rotate(${ph.rot})` }}
               >
-                <div className="w-full h-44 rounded-md overflow-hidden bg-zinc-200">
+                <div className="relative w-full h-44 rounded-md overflow-hidden bg-zinc-200">
                   <img src={ph.img} alt={ph.cap} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-200 flex items-center justify-center">
+                    <span className="w-10 h-10 rounded-full bg-white/20 border border-white/40 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ZoomIn className="w-5 h-5 text-white" />
+                    </span>
+                  </div>
                 </div>
                 <figcaption className={`font-heading font-bold text-center mt-3 ${INK}`}>{ph.cap}</figcaption>
               </figure>
@@ -275,7 +286,7 @@ export default function HomeBunono() {
       </section>
 
       {/* ═══ 6 · VISIT — coral scallop CTA with real contacts ═══ */}
-      <section className="relative pt-24 pb-20" style={{ background: 'linear-gradient(180deg, #FFF8EE 0%, #E14B4B 22%, #B71C1C 100%)' }}>
+      <section className="relative pt-24 pb-20" style={{ background: 'linear-gradient(180deg, #E14B4B 0%, #B71C1C 100%)' }}>
         <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
         <Doodles names={['star', 'flower']} count={2} />
         <div className="relative z-[3] max-w-3xl mx-auto px-4 sm:px-6 text-center">
@@ -302,6 +313,8 @@ export default function HomeBunono() {
           </div>
         </div>
       </section>
+
+      <Lightbox photos={SCRAPBOOK} index={shotIdx} setIndex={setShotIdx} />
     </main>
   )
 }

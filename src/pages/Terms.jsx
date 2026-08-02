@@ -74,7 +74,7 @@ export default function Terms() {
 
           <Section title="5. Intellectual Property">
             <p>
-              All content on this website — including text, logos, images, and design — is the property
+              All content on this website, including text, logos, images and design, is the property
               of MOSAI Schools or its licensors and is protected by applicable laws. You may not
               reproduce, distribute, or use this content for commercial purposes without our written permission.
             </p>
@@ -82,7 +82,7 @@ export default function Terms() {
 
           <Section title="6. External Links">
             <p>
-              This website may contain links to third-party websites or services (for example, maps or
+              This website may contain links to third party websites or services (for example, maps or
               social media). We are not responsible for the content or privacy practices of those external sites.
             </p>
           </Section>

@@ -1,22 +1,28 @@
 import { Megaphone } from 'lucide-react'
+import { useCampus } from '../context/CampusContext'
+import useSheetData from '../hooks/useSheetData'
+import { tickerLines } from '../lib/schoolData'
 
-const tickerItems = [
-  'Term II 2026 begins 25 May. All learners to report by 7:30 AM',
-  'Admissions open for 2026: Baby Class, Middle Class, Top Class and Primary',
-  'School fees payable via School Pay System only. No cash accepted',
-  'Four languages offered: English, Swahili, French and Chinese',
-  'Nalugala Campus (2025) and Bunono Campus (2026), both now open',
-  'Day and Boarding available for Nursery and Primary learners',
-  'Modern classrooms with digital interactive boards and computers',
-  'Swimming pool on-site with trained instructors',
-  'Safe school transport covering key routes along Kampala-Entebbe Road',
-]
+/* The scrolling headline strip.
+ *
+ * Lines now come from the school's announcements sheet (the short `ticker`
+ * column, or the headline if that is blank), followed by the standing facts in
+ * EVERGREEN_TICKER. Before this, adding "Term II begins 25 May" meant editing
+ * this file and redeploying. See src/lib/schoolData.js.
+ */
 
 // Cheerful crayon colours for the bullet between items
 const DOTS = ['#FFC93C', '#FF8A6B', '#5FBB6E', '#6EC6F2', '#9B7EDE']
 
 export default function NewsTicker() {
-  const repeated = [...tickerItems, ...tickerItems]
+  const { campus } = useCampus()
+  const { rows } = useSheetData('announcements')
+
+  const items = tickerLines(rows, campus)
+  if (!items.length) return null
+
+  // Duplicated so the CSS marquee loops without a visible gap.
+  const repeated = [...items, ...items]
 
   return (
     <div className="bg-mosai-blue-dark overflow-hidden py-3 flex items-center">

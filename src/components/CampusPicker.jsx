@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { MapPin, GraduationCap, ArrowRight, X, Check } from 'lucide-react'
+import { MapPin, ArrowRight, X, Check } from 'lucide-react'
 import { CAMPUSES } from '../lib/campus'
 import { useCampus } from '../context/CampusContext'
+import mosaiLogo from '../assets/mosailogo-removebg-preview.png'
 
 /* First-visit campus picker.
  *
@@ -98,8 +99,8 @@ export default function CampusPicker() {
 
         {/* Header */}
         <div className="bg-mosai-blue-dark px-7 pt-9 pb-8 text-center text-white sm:px-10">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15">
-            <GraduationCap className="h-7 w-7" />
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white p-1.5">
+            <img src={mosaiLogo} alt="MOSAI Schools" className="h-full w-full object-contain" />
           </div>
           <p className="font-body text-xs font-bold uppercase tracking-[0.25em] text-blue-300">Welcome to MOSAI Schools</p>
           <h2 id="campus-picker-title" className="mt-2 font-heading text-2xl font-extrabold sm:text-3xl">
@@ -154,7 +155,7 @@ export default function CampusPicker() {
           onClick={close}
           className="mb-6 block w-full text-center font-body text-sm font-semibold text-gray-400 transition-colors hover:text-gray-600"
         >
-          Not sure yet — keep looking around
+          Not sure yet, keep looking around
         </button>
       </div>
     </div>

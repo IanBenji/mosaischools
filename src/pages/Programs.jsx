@@ -29,18 +29,18 @@ const nurseryPrograms = [
   {
     icon: Baby,
     name: 'Baby Class',
-    age: 'Ages 3 – 4',
+    age: 'Ages 3 to 4',
     image: imgBaby,
     accent: 'red',
-    time: '7:30 AM – 2:00 PM',
+    time: '7:30 AM to 2:00 PM',
     tagline: 'A warm, gentle introduction to school life',
     description:
-      'Baby Class is where the adventure begins. In a calm, home-like setting, our youngest learners explore through sensory play, music, storytelling and creative art. Every activity is designed to build confidence, language and motor skills at each child\'s own pace.',
+      'Baby Class is where the adventure begins. In a calm, homely setting, our youngest learners explore through sensory play, music, storytelling and creative art. Every activity is designed to build confidence, language and motor skills at each child\'s own pace.',
     activities: [
-      'Animal walks — bear crawls, frog hops, crab walks',
-      'Target games — tossing bean bags into buckets',
-      'Balloon volleyball and soft-touch ball games',
-      'Music and dance — rhythm, singing, movement',
+      'Animal walks such as bear crawls, frog hops and crab walks',
+      'Target games, tossing bean bags into buckets',
+      'Balloon volleyball and soft touch ball games',
+      'Music and dance for rhythm, singing and movement',
       'Sensory exploration and creative art',
       'Story time and early language activities',
     ],
@@ -57,25 +57,25 @@ const nurseryPrograms = [
   {
     icon: BookOpen,
     name: 'Middle Class',
-    age: 'Ages 4 – 5',
+    age: 'Ages 4 to 5',
     image: imgMid,
     accent: 'blue',
-    time: '7:30 AM – 2:30 PM',
+    time: '7:30 AM to 2:30 PM',
     tagline: 'Building curiosity, confidence and early skills',
     description:
-      'Middle Class builds on Baby Class with more structured learning. Learners begin formal phonics, pre-writing and early numeracy while continuing to grow through play, discovery and creative expression. Social skills and emotional intelligence are central to everything we do.',
+      'Middle Class builds on Baby Class with more structured learning. Learners begin formal phonics, early writing and early numeracy while continuing to grow through play, discovery and creative expression. Social skills and emotional intelligence are central to everything we do.',
     activities: [
-      'Obstacle courses — cones, tunnels, mats, hula hoops',
-      'Ball skills — mini soccer, throwing and catching',
+      'Obstacle courses with cones, tunnels, mats and hula hoops',
+      'Ball skills, mini soccer, throwing and catching',
       'Reading readiness and phonics games',
-      'Art and craft — painting, drawing, collage',
+      'Art and craft: painting, drawing and collage',
       'Number work and counting activities',
       'Group games and cooperative play',
     ],
-    subjects: ['Phonics & Reading Readiness', 'Pre-Writing Skills', 'Early Mathematics', 'Science Discovery', 'Art & Craft', 'Physical Education'],
+    subjects: ['Phonics & Reading Readiness', 'Early Writing Skills', 'Early Mathematics', 'Science Discovery', 'Art & Craft', 'Physical Education'],
     outcomes: [
-      'Begins formal phonics and pre-reading skills',
-      'Develops pre-writing and pencil control',
+      'Begins formal phonics and early reading skills',
+      'Develops early writing and pencil control',
       'Strengthens counting and early number sense',
       'Grows in emotional regulation and empathy',
     ],
@@ -85,20 +85,20 @@ const nurseryPrograms = [
   {
     icon: Star,
     name: 'Top Class',
-    age: 'Ages 5 – 6',
+    age: 'Ages 5 to 6',
     image: imgTop,
     accent: 'red',
-    time: '7:30 AM – 3:00 PM',
+    time: '7:30 AM to 3:00 PM',
     tagline: 'Fully prepared and ready for Primary 1',
     description:
       'Top Class is our most advanced nursery programme, intentionally designed to prepare learners for the transition to Primary 1. Learners develop strong reading and writing skills, mathematical reasoning and the study habits that will carry them through school.',
     activities: [
-      'Relay races — egg and spoon, sack races',
+      'Relay races, egg and spoon races and sack races',
       'Basic reading and writing exercises',
-      'Number work — simple addition and subtraction',
+      'Number work with simple addition and subtraction',
       'Science exploration and observation tasks',
       'Computer basics and keyboard familiarity',
-      'Debates, show-and-tell and public speaking',
+      'Debates, show and tell and public speaking',
     ],
     subjects: ['English Reading & Writing', 'Mathematics', 'Environmental Studies', 'Computer Basics', 'Physical Education', 'Performing Arts'],
     outcomes: [
@@ -158,14 +158,14 @@ const nurseryGames = [
   {
     icon: Target,
     title: 'Target Games',
-    desc: 'Tossing bean bags into buckets and hoops sharpens hand-eye coordination and introduces spatial reasoning through active play.',
+    desc: 'Tossing bean bags into buckets and hoops sharpens hand and eye coordination and introduces spatial reasoning through active play.',
     image: imgGames2,
     accent: 'blue',
   },
   {
     icon: Volleyball,
     title: 'Balloon Volleyball',
-    desc: 'Lightweight balloon games build reaction time, teamwork and early striking skills in a zero-pressure, high-fun environment.',
+    desc: 'Lightweight balloon games build reaction time, teamwork and early striking skills in a relaxed and enjoyable environment.',
     image: imgGames3,
     accent: 'red',
   },
@@ -186,7 +186,7 @@ const nurseryGames = [
   {
     icon: Trophy,
     title: 'Relay Races',
-    desc: 'Egg-and-spoon and sack races develop balance, speed and the joy of friendly competition as part of a cheering team.',
+    desc: 'Egg and spoon and sack races develop balance, speed and the joy of friendly competition as part of a cheering team.',
     image: imgGames6,
     accent: 'blue',
   },
@@ -197,8 +197,8 @@ const languages = ['English', 'Swahili', 'French', 'Chinese']
 const curricula = [
   { icon: BookOpen,    name: 'NCDC Uganda',           desc: 'National curriculum grounding in Ugandan identity and academic essentials.' },
   { icon: GraduationCap, name: 'Cambridge International', desc: 'Globally recognised standards that develop independent thinkers.' },
-  { icon: FlaskConical,  name: 'IB Concepts',            desc: 'Inquiry-based learning that promotes curiosity and critical thinking.' },
-  { icon: Globe,         name: 'British / IPC',           desc: 'Thematic cross-curricular learning enriched with local values.' },
+  { icon: FlaskConical,  name: 'IB Concepts',            desc: 'Inquiry based learning that promotes curiosity and critical thinking.' },
+  { icon: Globe,         name: 'British / IPC',           desc: 'Thematic cross curricular learning enriched with local values.' },
 ]
 
 // â”€â”€ Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -221,7 +221,7 @@ function ProgramsNalugala() {
         crumb="Programs"
         title="Our"
         accentWord="Programs"
-        subtitle={`Age-appropriate learning at our ${campusInfo.name} Campus, from ${p.classes} — nurturing every learner's unique potential at every stage.`}
+        subtitle={`Age appropriate learning at our ${campusInfo.name} Campus, from ${p.classes}, nurturing every learner's unique potential at every stage.`}
         image={imgHeader}
         nextBg="#153764"
       />
@@ -250,7 +250,7 @@ function ProgramsNalugala() {
             <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">How We Teach</span>
             <h2 className="font-heading font-extrabold text-3xl text-mosai-blue-dark mt-2">Our Blended Curriculum</h2>
             <p className="font-body text-gray-500 mt-3 max-w-2xl mx-auto text-sm leading-relaxed">
-              We combine four world-class frameworks into one coherent, learner-centred curriculum that delivers global inquiry-based learning while staying rooted in Ugandan values and culture.
+              We combine four world class frameworks into one coherent, learner centred curriculum that delivers global inquiry based learning while staying rooted in Ugandan values and culture.
             </p>
           </div>
 
@@ -339,7 +339,7 @@ function ProgramsNalugala() {
                     </div>
                     <div className="col-span-2 flex items-center gap-2 justify-center pt-1 border-t border-gray-100">
                       <CreditCard className="w-3.5 h-3.5 text-mosai-blue" />
-                      <p className="font-body text-xs text-gray-500">Paid via School Pay System only — no cash accepted</p>
+                      <p className="font-body text-xs text-gray-500">Paid via School Pay System only. No cash accepted</p>
                     </div>
                   </div>
                 </div>
@@ -411,10 +411,10 @@ function ProgramsNalugala() {
             <div>
               <span className="font-body text-xs font-bold text-mosai-red-light uppercase tracking-widest">Primary Section · {campusInfo.name} Campus</span>
               <h2 key={campus} className="fade-in-up font-heading font-extrabold text-4xl mt-1 mb-3">
-                {p.primaryRange} — <span className="text-mosai-red-light">Growing Every Year</span>
+                {p.primaryRange}: <span className="text-mosai-red-light">Growing Every Year</span>
               </h2>
               <p className="font-body text-blue-100 text-sm leading-relaxed mb-6">
-                Our primary section provides a rigorous yet joyful education combining Uganda's NCDC curriculum with Cambridge, IB and British/IPC frameworks. At our {campusInfo.name} Campus we currently offer {p.primaryRange} — adding one class each year until we reach P.7 — ensuring learners benefit from continuity of care and curriculum as they grow.
+                Our primary section provides a rigorous yet joyful education combining Uganda's NCDC curriculum with Cambridge, IB and British/IPC frameworks. At our {campusInfo.name} Campus we currently offer {p.primaryRange}, adding one class each year until we reach P.7, ensuring learners benefit from continuity of care and curriculum as they grow.
               </p>
 
               {/* Academic activities */}
@@ -465,7 +465,7 @@ function ProgramsNalugala() {
               <div className="flex items-center gap-3 mb-7 bg-mosai-red/20 border border-mosai-red/30 rounded-xl px-5 py-3">
                 <Sprout className="w-5 h-5 text-mosai-red-light shrink-0" />
                 <p className="font-body text-sm text-blue-100">
-                  <span className="font-semibold text-white">Currently: {p.primaryRange}.</span> One new class added each year — growing alongside our learners all the way to P.7.
+                  <span className="font-semibold text-white">Currently: {p.primaryRange}.</span> One new class added each year, growing alongside our learners all the way to P.7.
                 </p>
               </div>
 
@@ -509,7 +509,7 @@ function ProgramsNalugala() {
                 </div>
                 <div className="col-span-2 flex items-center gap-2 justify-center pt-1 border-t border-white/10">
                   <CreditCard className="w-3.5 h-3.5 text-blue-300" />
-                  <p className="font-body text-xs text-blue-300">School Pay System only — no cash accepted</p>
+                  <p className="font-body text-xs text-blue-300">School Pay System only. No cash accepted</p>
                 </div>
               </div>
             </div>
@@ -605,10 +605,10 @@ function ProgramsNalugala() {
       <section id="games" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">Play-Based Learning</span>
+            <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">Play Based Learning</span>
             <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-2">Nursery Games</h2>
             <p className="font-body text-gray-500 mt-3 max-w-xl mx-auto text-sm leading-relaxed">
-              Our nursery games are rooted in movement science — each activity builds motor skills, coordination and social confidence through structured, joyful play.
+              Our nursery games are rooted in movement science, and each activity builds motor skills, coordination and social confidence through structured, joyful play.
             </p>
           </div>
 
@@ -653,7 +653,7 @@ function ProgramsNalugala() {
             Find the Right Program for Your Child
           </h2>
           <p className="font-body text-gray-500 text-sm mb-7 leading-relaxed">
-            Not sure which class is the right fit? Our admissions team at {campusInfo.name} Campus is happy to guide you. Applications are open now — spaces are limited.
+            Not sure which class is the right fit? Our admissions team at {campusInfo.name} Campus is happy to guide you. Applications are open now and spaces are limited.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link

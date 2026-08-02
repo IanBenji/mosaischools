@@ -215,3 +215,27 @@
     font-family: 'Nunito', sans-serif;
   }
 }
+
+/* ── Printing the office guide ─────────────────────
+   The staff page at /admin carries a one page set of instructions meant to be
+   printed and pinned up by the office computer. Hiding by visibility rather
+   than display means this does not depend on the page structure, so it keeps
+   working when the page is rearranged. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-guide,
+  .print-guide * {
+    visibility: visible;
+  }
+  .print-guide {
+    display: block !important;
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+  }
+  @page {
+    margin: 16mm;
+  }
+}

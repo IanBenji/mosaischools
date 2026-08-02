@@ -1,17 +1,15 @@
-﻿import { useState, useRef } from 'react'
+﻿import { useState } from 'react'
 import {
   CheckCircle, FileText, Heart, Download, Phone, Mail,
-  Clock, ArrowRight, AlertCircle, MapPin,
+  Clock, ArrowRight, AlertCircle, MapPin, Mail as MailIcon,
   BookOpen, Users, Baby, CreditCard, ShieldAlert,
   Shirt, GraduationCap, Home,
 } from 'lucide-react'
-import emailjs from '@emailjs/browser'
-import HCaptcha from '@hcaptcha/react-hcaptcha'
-import { checkRateLimit, sanitize } from '../lib/formSecurity'
 import { useCampus } from '../context/CampusContext'
 import { CAMPUSES } from '../lib/campus'
 import PageHeader from '../components/PageHeader'
 import AdmissionsBunono from './AdmissionsBunono'
+import SimpleCaptcha from '../components/SimpleCaptcha'
 import { feeRange } from '../lib/fees'
 import headerImg  from '../assets/IMG_8754.webp'
 import photoA     from '../assets/TON_8855.webp'
@@ -24,14 +22,14 @@ const classes = [
   {
     name: 'Baby Class',
     icon: Baby,
-    age: '2 – 3 yrs',
+    age: '2 to 3 yrs',
     color: 'red',
     image: photoA,
     tagline: 'First steps into learning',
     docs: [
       'Certified birth certificate copy',
-      'Passport-size photo (×2)',
-      'Up-to-date immunisation card',
+      'Passport size photo (×2)',
+      'Current immunisation card',
       'Parent or guardian ID copy',
     ],
     health: [
@@ -44,15 +42,15 @@ const classes = [
   {
     name: 'Middle Class',
     icon: BookOpen,
-    age: '3 – 4 yrs',
+    age: '3 to 4 yrs',
     color: 'blue',
     image: photoB,
     tagline: 'Building curiosity and confidence',
     docs: [
       'Certified birth certificate copy',
-      'Passport-size photo (×2)',
+      'Passport size photo (×2)',
       'Baby Class leaving certificate (if any)',
-      'Up-to-date immunisation card',
+      'Current immunisation card',
       'Parent or guardian ID copy',
     ],
     health: [
@@ -65,15 +63,15 @@ const classes = [
   {
     name: 'Top Class',
     icon: Users,
-    age: '5 – 6 yrs',
+    age: '5 to 6 yrs',
     color: 'red',
     image: photoC,
     tagline: 'Ready for Primary 1',
     docs: [
       'Certified birth certificate copy',
-      'Passport-size photo (×2)',
+      'Passport size photo (×2)',
       'Previous class report or leaving certificate',
-      'Up-to-date immunisation card',
+      'Current immunisation card',
       'Parent or guardian ID copy',
     ],
     health: [
@@ -82,7 +80,7 @@ const classes = [
       'Dental check confirmation',
       'Vision screening result',
     ],
-    note: 'A short, child-friendly assessment may be conducted for Top Class applicants.',
+    note: 'A short, child friendly assessment may be conducted for Top Class applicants.',
   },
 ]
 
@@ -90,7 +88,7 @@ const classes = [
 const steps = [
   { n: '01', title: 'Apply Online',       desc: 'Fill in the application form below or collect a paper copy from our office.',             color: 'bg-mosai-blue'     },
   { n: '02', title: 'Submit Documents',   desc: 'Bring certified copies of all required documents to the admissions office.',              color: 'bg-mosai-red'      },
-  { n: '03', title: 'Assessment Day',     desc: 'A brief, child-friendly session helps us understand your child\'s needs and readiness.',  color: 'bg-mosai-blue'     },
+  { n: '03', title: 'Assessment Day',     desc: 'A brief, child friendly session helps us understand your child\'s needs and readiness.',  color: 'bg-mosai-blue'     },
   { n: '04', title: 'Offer Letter',       desc: 'Receive a written decision within five working days of the assessment.',                  color: 'bg-mosai-red'      },
   { n: '05', title: 'Pay and Enroll',     desc: 'Confirm your place by paying the registration fee and receive the welcome pack.',         color: 'bg-mosai-blue'     },
 ]
@@ -104,22 +102,55 @@ const downloads = [
 
 
 /* â”€â”€â”€ Application form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+// Build a ready to send email (Gmail compose + a mailto fallback) from the form.
+function buildMailUrls(to, form) {
+  const subject = `Admission Application: ${form.childFirst} ${form.childLast}${form.classFor ? ` (${form.classFor})` : ''}`
+  const lines = [
+    'NEW ADMISSION APPLICATION',
+    '',
+    'CHILD',
+    `Full name: ${form.childFirst} ${form.childLast}`,
+    `Date of birth: ${form.dob}`,
+    `Gender: ${form.gender}`,
+    `Preferred campus: ${form.campus}`,
+    `Applying for: ${form.classFor}`,
+    form.startTerm && `Start term: ${form.startTerm}`,
+    '',
+    'PARENT / GUARDIAN',
+    `Name: ${form.parentName}`,
+    form.relation && `Relationship: ${form.relation}`,
+    `Phone: ${form.phone}`,
+    `Email: ${form.email}`,
+    `Home address: ${form.address}${form.city ? `, ${form.city}` : ''}`,
+    form.source && `Heard about us via: ${form.source}`,
+    '',
+    'NOTES',
+    form.notes || '(none)',
+  ].filter(Boolean)
+  const su = encodeURIComponent(subject)
+  const body = encodeURIComponent(lines.join('\n'))
+  const t = encodeURIComponent(to)
+  return {
+    gmail:  `https://mail.google.com/mail/?view=cm&fs=1&to=${t}&su=${su}&body=${body}`,
+    mailto: `mailto:${to}?subject=${su}&body=${body}`,
+  }
+}
+
 export function AppForm() {
   const { campusInfo } = useCampus()
   const campusNames = Object.values(CAMPUSES).map(c => `${c.name} Campus`)
   const blank = {
     childFirst:'', childLast:'', dob:'', gender:'',
-    campus: `${campusInfo.name} Campus`, classFor:'',
+    campus: `${campusInfo.name} Campus`, classFor:'', startTerm:'',
     parentName:'', relation:'', phone:'', email:'',
     address:'', city:'', source:'', notes:'',
-    website: '', // honeypot
   }
-  const [form, setForm]       = useState(blank)
-  const [errs, setErrs]       = useState({})
-  const [done, setDone]       = useState(false)
-  const [loading, setLoading] = useState(false)
-  const captchaRef            = useRef(null)
-  const [captchaToken, setCaptchaToken] = useState('')
+  const [form, setForm]   = useState(blank)
+  const [errs, setErrs]   = useState({})
+  const [done, setDone]   = useState(false)
+  const [captchaOk, setCaptchaOk]     = useState(false)
+  const [captchaSeed, setCaptchaSeed] = useState(0)
+  const [sentUrls, setSentUrls]       = useState(null)
 
   function validate() {
     const e = {}
@@ -133,7 +164,7 @@ export function AppForm() {
     if (!form.email.trim())      e.email      = 'Required'
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Invalid email'
     if (!form.address.trim())    e.address    = 'Required'
-    if (!captchaToken)           e.captcha    = 'Please complete the CAPTCHA'
+    if (!captchaOk)              e.captcha    = 'Please answer the sum to confirm you are human'
     return e
   }
 
@@ -143,62 +174,42 @@ export function AppForm() {
     if (errs[name]) setErrs(er => ({ ...er, [name]: '' }))
   }
 
-  async function submit(e) {
+  function reset() {
+    setForm(blank); setErrs({}); setDone(false)
+    setCaptchaOk(false); setCaptchaSeed(s => s + 1); setSentUrls(null)
+  }
+
+  function submit(e) {
     e.preventDefault()
-    if (form.website) return // honeypot triggered
     const v = validate()
     if (Object.keys(v).length) { setErrs(v); return }
-    if (!checkRateLimit()) {
-      setErrs({ captcha: 'Too many submissions. Please wait an hour before trying again.' })
-      return
-    }
-    setLoading(true)
-    try {
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_ADMISSION_TEMPLATE,
-        {
-          child_name:  sanitize(`${form.childFirst} ${form.childLast}`),
-          child_dob:   sanitize(form.dob),
-          child_gender:sanitize(form.gender),
-          campus:      sanitize(form.campus),
-          class_for:   sanitize(form.classFor),
-          start_term:  sanitize(form.startTerm ?? ''),
-          parent_name: sanitize(form.parentName),
-          relation:    sanitize(form.relation),
-          phone:       sanitize(form.phone),
-          from_email:  sanitize(form.email),
-          address:     sanitize(`${form.address}, ${form.city}`),
-          source:      sanitize(form.source ?? ''),
-          notes:       sanitize(form.notes, 2000),
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      )
-      setDone(true)
-    } catch {
-      setErrs({ captcha: 'Failed to submit application. Please try again or contact us directly.' })
-      captchaRef.current?.resetCaptcha()
-      setCaptchaToken('')
-    } finally {
-      setLoading(false)
-    }
+    const urls = buildMailUrls(campusInfo.email, form)
+    setSentUrls(urls)
+    window.open(urls.gmail, '_blank', 'noopener,noreferrer')
+    setDone(true)
   }
 
   if (done) return (
-    <div className="text-center py-16 px-4">
+    <div className="text-center py-14 px-4">
       <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-5">
-        <CheckCircle className="w-10 h-10 text-green-500" />
+        <MailIcon className="w-10 h-10 text-green-500" />
       </div>
-      <h3 className="font-heading font-extrabold text-2xl text-mosai-blue-dark mb-2">Application Received!</h3>
-      <p className="font-body text-gray-500 max-w-sm mx-auto mb-2">
-        Thank you. Our admissions team will be in touch within five working days.
+      <h3 className="font-heading font-extrabold text-2xl text-mosai-blue-dark mb-2">Almost done, just press Send!</h3>
+      <p className="font-body text-gray-500 max-w-md mx-auto mb-5">
+        We've opened a ready to send email to <span className="font-semibold text-mosai-blue">{campusInfo.email}</span> in a new tab, with your application filled in. Please review it and hit <strong>Send</strong> to complete.
       </p>
-      <p className="font-body text-sm text-gray-400 mb-8">
-        Confirmation sent to <span className="font-semibold text-mosai-blue">{form.email}</span>
-      </p>
-      <button onClick={() => { setForm(blank); setDone(false) }}
-        className="font-body text-sm font-semibold text-mosai-blue hover:underline">
-        Submit another application
+      <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+        <a href={sentUrls?.gmail} target="_blank" rel="noreferrer"
+          className="inline-flex items-center gap-2 bg-mosai-red hover:bg-mosai-red-dark text-white font-heading font-bold text-sm px-6 py-3 rounded-full transition-colors">
+          <MailIcon className="w-4 h-4" /> Reopen the email
+        </a>
+        <a href={sentUrls?.mailto}
+          className="inline-flex items-center gap-2 border-2 border-gray-200 hover:border-mosai-blue text-gray-600 font-heading font-bold text-sm px-6 py-3 rounded-full transition-colors">
+          Use my own email app
+        </a>
+      </div>
+      <button onClick={reset} className="font-body text-sm font-semibold text-mosai-blue hover:underline">
+        Start a new application
       </button>
     </div>
   )
@@ -236,18 +247,6 @@ export function AppForm() {
   return (
     <form onSubmit={submit} noValidate className="space-y-10">
 
-      {/* Honeypot — hidden from humans, bots fill it in */}
-      <input
-        type="text"
-        name="website"
-        value={form.website}
-        onChange={change}
-        tabIndex={-1}
-        aria-hidden="true"
-        autoComplete="off"
-        style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
-      />
-
       {/* Child */}
       <div>
         <div className="flex items-center gap-3 mb-6">
@@ -260,7 +259,7 @@ export function AppForm() {
           {inp('Date of Birth', 'dob', 'date')}
           {sel('Gender', 'gender', ['Female','Male','Prefer not to say'])}
           {sel('Preferred Campus', 'campus', campusNames)}
-          {sel('Applying For', 'classFor', ['Baby Class (Age 2–3)','Middle Class (Age 3–4)','Top Class (Age 5–6)'])}
+          {sel('Applying For', 'classFor', ['Baby Class (Age 2 to 3)','Middle Class (Age 3 to 4)','Top Class (Age 5 to 6)'])}
           {sel('Start Term', 'startTerm', ['2025 Term 2','2025 Term 3','2026 Term 1'], true)}
         </div>
       </div>
@@ -311,24 +310,19 @@ export function AppForm() {
         </p>
       </div>
 
-      <HCaptcha
-        sitekey={import.meta.env.VITE_HCAPTCHA_SITE_KEY}
-        onVerify={token => { setCaptchaToken(token); setErrs(e => ({ ...e, captcha: '' })) }}
-        onExpire={() => setCaptchaToken('')}
-        ref={captchaRef}
-      />
-      {errs.captcha && (
-        <p className="flex items-center gap-1 text-xs text-red-500 font-body">
-          <AlertCircle className="w-3 h-3" />{errs.captcha}
-        </p>
-      )}
+      <SimpleCaptcha onChange={setCaptchaOk} error={errs.captcha} seed={captchaSeed} />
 
-      <button type="submit" disabled={loading}
-        className={`w-full flex items-center justify-center gap-2 bg-mosai-red hover:bg-mosai-red-dark text-white font-heading font-bold text-base py-4 rounded-2xl transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98] ${loading ? 'opacity-70' : ''}`}>
-        {loading
-          ? <><svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3V0a12 12 0 00-12 12h4z"/></svg>Submitting…</>
-          : <>Submit Application <ArrowRight className="w-5 h-5" /></>
-        }
+      {/* How submission works */}
+      <div className="bg-mosai-blue-light rounded-2xl px-5 py-4 flex gap-3 items-start">
+        <MailIcon className="w-4 h-4 text-mosai-blue mt-0.5 shrink-0" />
+        <p className="font-body text-sm text-gray-600">
+          When you press the button, we'll open a ready made email to <span className="font-semibold text-mosai-blue-dark">{campusInfo.email}</span> with your application filled in, so just review it and hit <strong>Send</strong>.
+        </p>
+      </div>
+
+      <button type="submit"
+        className="w-full flex items-center justify-center gap-2 bg-mosai-red hover:bg-mosai-red-dark text-white font-heading font-bold text-base py-4 rounded-2xl transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98]">
+        <MailIcon className="w-5 h-5" /> Review &amp; Send Application
       </button>
     </form>
   )
@@ -509,13 +503,13 @@ function AdmissionsNalugala() {
             <div className="flex-1">
               <p className="font-heading font-bold text-base">Admission Fee</p>
               <p className="font-body text-sm text-blue-200 mt-0.5">
-                A one-time admission fee of <span className="font-bold text-white">UGX 30,000/=</span> is charged when a child is enrolled.
+                A one time admission fee of <span className="font-bold text-white">UGX 30,000/=</span> is charged when a child is enrolled.
                 Paid via the School Pay System using your child's unique code.
               </p>
             </div>
             <div className="shrink-0 text-right">
               <p className="font-heading font-extrabold text-2xl">UGX 30,000</p>
-              <p className="font-body text-xs text-blue-300">one-time only</p>
+              <p className="font-body text-xs text-blue-300">one time only</p>
             </div>
           </div>
 
@@ -527,7 +521,7 @@ function AdmissionsNalugala() {
               <div className="bg-mosai-blue px-6 py-5">
                 <p className="font-body text-xs text-blue-200 uppercase tracking-widest mb-1">Nursery Section</p>
                 <h3 className="font-heading font-extrabold text-xl text-white">Baby, Middle &amp; Top Class</h3>
-                <p className="font-body text-sm text-blue-200 mt-1">Ages 3 – 6 years</p>
+                <p className="font-body text-sm text-blue-200 mt-1">Ages 3 to 6 years</p>
               </div>
               <div className="px-6 py-5 space-y-4">
                 <div className="flex items-center justify-between py-3 border-b border-gray-100">
@@ -610,12 +604,12 @@ function AdmissionsNalugala() {
             <h3 className="font-heading font-bold text-base text-mosai-blue-dark mb-4">What the Term Fee Covers</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { icon: BookOpen,      text: 'Quality education — blended NCDC, Cambridge, IB & IPC curriculum' },
-                { icon: CheckCircle,   text: 'All learning materials and pre-printed books (provided by school)' },
+                { icon: BookOpen,      text: 'Quality education using blended NCDC, Cambridge, IB & IPC curriculum' },
+                { icon: CheckCircle,   text: 'All learning materials and printed books (provided by school)' },
                 { icon: GraduationCap, text: isBunono ? 'Access to playground and all campus facilities' : 'Access to playground, swimming pool and all school facilities' },
                 { icon: Users,         text: 'All extracurricular and sports activities' },
                 { icon: Home,          text: 'Boarding only: accommodation, meals and pastoral supervision' },
-                { icon: Shirt,         text: 'School uniform is mandatory — available for purchase at school' },
+                { icon: Shirt,         text: 'School uniform is mandatory and available for purchase at school' },
               ].map(({ text }, i) => (
                 <div key={i} className="flex items-start gap-2.5">
                   <CheckCircle className="w-4 h-4 mt-0.5 shrink-0 text-mosai-blue" />
@@ -637,7 +631,7 @@ function AdmissionsNalugala() {
                 'Each child is issued a unique School Pay payment code at enrolment',
                 'No cash is accepted at school under any circumstances',
                 'Do not pay cash to any staff member',
-                'Children should not bring their own textbooks — school provides pre-printed books',
+                'Children should not bring their own textbooks, as the school provides printed books',
                 'Uniforms are mandatory and available for purchase at school',
               ].map((note, i) => (
                 <div key={i} className="flex items-start gap-2">
@@ -807,7 +801,7 @@ function AdmissionsNalugala() {
                   { icon: Phone,  label: 'Call or WhatsApp', value: campusInfo.phone,             href: `tel:${tel}`                 },
                   { icon: Mail,   label: 'Email',            value: campusInfo.email,             href: `mailto:${campusInfo.email}` },
                   { icon: MapPin, label: 'Visit Us',         value: `${p.address}, ${p.area}`,    href: null                         },
-                  { icon: Clock,  label: 'Office Hours',     value: 'Mon – Fri · 7:30 AM – 5:30 PM', href: null                      },
+                  { icon: Clock,  label: 'Office Hours',     value: 'Mon to Fri · 7:30 AM to 5:30 PM', href: null                      },
                 ].map((item, i) => {
                   const Icon = item.icon
                   return (

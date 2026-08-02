@@ -31,15 +31,15 @@ export default function SchoolLife() {
           <div className="relative rounded-3xl overflow-hidden group row-span-2 bg-zinc-200">
             <img
               src={imgScience}
-              alt="Science experiments at MOSAI Schools"
+              alt="Prize giving at MOSAI Schools"
               className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-mosai-blue-dark/85 via-mosai-blue-dark/20 to-transparent" />
             <div className="absolute bottom-5 left-5 right-5 text-white">
-              <span className="font-body text-xs font-bold uppercase tracking-widest text-mosai-red-light block mb-1">Science Exploration</span>
-              <p className="font-heading font-bold text-base leading-snug">Hands-on science experiments build curiosity and critical thinking from an early age.</p>
+              <span className="font-body text-xs font-bold uppercase tracking-widest text-mosai-red-light block mb-1">Celebrating Success</span>
+              <p className="font-heading font-bold text-base leading-snug">We celebrate every learner's milestones together on our big days.</p>
             </div>
           </div>
 
@@ -47,15 +47,15 @@ export default function SchoolLife() {
           <div className="relative rounded-3xl overflow-hidden group bg-zinc-200">
             <img
               src={imgActive}
-              alt="Active learning at MOSAI Schools"
+              alt="Children dancing at MOSAI Schools"
               className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 text-white">
-              <span className="font-body text-[10px] font-bold uppercase tracking-widest text-white/60 block mb-0.5">Active Learning</span>
-              <p className="font-heading font-bold text-sm leading-snug">Movement-based games develop coordination and confidence.</p>
+              <span className="font-body text-[10px] font-bold uppercase tracking-widest text-white/60 block mb-0.5">Song &amp; Dance</span>
+              <p className="font-heading font-bold text-sm leading-snug">Music, movement and dance build confidence and coordination.</p>
             </div>
           </div>
 
@@ -63,15 +63,15 @@ export default function SchoolLife() {
           <div className="relative rounded-3xl overflow-hidden group bg-zinc-200">
             <img
               src={imgSoccer}
-              alt="Mini soccer at MOSAI Schools"
+              alt="Urban farming at MOSAI Schools"
               className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 text-white">
-              <span className="font-body text-[10px] font-bold uppercase tracking-widest text-white/60 block mb-0.5">Outdoor Activities</span>
-              <p className="font-heading font-bold text-sm leading-snug">Mini soccer and ball skills build coordination and teamwork.</p>
+              <span className="font-body text-[10px] font-bold uppercase tracking-widest text-white/60 block mb-0.5">Urban Farming</span>
+              <p className="font-heading font-bold text-sm leading-snug">Learners grow vegetables and learn to care for the environment.</p>
             </div>
           </div>
 
@@ -79,15 +79,15 @@ export default function SchoolLife() {
           <div className="relative rounded-3xl overflow-hidden group bg-zinc-200">
             <img
               src={imgBee}
-              alt="Spelling bee competition at MOSAI Schools"
+              alt="A learner giving a speech at MOSAI Schools"
               className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 text-white">
-              <span className="font-body text-[10px] font-bold uppercase tracking-widest text-white/60 block mb-0.5">Academic Events</span>
-              <p className="font-heading font-bold text-sm leading-snug">Spelling bees and reading challenges celebrate each learner.</p>
+              <span className="font-body text-[10px] font-bold uppercase tracking-widest text-white/60 block mb-0.5">Public Speaking</span>
+              <p className="font-heading font-bold text-sm leading-snug">Children grow in confidence speaking in front of an audience.</p>
             </div>
           </div>
 
@@ -95,15 +95,15 @@ export default function SchoolLife() {
           <div className="relative rounded-3xl overflow-hidden group md:col-span-2 bg-zinc-200">
             <img
               src={imgCelebrate}
-              alt="End of term celebrations at MOSAI Schools"
+              alt="Learners in the school garden at MOSAI Schools"
               className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
             <div className="absolute bottom-5 left-5 right-5 text-white">
-              <span className="font-body text-xs font-bold uppercase tracking-widest text-mosai-red-light block mb-1">School Community</span>
-              <p className="font-heading font-bold text-lg leading-snug max-w-lg">End of term celebrations bring together learners, teachers and families in joy and gratitude.</p>
+              <span className="font-body text-xs font-bold uppercase tracking-widest text-mosai-red-light block mb-1">Learning by Doing</span>
+              <p className="font-heading font-bold text-lg leading-snug max-w-lg">From urban farming to hands on projects, learning comes alive beyond the classroom.</p>
             </div>
           </div>
         </div>

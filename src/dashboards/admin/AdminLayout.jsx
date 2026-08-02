@@ -3,9 +3,10 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, Users, UserCheck, ClipboardList,
   CreditCard, BarChart3, Megaphone, Settings,
-  LogOut, GraduationCap, Menu, X, ChevronRight, Shield,
+  LogOut, Menu, X, ChevronRight, Shield,
 } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
+import mosaiLogo from '../../assets/mosailogo-removebg-preview.png'
 
 const navItems = [
   { to:'/admin',              icon:LayoutDashboard, label:'Dashboard',       end:true },
@@ -30,8 +31,8 @@ export default function AdminLayout() {
 
       {/* Logo */}
       <div className="flex items-center gap-3 px-5 py-5 border-b border-white/8">
-        <div className="w-9 h-9 bg-mosai-red rounded-xl flex items-center justify-center shrink-0">
-          <GraduationCap className="w-5 h-5 text-white" />
+        <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shrink-0 p-1">
+          <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
         </div>
         <div>
           <p className="font-heading font-extrabold text-sm leading-tight text-white">MOSAI Schools</p>
@@ -123,7 +124,9 @@ export default function AdminLayout() {
             <Menu className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2">
-            <GraduationCap className="w-5 h-5 text-mosai-red" />
+            <span className="w-7 h-7 rounded-md bg-white flex items-center justify-center shrink-0 p-0.5">
+              <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
+            </span>
             <span className="font-heading font-bold text-sm text-white">MOSAI Admin</span>
           </div>
         </header>

@@ -5,12 +5,14 @@ import {
 } from 'lucide-react'
 import { useCampus } from '../context/CampusContext'
 import PageHeader  from '../components/PageHeader'
+import PhotoBand   from '../components/PhotoBand'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
 import { AppForm } from './Admissions'
 import { feeRange } from '../lib/fees'
+import { bunonoPhotos } from '../assets/bunono'
 
-import imgHeader from '../assets/IMG_8754.webp'
+import imgHeader from '../assets/bunono/bunono-44.webp'  // Bunono campus building + crest
 
 /* Bunono ADMISSIONS — storybook design, reuses the shared AppForm. */
 
@@ -42,7 +44,7 @@ export default function AdmissionsBunono() {
         kicker="Now enrolling · 2026"
         title="Join the"
         accentWord="Mosai Family"
-        subtitle="Spaces at our brand-new Bunono Campus are limited. Secure your child's place in a school where every learner is known, loved and inspired."
+        subtitle="Spaces at our brand new Bunono Campus are limited. Secure your child's place in a school where every learner is known, loved and inspired."
         image={imgHeader}
         nextBg={CREAM}
       />
@@ -75,6 +77,9 @@ export default function AdmissionsBunono() {
         </div>
       </section>
 
+      {/* scattered photo */}
+      <PhotoBand img={bunonoPhotos[8]} cap="Poolside fun" bg="bg-cream" />
+
       {/* Fees — playful cards */}
       <section id="fees" className="relative bg-white py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
@@ -89,7 +94,7 @@ export default function AdmissionsBunono() {
 
           <div className="flex items-center justify-center gap-3 bg-cream rounded-full px-6 py-3 max-w-md mx-auto mb-8 border-2 border-dashed border-crayon-sun">
             <GraduationCap className="w-5 h-5 text-mosai-red shrink-0" />
-            <p className={`font-body text-sm ${INK2}`}><span className={`font-bold ${INK}`}>One-time admission fee:</span> UGX 30,000</p>
+            <p className={`font-body text-sm ${INK2}`}><span className={`font-bold ${INK}`}>One time admission fee:</span> UGX 30,000</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -116,10 +121,13 @@ export default function AdmissionsBunono() {
           </div>
           <div className="flex items-center justify-center gap-2 mt-6 text-gray-400">
             <CreditCard className="w-4 h-4" />
-            <p className="font-body text-xs">School Pay System only — no cash accepted at school.</p>
+            <p className="font-body text-xs">School Pay System only. No cash accepted at school.</p>
           </div>
         </div>
       </section>
+
+      {/* scattered photo */}
+      <PhotoBand img={bunonoPhotos[12]} cap="Splash time" bg="bg-white" />
 
       {/* Application form */}
       <section id="apply" className="relative bg-cream py-16">
@@ -137,8 +145,11 @@ export default function AdmissionsBunono() {
         </div>
       </section>
 
+      {/* scattered photo */}
+      <PhotoBand img={bunonoPhotos[46]} cap="Our playground" bg="bg-cream" />
+
       {/* CTA */}
-      <section className="relative pt-20 pb-16" style={{ background: 'linear-gradient(180deg, #FFF8EE 0%, #E14B4B 30%, #B71C1C 100%)' }}>
+      <section className="relative pt-20 pb-16" style={{ background: 'linear-gradient(180deg, #E14B4B 0%, #B71C1C 100%)' }}>
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
         <Doodles names={['flower', 'star']} count={2} />
         <div className="relative z-[3] max-w-2xl mx-auto px-4 sm:px-6 text-center">

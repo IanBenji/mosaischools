@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, AlertCircle, GraduationCap, CheckCircle } from 'lucide-react'
+import { Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import mosaiLogo from '../assets/mosailogo-removebg-preview.png'
 
 const CLASSES  = ['Baby Class', 'Middle Class', 'Top Class', 'P.1', 'P.2', 'P.3']
 const CAMPUSES = ['Nalugala Campus', 'Bunono Campus']
@@ -138,8 +139,8 @@ export default function Register() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex flex-col items-center gap-2 group">
-            <div className="w-14 h-14 bg-white/15 group-hover:bg-white/25 rounded-2xl flex items-center justify-center transition-colors duration-200 backdrop-blur-sm border border-white/20">
-              <GraduationCap className="w-8 h-8 text-white" />
+            <div className="w-14 h-14 bg-white group-hover:bg-gray-50 rounded-2xl flex items-center justify-center transition-colors duration-200 border border-white/20 p-1.5">
+              <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
             </div>
             <div>
               <p className="font-heading font-extrabold text-xl text-white leading-none">MOSAI Schools</p>

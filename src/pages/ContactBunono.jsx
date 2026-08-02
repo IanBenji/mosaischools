@@ -1,11 +1,13 @@
 import { Phone, MessageCircle, Mail, MapPin, Clock } from 'lucide-react'
 import { useCampus } from '../context/CampusContext'
 import PageHeader  from '../components/PageHeader'
+import PhotoBand   from '../components/PhotoBand'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
 import { ContactForm } from './Contact'
+import { bunonoPhotos } from '../assets/bunono'
 
-import imgHeader from '../assets/IMG_8829.webp'
+import imgHeader from '../assets/bunono/bunono-45.webp'  // Bunono classroom block
 
 /* Bunono CONTACT — storybook design, reuses the shared ContactForm logic. */
 
@@ -33,7 +35,7 @@ export default function ContactBunono() {
         crumb="Contact"
         title="Say"
         accentWord="Hello!"
-        subtitle="We'd love to hear from you. Call, message or pop in — our Bunono team replies within one working day."
+        subtitle="We'd love to hear from you. Call, message or pop in, and our Bunono team replies within one working day."
         image={imgHeader}
         nextBg={CREAM}
       />
@@ -65,6 +67,9 @@ export default function ContactBunono() {
         </div>
       </section>
 
+      {/* scattered photo */}
+      <PhotoBand img={bunonoPhotos[39]} cap="Our campus" bg="bg-cream" />
+
       {/* Form + map */}
       <section className="relative bg-white py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
@@ -81,20 +86,23 @@ export default function ContactBunono() {
 
             <div className="lg:col-span-2 space-y-5 lg:sticky lg:top-28">
               <div className="rounded-[2rem] overflow-hidden shadow-md ring-8 ring-cream" style={{ height: 280 }}>
-                <iframe title={`Bunono Campus — ${campusInfo.mapQuery}`} src={mapSrc} width="100%" height="280" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+                <iframe title={`Bunono Campus, ${campusInfo.mapQuery}`} src={mapSrc} width="100%" height="280" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
               </div>
               <div className="bg-mosai-red text-white rounded-[2rem] p-6">
                 <div className="flex items-center gap-2 mb-2">
                   <Clock className="w-5 h-5" />
                   <p className="font-heading font-bold">Office Hours</p>
                 </div>
-                <p className="font-body text-sm text-white/90">Monday – Friday · 8:00 AM – 4:00 PM</p>
+                <p className="font-body text-sm text-white/90">Monday to Friday · 8:00 AM to 4:00 PM</p>
                 <p className="font-body text-xs text-white/70 mt-1">Also open during holidays for admissions.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* scattered photo */}
+      <PhotoBand img={bunonoPhotos[44]} cap="Our classrooms" bg="bg-white" />
     </main>
   )
 }

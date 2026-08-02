@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Phone, Mail, GraduationCap, MessageCircle } from 'lucide-react'
+import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react'
 import { useCampus } from '../context/CampusContext'
 import { MOSAI_ETHOS } from '../lib/campus'
+import mosaiLogo from '../assets/mosailogo-removebg-preview.png'
 
 const socialIcons = [
   { label: 'Facebook',    path: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z' },
@@ -11,12 +12,20 @@ const socialIcons = [
 ]
 
 const quickLinks = [
-  { label: 'Home',       to: '/' },
-  { label: 'About Us',   to: '/about' },
-  { label: 'Programs',   to: '/programs' },
-  { label: 'Admissions', to: '/admissions' },
-  { label: 'Gallery',    to: '/gallery' },
-  { label: 'Contact',    to: '/contact' },
+  { label: 'Home',         to: '/' },
+  { label: 'About Us',     to: '/about' },
+  { label: 'Programs',     to: '/programs' },
+  { label: 'Admissions',   to: '/admissions' },
+  { label: 'Scholarships', to: '/scholarships' },
+  { label: 'Donate',       to: '/donate' },
+  { label: 'Gallery',      to: '/gallery' },
+  { label: 'Contact',      to: '/contact' },
+]
+
+const parentQuickLinks = [
+  { label: 'School News',   to: '/news' },
+  { label: 'Term Dates',    to: '/calendar' },
+  { label: 'Downloads',     to: '/downloads' },
 ]
 
 const CRAYONS = ['#FF8A6B', '#FFC93C', '#5FBB6E', '#6EC6F2', '#9B7EDE']
@@ -46,8 +55,8 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-11 h-11 bg-white/20 rounded-2xl flex items-center justify-center">
-                <GraduationCap className="text-white w-6 h-6" />
+              <div className="w-11 h-11 bg-white rounded-2xl flex items-center justify-center p-1">
+                <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
               </div>
               <span className="font-heading font-extrabold text-lg leading-tight">
                 MOSAI Schools
@@ -83,6 +92,21 @@ export default function Footer() {
             <h3 className="font-heading font-extrabold text-base mb-4">Quick Links</h3>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    className={`font-body text-sm ${muted} hover:text-white transition-colors duration-150 flex items-center gap-2 group`}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full shrink-0 group-hover:scale-150 transition-transform" style={{ backgroundColor: accent }} />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <h3 className="font-heading font-extrabold text-base mt-7 mb-4">For Parents</h3>
+            <ul className="space-y-2.5">
+              {parentQuickLinks.map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}

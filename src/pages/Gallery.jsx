@@ -29,29 +29,29 @@ import imgFac3 from '../assets/TON_8807.webp'
 
 // â”€â”€ Photo catalogue â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const photos = [
-  { src: imgCls1, cat: 'Classrooms',          caption: 'Baby Class morning circle time',                    span: 'lg:col-span-2 lg:row-span-2' },
-  { src: imgCls2, cat: 'Classrooms',          caption: 'Middle Class phonics lesson',                       span: '' },
-  { src: imgCls3, cat: 'Classrooms',          caption: 'Top Class mathematics session',                     span: '' },
-  { src: imgCls4, cat: 'Classrooms',          caption: 'Primary section, computer class',                   span: '' },
-  { src: imgSpt1, cat: 'Sports & Games',      caption: 'Swimming lessons at the pool',                      span: 'lg:col-span-2' },
-  { src: imgSpt2, cat: 'Sports & Games',      caption: 'Relay races on the field',                          span: '' },
-  { src: imgSpt3, cat: 'Sports & Games',      caption: 'Mini soccer and ball skills',                       span: '' },
-  { src: imgSpt4, cat: 'Sports & Games',      caption: 'Obstacle course challenge',                         span: '' },
-  { src: imgSpt5, cat: 'Sports & Games',      caption: 'Animal walks, bear crawls and frog hops',           span: '' },
-  { src: imgEvt1, cat: 'Events & Activities', caption: 'End of term celebrations',                          span: 'lg:col-span-2 lg:row-span-2' },
-  { src: imgEvt2, cat: 'Events & Activities', caption: 'Morning school assembly',                           span: '' },
-  { src: imgEvt3, cat: 'Events & Activities', caption: 'Art and craft afternoon',                           span: '' },
-  { src: imgEvt4, cat: 'Events & Activities', caption: 'Science experiments session',                       span: '' },
-  { src: imgEvt5, cat: 'Events & Activities', caption: 'Spelling bee competition',                          span: '' },
-  { src: imgCmp1, cat: 'Campuses',            caption: 'Nalugala Campus, Garuga Road, Katabi',              span: 'lg:col-span-2' },
-  { src: imgCmp2, cat: 'Campuses',            caption: 'Bunono Campus, opened 2026',                        span: '' },
-  { src: imgCmp3, cat: 'Campuses',            caption: 'Outdoor grounds and play areas',                    span: '' },
-  { src: imgFac1, cat: 'Facilities',          caption: 'Modern classrooms with digital interactive boards', span: 'lg:col-span-2' },
-  { src: imgFac2, cat: 'Facilities',          caption: 'Clean and safe school environment',                 span: '' },
-  { src: imgFac3, cat: 'Facilities',          caption: 'School facilities, MOSAI Schools',                  span: '' },
+  { src: imgCls1, cat: 'Graduation',   caption: 'Graduation celebration',   span: 'lg:col-span-2 lg:row-span-2' },
+  { src: imgCls2, cat: 'Special Days', caption: 'Hosting the celebration',  span: '' },
+  { src: imgCls3, cat: 'Performances', caption: 'Traditional dance',        span: '' },
+  { src: imgCls4, cat: 'Performances', caption: 'Talent show',              span: '' },
+  { src: imgSpt1, cat: 'Our Garden',   caption: 'Sharing about our garden', span: 'lg:col-span-2' },
+  { src: imgSpt2, cat: 'Special Days', caption: 'Dressed for the big day',  span: '' },
+  { src: imgSpt3, cat: 'Our Garden',   caption: 'Watering the plants',      span: '' },
+  { src: imgSpt4, cat: 'Performances', caption: 'Cultural dance',           span: '' },
+  { src: imgSpt5, cat: 'Performances', caption: 'Little ones dancing',      span: '' },
+  { src: imgEvt1, cat: 'Our Garden',   caption: 'Urban farming',            span: 'lg:col-span-2 lg:row-span-2' },
+  { src: imgEvt2, cat: 'Performances', caption: 'Drama on stage',           span: '' },
+  { src: imgEvt3, cat: 'Special Days', caption: 'Our MC for the day',       span: '' },
+  { src: imgEvt4, cat: 'Special Days', caption: 'Prize giving',             span: '' },
+  { src: imgEvt5, cat: 'Special Days', caption: 'A confident speech',       span: '' },
+  { src: imgCmp1, cat: 'Special Days', caption: 'On stage',                 span: 'lg:col-span-2' },
+  { src: imgCmp2, cat: 'Performances', caption: 'Marching display',         span: '' },
+  { src: imgCmp3, cat: 'Special Days', caption: 'Our guests of honour',     span: '' },
+  { src: imgFac1, cat: 'Our Garden',   caption: 'In the school garden',     span: 'lg:col-span-2' },
+  { src: imgFac2, cat: 'Special Days', caption: 'Parents and guests',       span: '' },
+  { src: imgFac3, cat: 'Graduation',   caption: 'Graduation day',           span: '' },
 ]
 
-const CATEGORIES = ['All', 'Classrooms', 'Sports & Games', 'Events & Activities', 'Campuses', 'Facilities']
+const CATEGORIES = ['All', 'Graduation', 'Performances', 'Our Garden', 'Special Days']
 const PAGE_SIZE   = 12
 
 const countFor = (cat) =>
@@ -61,7 +61,7 @@ const campusTours = [
   {
     name: 'Nalugala Campus',
     badge: 'Flagship, opened January 2025',
-    location: 'Garuga Road, off Kampala-Entebbe Road, Katabi',
+    location: 'Garuga Road, off Kampala to Entebbe Road, Katabi',
     accent: 'blue',
     hero: imgCmp1,
     thumbs: [imgCls1, imgSpt1, imgFac1],
@@ -293,7 +293,7 @@ function GalleryNalugala() {
             <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">Visit Us</span>
             <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-2">Campus Tours</h2>
             <p className="font-body text-gray-500 mt-3 max-w-lg mx-auto text-sm">
-              A closer look at both of our campuses along the Kampala-Entebbe Road in Wakiso District.
+              A closer look at both of our campuses along the Kampala to Entebbe Road in Wakiso District.
             </p>
           </div>
 
@@ -406,11 +406,11 @@ function GalleryNalugala() {
             <div className="mt-4 text-center">
               <p className="font-heading font-bold text-white text-base">{photo.caption}</p>
               <span className={`inline-block mt-1.5 font-body text-xs px-3 py-1 rounded-full ${
-                photo.cat === 'Sports & Games'      ? 'bg-mosai-blue/80 text-white' :
-                photo.cat === 'Classrooms'          ? 'bg-mosai-red/80 text-white'  :
-                photo.cat === 'Events & Activities' ? 'bg-purple-600/80 text-white' :
-                photo.cat === 'Campuses'            ? 'bg-green-600/80 text-white'  :
-                                                     'bg-white/20 text-white'
+                photo.cat === 'Graduation'   ? 'bg-mosai-red/80 text-white'   :
+                photo.cat === 'Performances' ? 'bg-purple-600/80 text-white'  :
+                photo.cat === 'Our Garden'   ? 'bg-green-600/80 text-white'   :
+                photo.cat === 'Special Days' ? 'bg-mosai-blue/80 text-white'  :
+                                               'bg-white/20 text-white'
               }`}>
                 {photo.cat}
               </span>

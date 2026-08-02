@@ -6,21 +6,21 @@ const parentTestimonials = [
     quote:
       'Enrolling our daughter at MOSAI Schools was the best decision we made. She went from being shy and reserved to a confident, curious little girl who cannot wait to go to school every morning. The teachers are incredibly attentive and the environment feels genuinely like a second home.',
     name: 'Nankunda Sarah',
-    role: 'Parent — Top Class',
+    role: 'Parent, Top Class',
     initials: 'NS',
   },
   {
     quote:
       'The care and attention our son receives at MOSAI Schools is exceptional. He has grown so much in confidence and social skills. The teachers know every child by name and truly invest in their development. We could not have chosen a better school.',
     name: 'Ssemakula David',
-    role: 'Parent — Middle Class',
+    role: 'Parent, Middle Class',
     initials: 'SD',
   },
   {
     quote:
       'What sets MOSAI apart is how they treat every learner as an individual. My twins have very different personalities and yet both are thriving. The school has a beautiful way of drawing out the best in each child.',
     name: 'Akello Grace',
-    role: 'Parent — Baby Class',
+    role: 'Parent, Baby Class',
     initials: 'AG',
   },
 ]
@@ -40,7 +40,7 @@ export default function Testimonial() {
           </div>
           <div className="relative z-10 max-w-3xl">
             <p className="font-heading font-bold text-white text-lg sm:text-xl leading-relaxed mb-6">
-              "At MOSAI Schools, we believe that every child is unique and capable of achieving greatness when nurtured with care, vision, and purpose. Our core message is <span className="text-mosai-red-light">Self-agency</span> — the belief that the capacity for growth and transformation is largely internal."
+              "At MOSAI Schools, we believe that every child is unique and capable of achieving greatness when nurtured with care, vision, and purpose. Our core message is <span className="text-mosai-red-light">Self agency</span>, the belief that the capacity for growth and transformation is largely internal."
             </p>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-mosai-red flex items-center justify-center">

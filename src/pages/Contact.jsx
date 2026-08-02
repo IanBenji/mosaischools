@@ -1,4 +1,4 @@
-﻿import { useState, useRef } from 'react'
+﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   MapPin, Phone, Mail, Clock, Send, ArrowRight,
@@ -6,7 +6,7 @@ import {
   GraduationCap, CreditCard, BookOpen, MessageCircle,
 } from 'lucide-react'
 import emailjs from '@emailjs/browser'
-import HCaptcha from '@hcaptcha/react-hcaptcha'
+import SimpleCaptcha from '../components/SimpleCaptcha'
 import { checkRateLimit, sanitize } from '../lib/formSecurity'
 import { useCampus } from '../context/CampusContext'
 import { CAMPUSES } from '../lib/campus'
@@ -18,20 +18,25 @@ import headerImg from '../assets/IMG_8829.webp'
 const SUBJECTS = [
   'General Inquiry',
   'Admissions',
+  'Scholarship Application',
+  'Donations / Giving',
+  'Book a School Visit',
   'Fee Payment Support',
   'Feedback / Suggestions',
   'Partnership / Collaboration',
   'Other',
 ]
 
-export function ContactForm() {
-  const blank = { name: '', email: '', phone: '', subject: '', message: '', website: '' }
+/* `defaultSubject` pre-selects the dropdown so a form embedded on, say, the
+ * Scholarships page arrives in the inbox already labelled. */
+export function ContactForm({ defaultSubject = '' }) {
+  const blank = { name: '', email: '', phone: '', subject: defaultSubject, message: '', website: '' }
   const [form, setForm]       = useState(blank)
   const [errs, setErrs]       = useState({})
   const [loading, setLoading] = useState(false)
   const [sent, setSent]       = useState(false)
-  const captchaRef            = useRef(null)
-  const [captchaToken, setCaptchaToken] = useState('')
+  const [captchaOk, setCaptchaOk]     = useState(false)
+  const [captchaSeed, setCaptchaSeed] = useState(0)
 
   function validate() {
     const e = {}
@@ -45,7 +50,7 @@ export function ContactForm() {
     if (!form.message.trim()) e.message = 'Please enter your message'
     else if (form.message.trim().length < 10)
                               e.message = 'Message must be at least 10 characters'
-    if (!captchaToken)        e.captcha = 'Please complete the CAPTCHA'
+    if (!captchaOk)           e.captcha = 'Please answer the sum to confirm you are human'
     return e
   }
 
@@ -82,8 +87,8 @@ export function ContactForm() {
       setSent(true)
     } catch {
       setErrs({ captcha: 'Failed to send message. Please try again or email us directly.' })
-      captchaRef.current?.resetCaptcha()
-      setCaptchaToken('')
+      setCaptchaOk(false)
+      setCaptchaSeed(s => s + 1)
     } finally {
       setLoading(false)
     }
@@ -102,7 +107,7 @@ export function ContactForm() {
         Confirmation sent to <span className="font-semibold text-mosai-blue">{form.email}</span>
       </p>
       <button
-        onClick={() => { setForm(blank); setSent(false); setErrs({}) }}
+        onClick={() => { setForm(blank); setSent(false); setErrs({}); setCaptchaOk(false); setCaptchaSeed(s => s + 1) }}
         className="font-body text-sm text-mosai-blue hover:underline"
       >
         Send another message
@@ -211,17 +216,7 @@ export function ContactForm() {
         </p>
       </div>
 
-      <HCaptcha
-        sitekey={import.meta.env.VITE_HCAPTCHA_SITE_KEY}
-        onVerify={token => { setCaptchaToken(token); setErrs(e => ({ ...e, captcha: '' })) }}
-        onExpire={() => setCaptchaToken('')}
-        ref={captchaRef}
-      />
-      {errs.captcha && (
-        <p className="flex items-center gap-1 text-xs text-red-500 font-body">
-          <AlertCircle className="w-3 h-3" />{errs.captcha}
-        </p>
-      )}
+      <SimpleCaptcha onChange={setCaptchaOk} error={errs.captcha} seed={captchaSeed} />
 
       <button
         type="submit"
@@ -264,7 +259,7 @@ export default function Contact() {
         crumb="Contact"
         title="Contact"
         accentWord="Us"
-        subtitle={`We'd love to hear from you. Reach out to our ${campusInfo.name} Campus with any questions about admissions, programs, or school life — our team responds within one working day.`}
+        subtitle={`We'd love to hear from you. Reach out to our ${campusInfo.name} Campus with any questions about admissions, programs, or school life, and our team responds within one working day.`}
         image={headerImg}
         nextBg="#FFFFFF"
       >
@@ -356,7 +351,7 @@ export default function Contact() {
               <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-3">Office Hours</p>
               <ul className="space-y-2">
                 {[
-                  { day: 'Mon – Fri', hours: '8:00 AM – 4:00 PM', open: true },
+                  { day: 'Mon to Fri', hours: '8:00 AM to 4:00 PM', open: true },
                   { day: 'Saturday',  hours: 'Closed',             open: false },
                   { day: 'Sunday',    hours: 'Closed',             open: false },
                 ].map(row => (
@@ -396,7 +391,7 @@ export default function Contact() {
               <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100" style={{ height: '280px' }}>
                 <iframe
                   key={campus}
-                  title={`MOSAI Schools ${campusInfo.name} Campus — ${campusInfo.mapQuery}`}
+                  title={`MOSAI Schools ${campusInfo.name} Campus, ${campusInfo.mapQuery}`}
                   src={mapSrc}
                   width="100%"
                   height="280"
@@ -411,7 +406,7 @@ export default function Contact() {
               <div className={`flex items-start gap-2.5 rounded-xl px-4 py-3 ${isBunono ? 'bg-mosai-red-light' : 'bg-mosai-blue-light'}`}>
                 <MapPin className={`w-4 h-4 mt-0.5 shrink-0 ${isBunono ? 'text-mosai-red' : 'text-mosai-blue'}`} />
                 <p className="font-body text-xs text-mosai-blue-dark leading-relaxed">
-                  <span className="font-semibold">{campusInfo.name} Campus</span> — {p.address}, {p.area}, Wakiso District, Uganda.
+                  <span className="font-semibold">{campusInfo.name} Campus</span>, {p.address}, {p.area}, Wakiso District, Uganda.
                 </p>
               </div>
 
@@ -475,7 +470,7 @@ export default function Contact() {
                   Schedule a Visit to {campusInfo.name} Campus
                 </h2>
                 <p className="font-body text-blue-200 text-sm mt-1">
-                  Come and see our {campusInfo.name} Campus in person. Our team is available Mon – Fri, 8:00 AM – 4:00 PM.
+                  Come and see our {campusInfo.name} Campus in person. Our team is available Mon to Fri, 8:00 AM to 4:00 PM.
                   <span className="text-mosai-red-light"> Offices also open during holidays for admissions.</span>
                 </p>
               </div>

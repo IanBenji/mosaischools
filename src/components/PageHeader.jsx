@@ -33,7 +33,7 @@ export default function PageHeader({ crumb, title, accentWord, subtitle, image, 
     return (
       <section
         className="relative overflow-hidden pt-32 pb-24 sm:pb-28"
-        style={{ background: 'linear-gradient(180deg, #7A1414 0%, #E14B4B 34%, #FFF8EE 100%)' }}
+        style={{ background: 'linear-gradient(180deg, #7A1414 0%, #C0392B 55%, #E14B4B 100%)' }}
       >
         <Doodles names={theme.doodles} count={5} />
 

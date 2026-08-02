@@ -8,5 +8,5 @@ const fmt = (n) => n.toLocaleString('en-US')
 
 export function feeRange(base, spread = FEE_SPREAD) {
   const low = Math.max(0, base - spread)
-  return `${fmt(low)} – ${fmt(base + spread)}`
+  return `${fmt(low)} to ${fmt(base + spread)}`
 }

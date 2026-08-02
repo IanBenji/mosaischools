@@ -2,11 +2,12 @@ import { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, Users, CalendarCheck, FileBarChart,
-  MessageSquare, Megaphone, LogOut, GraduationCap,
+  MessageSquare, Megaphone, LogOut,
   Menu, X, ChevronRight,
 } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { mockTeacher } from './mockData'
+import mosaiLogo from '../../assets/mosailogo-removebg-preview.png'
 
 const navItems = [
   { to: '/teacher',              icon: LayoutDashboard, label: 'Dashboard',          end: true },
@@ -31,8 +32,8 @@ export default function TeacherLayout() {
     <aside className={`flex flex-col h-full bg-mosai-blue-dark text-white ${mobile ? 'w-72' : 'w-64'}`}>
       {/* Logo */}
       <div className="flex items-center gap-3 px-5 py-5 border-b border-white/10">
-        <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center shrink-0">
-          <GraduationCap className="w-5 h-5 text-white" />
+        <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shrink-0 p-1">
+          <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
         </div>
         <div>
           <p className="font-heading font-extrabold text-sm leading-tight">MOSAI Schools</p>
@@ -130,7 +131,9 @@ export default function TeacherLayout() {
             <Menu className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2">
-            <GraduationCap className="w-5 h-5 text-white" />
+            <span className="w-7 h-7 rounded-md bg-white flex items-center justify-center shrink-0 p-0.5">
+              <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
+            </span>
             <span className="font-heading font-bold text-sm text-white">MOSAI Teacher Portal</span>
           </div>
         </header>

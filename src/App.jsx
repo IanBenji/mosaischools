@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AuthProvider }    from './context/AuthContext'
 import { CampusProvider }  from './context/CampusContext'
 import Navbar              from './components/Navbar'
@@ -8,17 +9,29 @@ import CampusTransition    from './components/CampusTransition'
 import CampusPicker        from './components/CampusPicker'
 import ScrollToTop         from './components/ScrollToTop'
 import ScrollRestoration   from './components/ScrollRestoration'
+import RouteAnalytics      from './components/RouteAnalytics'
+import WhatsAppButton      from './components/WhatsAppButton'
 
 // Public pages
-import Home       from './pages/Home'
-import About      from './pages/About'
-import Programs   from './pages/Programs'
-import Admissions from './pages/Admissions'
-import Gallery    from './pages/Gallery'
-import Contact    from './pages/Contact'
-import Privacy    from './pages/Privacy'
-import Terms      from './pages/Terms'
-import NotFound   from './pages/NotFound'
+import Home         from './pages/Home'
+import About        from './pages/About'
+import Programs     from './pages/Programs'
+import Admissions   from './pages/Admissions'
+import Scholarships from './pages/Scholarships'
+import Donate       from './pages/Donate'
+import News         from './pages/News'
+import Calendar     from './pages/Calendar'
+import Downloads    from './pages/Downloads'
+import Gallery      from './pages/Gallery'
+import Contact      from './pages/Contact'
+import Privacy      from './pages/Privacy'
+import Terms        from './pages/Terms'
+import NotFound     from './pages/NotFound'
+
+/* Staff content checker at /admin. Unlisted, disallowed in robots.txt, and
+ * split into its own chunk (along with the Excel parser it pulls in) so that
+ * parents on a metered connection never download any of it. */
+const Admin = lazy(() => import('./pages/Admin'))
 
 /* ───────────────────────────────────────────────────────────────────────────
  * PORTAL — DISABLED (requires a backend)
@@ -61,15 +74,30 @@ import NotFound   from './pages/NotFound'
  * import Announcements       from './dashboards/parent/Announcements'
  * ─────────────────────────────────────────────────────────────────────────── */
 
+/* Decoration meant for visiting families: the custom cursor, the campus switch
+ * curtain, and the popup asking which campus their child attends. None of it
+ * belongs on the staff tool at /admin, where it had been appearing over the top
+ * of the page and asking office staff to choose a campus. */
+function VisitorChrome() {
+  const { pathname } = useLocation()
+  if (pathname.startsWith('/admin')) return null
+  return (
+    <>
+      <CustomCursor />
+      <CampusTransition />
+      <CampusPicker />
+    </>
+  )
+}
+
 function App() {
   return (
     <AuthProvider>
       <CampusProvider>
       <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
         <ScrollRestoration />
-        <CustomCursor />
-        <CampusTransition />
-        <CampusPicker />
+        <RouteAnalytics />
+        <VisitorChrome />
         <Routes>
 
           {/* ───── PORTAL — DISABLED (requires a backend) ─────────────────────
@@ -120,22 +148,40 @@ function App() {
             </Route>
           ──────────────────────────────────────────────────────────────────── */}
 
+          {/* Staff content checker. Deliberately outside the public layout: no
+              navbar, no footer, no Donate button, no WhatsApp bubble. */}
+          <Route path="/admin" element={
+            <Suspense fallback={
+              <div className="min-h-screen bg-slate-100 pt-32 text-center font-body text-sm text-slate-400">
+                Loading…
+              </div>
+            }>
+              <Admin />
+            </Suspense>
+          } />
+
           {/* Main public site — with Navbar + Footer */}
           <Route path="/*" element={
             <>
               <Navbar />
               <ScrollToTop />
               <Routes>
-                <Route path="/"           element={<Home />}       />
-                <Route path="/about"      element={<About />}      />
-                <Route path="/programs"   element={<Programs />}   />
-                <Route path="/admissions" element={<Admissions />} />
-                <Route path="/gallery"    element={<Gallery />}    />
-                <Route path="/contact"    element={<Contact />}    />
-                <Route path="/privacy"    element={<Privacy />}    />
-                <Route path="/terms"      element={<Terms />}      />
-                <Route path="*"           element={<NotFound />}   />
+                <Route path="/"             element={<Home />}         />
+                <Route path="/about"        element={<About />}        />
+                <Route path="/programs"     element={<Programs />}     />
+                <Route path="/admissions"   element={<Admissions />}   />
+                <Route path="/scholarships" element={<Scholarships />} />
+                <Route path="/donate"       element={<Donate />}       />
+                <Route path="/news"         element={<News />}         />
+                <Route path="/calendar"     element={<Calendar />}     />
+                <Route path="/downloads"    element={<Downloads />}    />
+                <Route path="/gallery"      element={<Gallery />}      />
+                <Route path="/contact"      element={<Contact />}      />
+                <Route path="/privacy"      element={<Privacy />}      />
+                <Route path="/terms"        element={<Terms />}        />
+                <Route path="*"             element={<NotFound />}     />
               </Routes>
+              <WhatsAppButton />
               <Footer />
             </>
           } />

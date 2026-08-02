@@ -6,10 +6,14 @@ import {
 import { useCampus }   from '../context/CampusContext'
 import { MOSAI_ETHOS } from '../lib/campus'
 import PageHeader  from '../components/PageHeader'
+import PhotoBand   from '../components/PhotoBand'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
+import { bunonoPhotos } from '../assets/bunono'
 
-import imgHeader from '../assets/TON_8855.webp'
+import imgHeader     from '../assets/bunono/bunono-02.webp'  // morning assembly, Bunono
+import imgHeadmaster from '../assets/Bunono assets/headmaster.jpeg'
+import imgDirector   from '../assets/Director.webp'          // shared Director, same as Nalugala
 
 /* Bunono ABOUT — storybook design, shares no layout with the Nalugala About. */
 
@@ -17,7 +21,7 @@ const CREAM = '#FFF8EE'
 const INK   = 'text-[#43261A]'
 const INK2  = 'text-[#7A5C4A]'
 
-const VALUE_ICONS  = { 'God-fearing': Shield, 'Love': Heart, 'Humility': Sparkles, 'Excellence': Award }
+const VALUE_ICONS  = { 'God fearing': Shield, 'Love': Heart, 'Humility': Sparkles, 'Excellence': Award }
 const VALUE_COLORS = ['#FF8A6B', '#5FBB6E', '#FFC93C', '#6EC6F2']
 
 export default function AboutBunono() {
@@ -39,7 +43,7 @@ export default function AboutBunono() {
         crumb="About"
         title="About"
         accentWord="Bunono"
-        subtitle="A warm, brand-new nursery and primary school in Bunono Village, Katabi — quality, affordable and holistic education in a safe, caring, learner-friendly home."
+        subtitle="A warm, brand new nursery and primary school in Bunono Village, Katabi, offering quality, affordable and holistic education in a safe, caring, learner friendly home."
         image={imgHeader}
         nextBg={CREAM}
       />
@@ -80,19 +84,20 @@ export default function AboutBunono() {
         </div>
       </section>
 
+      {/* scattered photo */}
+      <PhotoBand img={bunonoPhotos[38]} cap="Welcome to Bunono" bg="bg-cream" />
+
       {/* Headteacher welcome — speech bubble */}
       {p.welcome && (
         <section className="relative bg-white py-16">
           <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
           <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
-            <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 items-start">
               <div className="mx-auto text-center">
-                <div className="w-28 h-28 rounded-full bg-mosai-red flex items-center justify-center shadow-lg ring-8 ring-cream">
-                  <span className="font-heading font-extrabold text-4xl text-white">
-                    {p.headteacher.split(' ').map(w => w[0]).slice(0, 2).join('')}
-                  </span>
+                <div className="w-64 sm:w-72 lg:w-80 aspect-[3/4] rounded-[2rem] overflow-hidden bg-mosai-red shadow-lg ring-8 ring-cream mx-auto">
+                  <img src={imgHeadmaster} alt={p.headteacher} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                 </div>
-                <p className={`font-heading font-extrabold mt-3 ${INK}`}>{p.headteacher}</p>
+                <p className={`font-heading font-extrabold mt-4 ${INK}`}>{p.headteacher}</p>
                 <p className="font-body text-sm text-mosai-red font-semibold">Headteacher</p>
               </div>
               <div className="relative bg-cream rounded-[2rem] p-8 shadow-sm border-2 border-dashed border-crayon-coral">
@@ -105,6 +110,52 @@ export default function AboutBunono() {
           </div>
         </section>
       )}
+
+      {/* Director's message — photo card + speech bubble */}
+      <section className="relative bg-cream py-16">
+        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
+        <Doodles names={['star', 'leaf']} count={2} />
+        <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <p className="font-heading font-extrabold text-mosai-red uppercase tracking-widest text-sm">A word from leadership</p>
+            <h2 className={`font-heading font-extrabold text-4xl sm:text-5xl mt-2 ${INK}`}>
+              Director&rsquo;s{' '}
+              <span className="crayon-underline" style={{ '--crayon-color': '#6EC6F2' }}>Message</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 items-start">
+            <div className="mx-auto text-center">
+              <div className="w-64 sm:w-72 lg:w-80 aspect-[3/4] rounded-[2rem] overflow-hidden shadow-lg ring-8 ring-white bg-mosai-blue-light mx-auto -rotate-1">
+                <img src={imgDirector} alt={p.director} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+              </div>
+              <p className={`font-heading font-extrabold mt-4 ${INK}`}>{p.director}</p>
+              <p className="font-body text-sm text-mosai-blue font-semibold">Director, MOSAI Schools</p>
+            </div>
+            <div className="relative bg-white rounded-[2rem] p-8 shadow-sm border-2 border-dashed border-crayon-sky">
+              <span className="absolute -left-3 top-10 hidden md:block w-6 h-6 bg-white border-l-2 border-b-2 border-dashed border-crayon-sky rotate-45" />
+              <div className={`space-y-4 font-body leading-relaxed ${INK2}`}>
+                <p>
+                  It is my honour to welcome you to our school, a learning community committed to excellence, integrity, and holistic education. At MOSAI Schools, we believe that every child is unique and capable of achieving greatness when nurtured with care, vision, and purpose.
+                </p>
+                <p>
+                  The message is <span className={`font-bold ${INK}`}>Self agency</span>, the core belief that the capacity for growth, transformation, and self improvement is largely internal. We teach our learners that real change starts by looking inward, and the main mandate of our school is identifying the unique potential of each child and building self confidence and self belief.
+                </p>
+                <p>
+                  All our programs are thoughtfully designed to build scholarly strength, emotional resilience, creativity, and a strong sense of social responsibility. We strive to create an environment where learning is joyful, curiosity is encouraged, and values are deeply rooted.
+                </p>
+              </div>
+              <blockquote className="mt-5 pl-4 border-l-4 border-mosai-red">
+                <p className={`font-heading font-bold leading-relaxed ${INK}`}>
+                  We believe in nurturing critical thinkers, visionary leaders who are catalysts of change in our communities and globally.
+                </p>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* scattered photo */}
+      <PhotoBand img={bunonoPhotos[0]} cap="Morning assembly" bg="bg-white" />
 
       {/* Vision & Mission — two big blob cards */}
       <section className="relative bg-cream py-16">
@@ -122,6 +173,9 @@ export default function AboutBunono() {
           </div>
         </div>
       </section>
+
+      {/* scattered photo */}
+      <PhotoBand img={bunonoPhotos[43]} cap="The school crest" bg="bg-cream" />
 
       {/* Core values — circles */}
       <section className="relative bg-white py-16">
@@ -152,7 +206,7 @@ export default function AboutBunono() {
       </section>
 
       {/* CTA */}
-      <section className="relative pt-20 pb-16" style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #E14B4B 30%, #B71C1C 100%)' }}>
+      <section className="relative pt-20 pb-16" style={{ background: 'linear-gradient(180deg, #E14B4B 0%, #B71C1C 100%)' }}>
         <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
         <Doodles names={['star', 'flower']} count={2} />
         <div className="relative z-[3] max-w-2xl mx-auto px-4 sm:px-6 text-center">

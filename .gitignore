@@ -27,3 +27,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Original unoptimized Bunono photos (source only — optimized copies live in src/assets/bunono/)
+src/assets/Bunono assets/

@@ -1,6 +1,6 @@
-import { GraduationCap } from 'lucide-react'
 import { CAMPUSES } from '../lib/campus'
 import { useCampus } from '../context/CampusContext'
+import mosaiLogo from '../assets/mosailogo-removebg-preview.png'
 
 /* Full-screen curtain that wipes across when the visitor switches campus.
  * Coloured in the incoming campus's identity so the change reads instantly.
@@ -15,8 +15,8 @@ export default function CampusTransition() {
   return (
     <div className="campus-wipe pointer-events-none fixed inset-0 z-[9000] flex items-center justify-center" style={{ backgroundColor: color }}>
       <div className="campus-wipe__label flex flex-col items-center gap-3 text-white">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/15">
-          <GraduationCap className="h-7 w-7" />
+        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white p-1.5">
+          <img src={mosaiLogo} alt="MOSAI Schools" className="h-full w-full object-contain" />
         </div>
         <p className="font-body text-[11px] font-bold uppercase tracking-[0.35em] text-white/60">
           Switching to

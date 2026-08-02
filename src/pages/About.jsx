@@ -30,7 +30,7 @@ import imgCta      from '../assets/TON_8807.webp'
 const coreValues = [
   {
     icon: Shield,
-    title: 'God-fearing',
+    title: 'God fearing',
     desc: 'Building a strong spiritual foundation and moral character so that every learner grows with integrity and purpose.',
     color: 'red',
   },
@@ -59,20 +59,20 @@ const campuses = [
     name: 'Nalugala Campus',
     status: 'Flagship Campus',
     since: 'Opened January 2025',
-    location: 'Garuga Road, off Kampala-Entebbe Road',
+    location: 'Garuga Road, off Kampala to Entebbe Road',
     district: 'Katabi, Wakiso District',
     image: imgNalugala,
     color: 'blue',
     tags: ['Day and Boarding', 'Swimming Pool', 'Digital Classrooms'],
     description:
-      'Our flagship campus sits on Garuga Road in a serene, green setting. A full day and boarding facility with modern digital classrooms, an on-site swimming pool, spacious outdoor grounds, and 24/7 security.',
+      'Our flagship campus sits on Garuga Road in a serene, green setting. A full day and boarding facility with modern digital classrooms, an on site swimming pool, spacious outdoor grounds, and 24/7 security.',
   },
   {
     name: 'Bunono Campus',
     status: 'Second Campus',
     since: 'Opened 2026',
     location: 'Katabi, Wakiso District',
-    district: 'Off Kampala-Entebbe Road',
+    district: 'Off Kampala to Entebbe Road',
     image: imgBunono,
     color: 'red',
     tags: ['Day and Boarding', 'Modern Facilities', 'Qualified Staff'],
@@ -97,13 +97,13 @@ const curricula = [
   {
     icon: FlaskConical,
     name: 'IB Concepts',
-    desc: 'Inquiry-based International Baccalaureate concepts that promote curiosity, critical thinking, and intercultural understanding.',
+    desc: 'Inquiry based International Baccalaureate concepts that promote curiosity, critical thinking, and intercultural understanding.',
     color: 'blue',
   },
   {
     icon: Globe,
     name: 'British and IPC',
-    desc: 'International Primary Curriculum elements that deliver thematic, cross-curricular learning rooted in local values.',
+    desc: 'International Primary Curriculum elements that deliver thematic, cross curricular learning rooted in local values.',
     color: 'red',
   },
 ]
@@ -116,7 +116,7 @@ const facilities = [
   { label: 'School Transport',   sub: 'Key route coverage',         image: imgFac5 },
   { label: 'Boarding House',     sub: 'Nursery and Primary',        image: imgFac6 },
   { label: 'Nutritious Meals',   sub: 'Freshly prepared daily',     image: imgFac7 },
-  { label: 'Clean Environment',  sub: 'Safe and well-maintained',   image: imgFac8 },
+  { label: 'Clean Environment',  sub: 'Safe and well maintained',   image: imgFac8 },
 ]
 
 const languages = ['English', 'Swahili', 'French', 'Chinese']
@@ -186,8 +186,8 @@ export default function About() {
               </h2>
               <p className="font-body text-gray-500 mt-3 max-w-2xl mx-auto text-sm leading-relaxed">
                 {isBunono
-                  ? 'A private nursery and primary day and boarding school in Bunono Village, Katabi — providing quality, affordable and holistic education in a safe, caring and learner-friendly environment.'
-                  : 'Our flagship campus on Garuga Road — the birthplace of MOSAI Schools and home to our boarding facilities, swimming pool and modern digital classrooms.'}
+                  ? 'A private nursery and primary day and boarding school in Bunono Village, Katabi, providing quality, affordable and holistic education in a safe, caring and learner friendly environment.'
+                  : 'Our flagship campus on Garuga Road, the birthplace of MOSAI Schools and home to our boarding facilities, swimming pool and modern digital classrooms.'}
               </p>
             </div>
 
@@ -304,7 +304,7 @@ export default function About() {
                   We started with Baby Class through to Primary 3 and we grow intentionally, adding one class each year until we reach P.7. In <strong className="text-mosai-blue-dark">2026</strong> we opened our second campus at Bunono, also in Katabi, bringing our vision of joyful, rigorous education to even more families along the Entebbe corridor.
                 </p>
                 <p>
-                  We have combined the best of Uganda's national curriculum with Cambridge, IB, and British/IPC frameworks, taught in <strong className="text-mosai-blue-dark">four languages</strong> — English, Swahili, French and Chinese — ensuring our learners are prepared not just for Uganda, but for the world.
+                  We have combined the best of Uganda's national curriculum with Cambridge, IB, and British/IPC frameworks, taught in <strong className="text-mosai-blue-dark">four languages</strong>: English, Swahili, French and Chinese, ensuring our learners are prepared not just for Uganda, but for the world.
                 </p>
                 <p>
                   We are a <strong className="text-mosai-blue-dark">private day and boarding school</strong>, and we are proud to offer a home away from home for every learner who stays with us.
@@ -359,7 +359,7 @@ export default function About() {
                   It is my honour to welcome you to our school, a learning community committed to excellence, integrity, and holistic education. At MOSAI Schools, we believe that every child is unique and capable of achieving greatness when nurtured with care, vision, and purpose.
                 </p>
                 <p>
-                  The message is <strong className="text-mosai-blue-dark">Self-agency</strong>. The core belief that the capacity for growth, transformation, and self-improvement is largely internal. We believe and teach our learners that real change starts by looking inward. The main mandate of our school is identifying the unique potential of each child and creating a belief of self-confidence and self-belief.
+                  The message is <strong className="text-mosai-blue-dark">Self agency</strong>. The core belief that the capacity for growth, transformation, and self improvement is largely internal. We believe and teach our learners that real change starts by looking inward. The main mandate of our school is identifying the unique potential of each child and creating a belief of self confidence and self belief.
                 </p>
                 <p>
                   All our programs are thoughtfully designed to build scholarly strength, emotional resilience, creativity, and a strong sense of social responsibility. We strive to create an environment where learning is joyful, curiosity is encouraged, and values are deeply rooted.
@@ -442,7 +442,7 @@ export default function About() {
             <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">Where We Are</span>
             <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-3">Our Two Campuses</h2>
             <p className="font-body text-gray-500 mt-3 max-w-lg mx-auto text-sm">
-              Both campuses sit along the Kampala-Entebbe corridor and are licensed by the Ministry of Education and Sports, Uganda.
+              Both campuses sit along the Kampala to Entebbe corridor and are licensed by the Ministry of Education and Sports, Uganda.
             </p>
           </div>
 
@@ -500,7 +500,7 @@ export default function About() {
             <span className="font-body text-xs font-bold text-mosai-red-light uppercase tracking-widest">How We Teach</span>
             <h2 className="font-heading font-extrabold text-4xl mt-3">Our Blended Curriculum</h2>
             <p className="font-body text-blue-200 mt-3 max-w-xl mx-auto text-sm leading-relaxed">
-              A learner-centred, inquiry-based approach that combines the best of Uganda and the world, preparing every child for global citizenship while staying rooted in local values.
+              A learner centred, inquiry based approach that combines the best of Uganda and the world, preparing every child for global citizenship while staying rooted in local values.
             </p>
           </div>
 

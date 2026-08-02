@@ -4,10 +4,10 @@ const campuses = [
   {
     name: 'Nalugala Campus',
     opened: 'Opened January 2025',
-    location: 'Garuga Road, off Kampala-Entebbe Road',
+    location: 'Garuga Road, off Kampala to Entebbe Road',
     district: 'Katabi, Wakiso District',
     description:
-      'Our flagship campus, set along the scenic Garuga Road off the Kampala-Entebbe Highway. Nalugala Campus offers modern classrooms, a swimming pool, boarding facilities, and expansive grounds for outdoor learning and play.',
+      'Our flagship campus, set along the scenic Garuga Road off the Kampala to Entebbe Highway. Nalugala Campus offers modern classrooms, a swimming pool, boarding facilities, and expansive grounds for outdoor learning and play.',
     tags: ['Day & Boarding', 'Swimming Pool', 'Digital Classrooms', 'Transport Available'],
     accent: 'blue',
     badge: 'Flagship Campus',
@@ -16,7 +16,7 @@ const campuses = [
     name: 'Bunono Campus',
     opened: 'Opened 2026',
     location: 'Katabi, Wakiso District',
-    district: 'Off Kampala-Entebbe Road',
+    district: 'Off Kampala to Entebbe Road',
     description:
       'Our newest campus in Katabi brings the MOSAI Schools experience to more families in the greater Entebbe area. Bunono Campus features the same high standards of care, safety, and academic excellence as our flagship.',
     tags: ['Day & Boarding', 'Modern Facilities', 'Qualified Staff', 'Safe Environment'],
@@ -37,7 +37,7 @@ export default function Campuses() {
             <span className="crayon-underline" style={{ '--crayon-color': '#FFC93C' }}>Campuses</span>
           </h2>
           <p className="font-body text-gray-500 mt-3 max-w-xl mx-auto">
-            Two campuses along the Kampala-Entebbe corridor, offering families in Wakiso District world-class early education close to home.
+            Two campuses along the Kampala to Entebbe corridor, offering families in Wakiso District world class early education close to home.
           </p>
         </div>
 
@@ -105,7 +105,7 @@ export default function Campuses() {
 
         {/* Map note */}
         <p className="text-center font-body text-sm text-gray-400 mt-8">
-          Both campuses are located along the <span className="font-semibold text-gray-500">Kampala-Entebbe Road</span> in <span className="font-semibold text-gray-500">Wakiso District, Uganda</span>.
+          Both campuses are located along the <span className="font-semibold text-gray-500">Kampala to Entebbe Road</span> in <span className="font-semibold text-gray-500">Wakiso District, Uganda</span>.
           Licensed by the Ministry of Education and Sports, Uganda.
         </p>
       </div>

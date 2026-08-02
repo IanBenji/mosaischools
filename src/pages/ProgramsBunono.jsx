@@ -5,10 +5,12 @@ import {
 } from 'lucide-react'
 import { useCampus } from '../context/CampusContext'
 import PageHeader  from '../components/PageHeader'
+import PhotoBand   from '../components/PhotoBand'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
+import { bunonoPhotos } from '../assets/bunono'
 
-import imgHeader from '../assets/IMG_8647.webp'
+import imgHeader from '../assets/bunono/bunono-09.webp'  // learners at Bunono
 
 /* Bunono PROGRAMS — storybook design. */
 
@@ -28,9 +30,9 @@ export default function ProgramsBunono() {
   const p = campusInfo.profile
 
   const classes = [
-    { icon: Baby,          name: 'Baby Class',   age: 'Ages 2 – 3', time: '7:30 – 2:00', color: '#FF8A6B', note: 'Gentle first steps into school through play, songs and stories.' },
-    { icon: BookOpen,      name: 'Middle Class', age: 'Ages 3 – 4', time: '7:30 – 2:30', color: '#FFC93C', note: 'Curiosity blooms — early phonics, numbers and lots of discovery.' },
-    { icon: Star,          name: 'Top Class',    age: 'Ages 5 – 6', time: '7:30 – 3:00', color: '#5FBB6E', note: 'Reading, writing and confidence — fully ready for Primary 1.' },
+    { icon: Baby,          name: 'Baby Class',   age: 'Ages 2 to 3', time: '7:30 to 2:00', color: '#FF8A6B', note: 'Gentle first steps into school through play, songs and stories.' },
+    { icon: BookOpen,      name: 'Middle Class', age: 'Ages 3 to 4', time: '7:30 to 2:30', color: '#FFC93C', note: 'Curiosity blooms with early phonics, numbers and lots of discovery.' },
+    { icon: Star,          name: 'Top Class',    age: 'Ages 5 to 6', time: '7:30 to 3:00', color: '#5FBB6E', note: 'Reading, writing and confidence, fully ready for Primary 1.' },
     { icon: GraduationCap, name: 'Primary',      age: p.primaryRange, time: 'Full day',  color: '#6EC6F2', note: 'A joyful, rigorous primary journey, adding a class every year to P.7.' },
   ]
 
@@ -40,7 +42,7 @@ export default function ProgramsBunono() {
         crumb="Programs"
         title="Our"
         accentWord="Programs"
-        subtitle={`Age-appropriate learning at Bunono Campus, from ${p.classes} — where every little learner grows at their own happy pace.`}
+        subtitle={`Age appropriate learning at Bunono Campus, from ${p.classes}, where every little learner grows at their own happy pace.`}
         image={imgHeader}
         nextBg={CREAM}
       />
@@ -83,6 +85,9 @@ export default function ProgramsBunono() {
         </div>
       </section>
 
+      {/* scattered photo */}
+      <PhotoBand img={bunonoPhotos[14]} cap="Swimming lessons" bg="bg-cream" />
+
       {/* Activities — playful chip groups */}
       <section className="relative bg-white py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
@@ -117,8 +122,11 @@ export default function ProgramsBunono() {
         </div>
       </section>
 
+      {/* scattered photo */}
+      <PhotoBand img={bunonoPhotos[32]} cap="Splash time" bg="bg-white" />
+
       {/* CTA */}
-      <section className="relative pt-20 pb-16" style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #E14B4B 30%, #B71C1C 100%)' }}>
+      <section className="relative pt-20 pb-16" style={{ background: 'linear-gradient(180deg, #E14B4B 0%, #B71C1C 100%)' }}>
         <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
         <Doodles names={['star', 'flower']} count={2} />
         <div className="relative z-[3] max-w-2xl mx-auto px-4 sm:px-6 text-center">
