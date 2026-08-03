@@ -112,7 +112,6 @@ export default function News() {
                         key={item.id}
                         className="overflow-hidden rounded-3xl bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg"
                       >
-                        <div className="h-1.5 w-full" style={{ backgroundColor: colour }} />
                         <div className="p-6 sm:p-7">
                           <div className="mb-3 flex flex-wrap items-center gap-3">
                             <span

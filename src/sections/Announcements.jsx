@@ -59,7 +59,6 @@ export default function Announcements() {
                   key={item.id}
                   className="bg-white rounded-3xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden"
                 >
-                  <div className="h-1.5 w-full" style={{ backgroundColor: colour }} />
                   <div className="p-6 flex flex-col gap-3">
                     <div className="flex items-center justify-between">
                       <span
