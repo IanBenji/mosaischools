@@ -99,7 +99,7 @@ export default function Testimonial() {
         </div>
 
         {/* Selector */}
-        <div className="flex justify-center gap-3 mt-8">
+        <div className="flex flex-wrap justify-center gap-2 mt-8 sm:gap-3">
           {parentTestimonials.map((item, i) => (
             <button
               key={i}
