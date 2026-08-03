@@ -39,9 +39,11 @@ const parentLinks = [
 const parentPaths = parentLinks.map(l => l.to)
 
 export default function Navbar() {
-  const [menuOpen,  setMenuOpen]  = useState(false)
-  const [scrolled,  setScrolled]  = useState(false)
+  const [menuOpen,    setMenuOpen]    = useState(false)
+  const [menuClosing, setMenuClosing] = useState(false)
+  const [scrolled,    setScrolled]    = useState(false)
   const location    = useLocation()
+  const closeTimer  = useRef(null)
 
   /* Portal auth — DISABLED (requires a backend)
    * const [loginOpen, setLoginOpen] = useState(false)
@@ -99,10 +101,23 @@ export default function Navbar() {
     }
   }, [])
 
+  /* The mobile drawer slides out rather than vanishing, so closing runs through
+   * here: flag it closing, then unmount once the animation has played. */
+  function closeMenu() {
+    setMenuClosing(true)
+    clearTimeout(closeTimer.current)
+    closeTimer.current = setTimeout(() => {
+      setMenuOpen(false)
+      setMenuClosing(false)
+    }, 200)
+  }
+
+  useEffect(() => () => clearTimeout(closeTimer.current), [])
+
   function pickCampus(slug) {
     setCampus(slug)
     setCampusOpen(false)
-    setMenuOpen(false)
+    if (menuOpen) closeMenu()
   }
 
   useEffect(() => {
@@ -116,7 +131,28 @@ export default function Navbar() {
     setScrolled(window.scrollY > 60)
   }, [location.pathname])
 
-  useEffect(() => { setMenuOpen(false) }, [location.pathname])
+  // A tapped link closes the drawer behind the new page.
+  useEffect(() => {
+    setMenuOpen(false)
+    setMenuClosing(false)
+    clearTimeout(closeTimer.current)
+  }, [location.pathname])
+
+  // Hold the page still behind the open drawer.
+  useEffect(() => {
+    if (!menuOpen) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = prev }
+  }, [menuOpen])
+
+  // Escape dismisses the drawer.
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e) => { if (e.key === 'Escape') closeMenu() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
 
   return (
     <>
@@ -129,7 +165,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between">
 
             {/* Logo + campus switcher */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
             <Link to="/" className="flex items-center gap-2 group">
               <div className={`w-10 h-10 rounded-full flex items-center justify-center p-1 transition-colors duration-200 ${
                 isTransparent
@@ -156,7 +192,7 @@ export default function Navbar() {
                 aria-haspopup="listbox"
                 aria-expanded={campusOpen}
                 title="Switch campus"
-                className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 font-body text-xs font-semibold transition-colors duration-200 sm:px-3 ${
+                className={`flex items-center gap-1 rounded-full border px-2 py-1 font-body text-[11px] font-semibold transition-colors duration-200 sm:gap-1.5 sm:px-3 sm:py-1.5 sm:text-xs ${
                   isTransparent
                     ? 'border-white/30 bg-white/10 text-white hover:bg-white/20'
                     : isBunono
@@ -164,17 +200,19 @@ export default function Navbar() {
                       : 'border-mosai-blue-light bg-mosai-blue-light/60 text-mosai-blue hover:bg-mosai-blue-light'
                 }`}
               >
-                <MapPin className={`w-3.5 h-3.5 shrink-0 ${isTransparent ? 'text-white' : isBunono ? 'text-mosai-red' : 'text-mosai-blue'}`} />
+                <MapPin className={`w-3 h-3 shrink-0 sm:w-3.5 sm:h-3.5 ${isTransparent ? 'text-white' : isBunono ? 'text-mosai-red' : 'text-mosai-blue'}`} />
                 <span className={`hidden text-[9px] font-bold uppercase tracking-wider sm:inline ${isTransparent ? 'text-white/60' : 'opacity-60'}`}>
                   Campus:
                 </span>
                 <span className="font-bold">{campusInfo.name}</span>
                 <span className={`hidden font-semibold md:inline ${isTransparent ? 'text-white/60' : 'opacity-60'}`}>· Switch</span>
-                <ChevronDown className={`w-3.5 h-3.5 opacity-70 transition-transform duration-200 ${campusOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-3 h-3 opacity-70 transition-transform duration-200 sm:w-3.5 sm:h-3.5 ${campusOpen ? 'rotate-180' : ''}`} />
               </button>
 
+              {/* On a phone the panel is centred under the chip so it cannot run
+                  off the edge of a narrow screen. */}
               {campusOpen && (
-                <div className="absolute left-0 top-full mt-2 w-72 rounded-2xl border border-gray-100 bg-white p-1.5 shadow-xl z-50" role="listbox">
+                <div className="absolute left-1/2 top-full z-50 mt-2 w-[min(18rem,calc(100vw-1.5rem))] -translate-x-1/2 rounded-2xl border border-gray-100 bg-white p-1.5 shadow-xl sm:left-0 sm:w-72 sm:translate-x-0" role="listbox">
                   {Object.entries(CAMPUSES).map(([slug, c]) => {
                     const isActive = slug === campus
                     return (
@@ -336,130 +374,163 @@ export default function Navbar() {
 
             {/* Mobile hamburger */}
             <button
-              className={`lg:hidden p-2 transition-colors ${isTransparent ? 'text-white' : 'text-mosai-blue-dark'}`}
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle menu"
+              className={`lg:hidden -mr-2 p-2 transition-colors ${isTransparent ? 'text-white' : 'text-mosai-blue-dark'}`}
+              onClick={() => (menuOpen ? closeMenu() : setMenuOpen(true))}
+              aria-label="Open menu"
+              aria-expanded={menuOpen}
             >
-              {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <Menu className="w-6 h-6" />
             </button>
           </div>
 
-          {/* Mobile menu */}
-          {menuOpen && (
-            <div className={`lg:hidden mt-3 pb-4 border-t pt-3 ${
-              isTransparent ? 'border-white/20 bg-mosai-blue-dark/95 rounded-xl px-2' : 'border-gray-100'
-            }`}>
-              <div className="flex flex-col gap-1">
-                {navLinksBefore.map((link) => (
-                  <NavLink
-                    key={link.to}
-                    to={link.to}
-                    end={link.to === '/'}
-                    className={({ isActive }) =>
-                      `font-body font-semibold px-3 py-2 rounded-md text-sm transition-colors ${
-                        isActive
-                          ? 'text-mosai-red bg-red-50'
-                          : isTransparent
-                            ? 'text-white hover:bg-white/10'
-                            : 'text-gray-700 hover:text-mosai-blue hover:bg-mosai-blue-light'
-                      }`
-                    }
-                  >
-                    {link.label}
-                  </NavLink>
-                ))}
-
-                {/* For Parents (mobile) — a labelled group rather than a dropdown,
-                    so nothing is hidden behind an extra tap on a phone. */}
-                <p className={`mt-2 px-3 pb-1 font-body text-[10px] font-bold uppercase tracking-widest ${
-                  isTransparent ? 'text-white/40' : 'text-gray-400'
-                }`}>
-                  For Parents
-                </p>
-                {parentLinks.map((link) => (
-                  <NavLink
-                    key={link.to}
-                    to={link.to}
-                    className={({ isActive }) =>
-                      `font-body font-semibold px-3 py-2 rounded-md text-sm transition-colors ${
-                        isActive
-                          ? 'text-mosai-red bg-red-50'
-                          : isTransparent
-                            ? 'text-white hover:bg-white/10'
-                            : 'text-gray-700 hover:text-mosai-blue hover:bg-mosai-blue-light'
-                      }`
-                    }
-                  >
-                    {link.label}
-                  </NavLink>
-                ))}
-
-                <div className={`my-2 border-t ${isTransparent ? 'border-white/10' : 'border-gray-100'}`} />
-
-                {navLinksAfter.map((link) => (
-                  <NavLink
-                    key={link.to}
-                    to={link.to}
-                    className={({ isActive }) =>
-                      `font-body font-semibold px-3 py-2 rounded-md text-sm transition-colors ${
-                        isActive
-                          ? 'text-mosai-red bg-red-50'
-                          : isTransparent
-                            ? 'text-white hover:bg-white/10'
-                            : 'text-gray-700 hover:text-mosai-blue hover:bg-mosai-blue-light'
-                      }`
-                    }
-                  >
-                    {link.label}
-                  </NavLink>
-                ))}
-
-                {/* Donate (mobile) */}
-                <NavLink
-                  to="/donate"
-                  className="mt-2 flex items-center justify-center gap-2 rounded-full bg-mosai-red px-4 py-3 font-heading text-sm font-bold text-white transition-colors hover:bg-mosai-red-dark"
-                >
-                  <Heart className="w-4 h-4" /> Donate
-                </NavLink>
-
-                {/* Campus switcher (mobile) */}
-                <div className={`mt-2 border-t pt-2 ${isTransparent ? 'border-white/10' : 'border-gray-100'}`}>
-                  <p className={`px-3 pb-1 font-body text-[10px] font-bold uppercase tracking-widest ${
-                    isTransparent ? 'text-white/40' : 'text-gray-400'
-                  }`}>
-                    Campus
-                  </p>
-                  {Object.entries(CAMPUSES).map(([slug, c]) => {
-                    const isActive = slug === campus
-                    return (
-                      <button
-                        key={slug}
-                        type="button"
-                        onClick={() => pickCampus(slug)}
-                        className={`flex w-full items-center gap-2 rounded-md px-3 py-2 font-body text-sm font-semibold transition-colors ${
-                          isActive
-                            ? isTransparent ? 'bg-white/15 text-white' : 'bg-mosai-blue-light text-mosai-blue'
-                            : isTransparent ? 'text-white/70 hover:bg-white/10' : 'text-gray-600 hover:bg-gray-50'
-                        }`}
-                      >
-                        <MapPin className={`w-4 h-4 ${slug === 'bunono' ? 'text-red-300' : isTransparent ? 'text-white/60' : 'text-mosai-blue'}`} />
-                        {c.name} Campus
-                        {isActive && <Check className="ml-auto w-4 h-4" />}
-                      </button>
-                    )
-                  })}
-                </div>
-
-                {/* ───── Portal Login (mobile) — DISABLED (requires a backend) ─────
-                  <div className="mt-3 border-t border-white/10 pt-3 space-y-2">
-                    ... logged-in chip + Sign Out / Parent + Staff portal buttons ...
-                  </div>
-                ──────────────────────────────────────────────────────────────── */}
-              </div>
-            </div>
-          )}
         </div>
       </nav>
+
+      {/* ── Mobile menu drawer ──────────────────────────────────────────────
+          A panel that slides in over the page rather than pushing the bar
+          open. It always sits on white, so the links stay readable whatever
+          the hero behind it looks like. */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-[8500] overflow-hidden lg:hidden" role="dialog" aria-modal="true" aria-label="Site menu">
+          <div
+            className={`absolute inset-0 ${menuClosing ? 'nav-drawer-backdrop--out' : 'nav-drawer-backdrop'}`}
+            onClick={closeMenu}
+          />
+
+          <div className={`absolute right-0 top-0 flex h-full w-[86vw] max-w-sm flex-col bg-white shadow-2xl ${
+            menuClosing ? 'nav-drawer--out' : 'nav-drawer'
+          }`}>
+
+            {/* Drawer header */}
+            <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
+              <Link to="/" onClick={closeMenu} className="flex items-center gap-2">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white p-1 ring-1 ring-gray-100">
+                  <img src={mosaiLogo} alt="" className="h-full w-full object-contain" />
+                </div>
+                <span className="font-heading text-base font-extrabold leading-none text-mosai-blue-dark">
+                  Mosai <span className="text-mosai-red">Schools</span>
+                </span>
+              </Link>
+              <button
+                type="button"
+                onClick={closeMenu}
+                aria-label="Close menu"
+                className="-mr-2 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Campus switcher — two plain cards, no extra tap to reveal them */}
+            <div className="border-b border-gray-100 bg-gray-50/70 px-4 py-4">
+              <p className="px-1 pb-2 font-body text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                Viewing campus
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                {Object.entries(CAMPUSES).map(([slug, c]) => {
+                  const isActive = slug === campus
+                  const isRed    = c.accent === 'red'
+                  return (
+                    <button
+                      key={slug}
+                      type="button"
+                      onClick={() => pickCampus(slug)}
+                      aria-pressed={isActive}
+                      className={`rounded-xl border-2 bg-white px-3 py-2.5 text-left transition-colors ${
+                        isActive
+                          ? isRed ? 'border-mosai-red bg-mosai-red-light/50' : 'border-mosai-blue bg-mosai-blue-light/50'
+                          : 'border-gray-200'
+                      }`}
+                    >
+                      <span className="flex items-center gap-1.5">
+                        <MapPin className={`h-3.5 w-3.5 shrink-0 ${isRed ? 'text-mosai-red' : 'text-mosai-blue'}`} />
+                        <span className="font-heading text-sm font-bold text-mosai-blue-dark">{c.name}</span>
+                        {isActive && <Check className={`ml-auto h-3.5 w-3.5 ${isRed ? 'text-mosai-red' : 'text-mosai-blue'}`} />}
+                      </span>
+                      <span className="mt-0.5 block font-body text-[11px] text-gray-500">
+                        {c.tagline.split('·')[0].trim()}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* Links */}
+            <nav className="flex-1 overflow-y-auto px-3 py-3">
+              {navLinksBefore.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  end={link.to === '/'}
+                  onClick={closeMenu}
+                  className={({ isActive }) =>
+                    `block rounded-xl px-3 py-3 font-body text-[15px] font-semibold transition-colors ${
+                      isActive ? 'bg-red-50 text-mosai-red' : 'text-gray-700 hover:bg-gray-50'
+                    }`
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ))}
+
+              {/* For Parents — a labelled group rather than a dropdown, so
+                  nothing is hidden behind an extra tap on a phone. */}
+              <p className="mt-4 px-3 pb-1 font-body text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                For Parents
+              </p>
+              {parentLinks.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={closeMenu}
+                  className={({ isActive }) =>
+                    `block rounded-xl px-3 py-3 font-body text-[15px] font-semibold transition-colors ${
+                      isActive ? 'bg-red-50 text-mosai-red' : 'text-gray-700 hover:bg-gray-50'
+                    }`
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ))}
+
+              <div className="my-3 border-t border-gray-100" />
+
+              {navLinksAfter.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={closeMenu}
+                  className={({ isActive }) =>
+                    `block rounded-xl px-3 py-3 font-body text-[15px] font-semibold transition-colors ${
+                      isActive ? 'bg-red-50 text-mosai-red' : 'text-gray-700 hover:bg-gray-50'
+                    }`
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ))}
+            </nav>
+
+            {/* Donate stays in reach at the bottom of the panel */}
+            <div className="border-t border-gray-100 px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+              <NavLink
+                to="/donate"
+                onClick={closeMenu}
+                className="flex items-center justify-center gap-2 rounded-full bg-mosai-red px-4 py-3.5 font-heading text-sm font-bold text-white transition-colors hover:bg-mosai-red-dark"
+              >
+                <Heart className="h-4 w-4" /> Donate
+              </NavLink>
+            </div>
+
+            {/* ───── Portal Login (mobile) — DISABLED (requires a backend) ─────
+              <div className="border-t border-gray-100 p-4 space-y-2">
+                ... logged-in chip + Sign Out / Parent + Staff portal buttons ...
+              </div>
+            ──────────────────────────────────────────────────────────────── */}
+          </div>
+        </div>
+      )}
 
       {/* ───── Login modals — DISABLED (requires a backend) ─────
         {modal && (
