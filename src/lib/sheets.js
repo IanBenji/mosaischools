@@ -37,8 +37,14 @@
 const csv  = (id, gid) => `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`
 const edit = (id, gid) => `https://docs.google.com/spreadsheets/d/${id}/edit#gid=${gid}`
 
-/** The school's content workbook. Every dataset below is a tab inside it. */
-const WORKBOOK = '1gf8wsrDXxi3SiiBUbDWeLwT0Q0YtPHFDV6GPrvQA0rw'
+/* The school's content workbook. Every dataset below is a tab inside it.
+ *
+ * Shorter than a Google Sheets id you may be used to, and correctly so: this is
+ * the .xlsx the office uploaded, kept in its original format rather than
+ * converted, which Drive gives a 33 character id instead of the native 44. The
+ * export endpoint reads it either way, so there is nothing to fix here. Convert
+ * it and the id changes, which would silently strand this file on the old one. */
+const WORKBOOK = '1yCHDIUNZ23Xqthp3ngikJLv_kG60RgUG'
 
 /* A dataset needs BOTH an id and a gid before it counts as configured.
  *
@@ -48,9 +54,20 @@ const WORKBOOK = '1gf8wsrDXxi3SiiBUbDWeLwT0Q0YtPHFDV6GPrvQA0rw'
  * Calendar page rather than showing the empty state, and it would look
  * plausible enough that nobody would question it. Missing gid means off. */
 const TABS = {
-  announcements: { id: WORKBOOK, gid: '2135516892' },
-  events:        { id: WORKBOOK, gid: '60151697' },
-  documents:     { id: WORKBOOK, gid: '1424701768' },
+  announcements: { id: WORKBOOK, gid: '21024722' },
+  events:        { id: WORKBOOK, gid: '1401007105' },
+
+  /* Deliberately off, and not because the tab is missing. Its gid is 21884902
+   * and it validates cleanly; the problem is what its links point at. All eight
+   * rows carry the same Drive file, and that file is a photograph
+   * (WhatsApp Image 2024-03-25 ... .jpeg, 1.6 MB, image/jpeg). Live, a parent
+   * tapping "Fees Structure 2027" would be handed a snapshot, from a row whose
+   * badge reads PDF.
+   *
+   * The empty state is honest; a fee structure that turns out to be a photo is
+   * not. Give each row its own Drive link, shared as anyone with the link, then
+   * paste the gid back to switch the Downloads page on. */
+  documents:     { id: WORKBOOK, gid: '' },
 }
 
 const build = (fn) => Object.fromEntries(
