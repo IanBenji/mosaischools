@@ -7,24 +7,16 @@ import {
 } from 'lucide-react'
 import {
   mockStudents, mockTeachers, mockAdmissions, mockPayments,
-  totalExpected, totalCollected, collectionPct,
+  totalCollected, collectionPct,
   campusBreakdown, classDistribution, CURRENT_TERM,
 } from './mockData'
 
 function fmt(n) { return 'UGX ' + n.toLocaleString() }
 
-const pendingAdm = mockAdmissions.filter(a => a.status === 'Pending')
 const recentPayments = [...mockPayments]
   .sort((a, b) => (b.paidDate ?? '').localeCompare(a.paidDate ?? ''))
   .filter(p => p.status === 'Paid')
   .slice(0, 6)
-
-const statusStyle = {
-  Paid:    'bg-green-100 text-green-700',
-  Pending: 'bg-amber-100 text-amber-700',
-  Rejected:'bg-red-100 text-red-600',
-  Approved:'bg-blue-100 text-blue-700',
-}
 
 export default function AdminDashboard() {
   const [admissions, setAdmissions] = useState(mockAdmissions)

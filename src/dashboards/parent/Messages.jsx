@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Send, AlertCircle } from 'lucide-react'
 import { mockMessages, mockChild } from './mockData'
-import { useAuth } from '../../context/AuthContext'
 
 const mockThread = [
   { from: 'teacher', text: 'Good morning! Aisha had a wonderful day today. She led the morning circle time and all the children loved it.', time: 'Today, 10:15 AM' },
@@ -10,7 +9,6 @@ const mockThread = [
 ]
 
 export default function Messages() {
-  const { user } = useAuth()
   const [selected, setSelected] = useState(mockMessages[0])
   const [thread,   setThread]   = useState(mockThread)
   const [draft,    setDraft]    = useState('')

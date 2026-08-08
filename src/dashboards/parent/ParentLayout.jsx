@@ -18,17 +18,11 @@ const navItems = [
   { to: '/parent/announcements',icon: Bell,           label: 'Announcements'         },
 ]
 
-export default function ParentLayout() {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-
-  function handleLogout() {
-    logout()
-    navigate('/login')
-  }
-
-  const Sidebar = ({ mobile = false }) => (
+/* At module scope so the sidebar keeps one component type across renders. Built
+ * inside ParentLayout it would be a new type each time, and React would remount
+ * the whole aside rather than update it, losing nav scroll position and focus. */
+function Sidebar({ mobile = false, user, onClose, onLogout }) {
+  return (
     <aside className={`flex flex-col h-full bg-slate-900 text-white ${mobile ? 'w-72' : 'w-64'}`}>
       {/* Logo */}
       <div className="flex items-center gap-3 px-5 py-5 border-b border-white/10">
@@ -40,7 +34,7 @@ export default function ParentLayout() {
           <p className="font-body text-xs text-slate-400">Parent Portal</p>
         </div>
         {mobile && (
-          <button onClick={() => setSidebarOpen(false)} className="ml-auto text-slate-400 hover:text-white">
+          <button onClick={onClose} className="ml-auto text-slate-400 hover:text-white">
             <X className="w-5 h-5" />
           </button>
         )}
@@ -53,7 +47,7 @@ export default function ParentLayout() {
             key={to}
             to={to}
             end={end}
-            onClick={() => setSidebarOpen(false)}
+            onClick={onClose}
             className={({ isActive }) =>
               `group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-heading font-semibold transition-all duration-150 ${
                 isActive
@@ -90,7 +84,7 @@ export default function ParentLayout() {
           </div>
         </div>
         <button
-          onClick={handleLogout}
+          onClick={onLogout}
           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-heading font-semibold text-slate-400 hover:text-white hover:bg-red-500/15 transition-all duration-150"
         >
           <LogOut className="w-4 h-4" />
@@ -99,21 +93,34 @@ export default function ParentLayout() {
       </div>
     </aside>
   )
+}
+
+export default function ParentLayout() {
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  function handleLogout() {
+    logout()
+    navigate('/login')
+  }
+
+  const close = () => setSidebarOpen(false)
 
   return (
     <div className="flex h-screen bg-slate-100 overflow-hidden">
 
       {/* Desktop sidebar */}
       <div className="hidden lg:flex flex-col shrink-0">
-        <Sidebar />
+        <Sidebar user={user} onClose={close} onLogout={handleLogout} />
       </div>
 
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div className="fixed inset-0 z-50 flex lg:hidden">
-          <div className="fixed inset-0 bg-black/60" onClick={() => setSidebarOpen(false)} />
+          <div className="fixed inset-0 bg-black/60" onClick={close} />
           <div className="relative z-10">
-            <Sidebar mobile />
+            <Sidebar mobile user={user} onClose={close} onLogout={handleLogout} />
           </div>
         </div>
       )}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BarChart3, Download, FileText, Users, CreditCard, CalendarDays, TrendingUp, CheckCircle } from 'lucide-react'
-import { mockStudents, mockPayments, mockTeachers, totalExpected, totalCollected, collectionPct, CURRENT_TERM } from './mockData'
+import { mockStudents, mockPayments, totalExpected, totalCollected, collectionPct, CURRENT_TERM } from './mockData'
 
 const REPORT_TYPES = [
   { id:'enrollment', icon:Users,       label:'Student Enrollment Report',  desc:'Total students by campus, class, section and type',            color:'text-mosai-blue',  bg:'bg-mosai-blue-light' },
