@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {
   Upload, FileSpreadsheet, CheckCircle2, AlertTriangle, XCircle, Download,
   Eye, RotateCcw, Info, ArrowRight, CalendarDays, MapPin, FolderOpen, FileDown,
-  ExternalLink, Printer,
+  ExternalLink, Printer, ChevronDownSquare, Copy, Check,
 } from 'lucide-react'
 import {
   getSheetLink, setSheetLink, isSheetLinkFixed, looksLikeSheetLink,
@@ -11,7 +11,7 @@ import {
 import { canonical, parseCsv } from '../lib/csv'
 import {
   SCHEMAS, validateSheet, toCleanCsv, templateCsv,
-  schemaScore, sheetNameScore, suggestColumn,
+  schemaScore, sheetNameScore, suggestColumn, dropdownColumns,
 } from '../lib/validateSheet'
 import { downloadTemplateXlsx, downloadCleanXlsx } from '../lib/templateFile'
 import {
@@ -390,6 +390,54 @@ export default function Admin() {
               ? 'Excel workbooks, with the heading row frozen and every date column fixed to the year, month, day order so it cannot be misread. Fill it in, save it, and bring it back here.'
               : 'Plain CSV, which both Excel and Google Sheets open directly. Choose Excel above if you would rather have a workbook with the columns already sized.'}
           </p>
+        </section>
+
+        {/* Dropdowns are set up in Google Sheets, not here, so this section can
+            only hand over the exact values and say where they go. Keeping the
+            lists on this page rather than in a document means they are read
+            from the same schema the checker judges an upload against, and so
+            cannot quietly fall out of step with it. */}
+        <section className="mt-6 rounded-2xl bg-white p-6 shadow-sm">
+          <h2 className="flex items-center gap-2 font-heading text-lg font-extrabold text-slate-800">
+            <ChevronDownSquare className="h-5 w-5 text-slate-400" /> Turn the fixed columns into dropdowns
+          </h2>
+          <p className="mt-2 max-w-2xl font-body text-sm leading-relaxed text-slate-500">
+            Some columns only ever hold one of a few values. Making those a dropdown in the sheet
+            means picking from a list instead of typing, which is the single best way to stop a
+            misspelt value quietly hiding a row from parents. This is set up once, in Google Sheets.
+          </p>
+
+          <ol className="mt-4 max-w-2xl list-decimal space-y-1.5 pl-5 font-body text-sm text-slate-600">
+            <li>Open the sheet and click the letter at the top of the column to select it.</li>
+            <li>Menu <strong>Data</strong>, then <strong>Data validation</strong>, then <strong>Add rule</strong>.</li>
+            <li>Set Criteria to <strong>Dropdown</strong> and paste the values below as the items.</li>
+            <li>Under Advanced options choose what happens to anything else, as noted per column.</li>
+            <li>Press <strong>Done</strong>. Existing rows keep whatever they already say.</li>
+          </ol>
+
+          {/* The letters come from the full template. A sheet that leaves out an
+              optional column shifts everything after it, and the live
+              announcements tab does exactly that, so campus sits at E there
+              rather than F. Better to say so than to have someone put a campus
+              rule on the link column and wonder why nothing is caught. */}
+          <p className="mt-3 max-w-2xl font-body text-xs text-slate-400">
+            These letters assume every column of the template is present. If your tab leaves an
+            optional column out, everything after it shifts one place left, so read the heading
+            in the sheet rather than trusting the letter.
+          </p>
+
+          <div className="mt-5 space-y-5">
+            {KINDS.map((k) => (
+              <div key={k}>
+                <p className="font-heading text-sm font-extrabold text-slate-800">{SCHEMAS[k].label}</p>
+                <div className="mt-2 space-y-2">
+                  {dropdownColumns(k).map((c) => (
+                    <DropdownValues key={c.key} column={c} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* What we actually found in the file. Shown before any verdict, because
@@ -862,6 +910,55 @@ function Stat({ label, value, tone }) {
     <div className={`rounded-2xl p-5 shadow-sm ${tones[tone]}`}>
       <p className="font-heading text-3xl font-extrabold">{value}</p>
       <p className="mt-0.5 font-body text-xs font-semibold uppercase tracking-wide opacity-70">{label}</p>
+    </div>
+  )
+}
+
+/* One column's dropdown values, with the letter to select and a copy button.
+ *
+ * The letter matters more than it looks: Google's Data validation dialog asks
+ * for a range, and counting columns across to work out that campus is I is
+ * exactly the step someone gets wrong at the end of a long afternoon. */
+function DropdownValues({ column }) {
+  const [copied, setCopied] = useState(false)
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(column.values.join('\n'))
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1600)
+    } catch { /* clipboard blocked; the values are on screen to type anyway */ }
+  }
+
+  return (
+    <div className="rounded-xl border border-slate-100 bg-slate-50 p-3">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="font-heading text-xs font-bold text-slate-700">
+          Column {column.letter}
+          <span className="ml-1.5 font-body font-normal text-slate-400">{column.key}</span>
+        </p>
+        <button
+          type="button"
+          onClick={copy}
+          className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 font-heading text-xs font-bold text-slate-600 shadow-sm transition-colors hover:text-slate-900"
+        >
+          {copied
+            ? <><Check className="h-3.5 w-3.5 text-green-600" /> Copied</>
+            : <><Copy className="h-3.5 w-3.5" /> Copy values</>}
+        </button>
+      </div>
+      <div className="mt-2 flex flex-wrap gap-1.5">
+        {column.values.map((v) => (
+          <span key={v} className="rounded-full bg-white px-2.5 py-1 font-body text-xs text-slate-600 shadow-sm">
+            {v}
+          </span>
+        ))}
+      </div>
+      <p className="mt-2 font-body text-xs text-slate-400">
+        {column.strict
+          ? 'Set "If the data is invalid" to Reject the input. Anything outside this list means the row never appears on the website.'
+          : 'Set "If the data is invalid" to Show a warning. Another value still works, it simply sorts after the ones listed here.'}
+      </p>
     </div>
   )
 }

@@ -9,10 +9,29 @@
  * It changes nothing. It only tells you what would happen.
  */
 
-import { parseDate, parseTime, startOfToday } from './schoolData.js'
+import { parseDate, parseTime, startOfToday, DOC_CATEGORY_ORDER } from './schoolData.js'
 import { canonical } from './csv.js'
 
 const CAMPUS_VALUES = ['', 'all', 'both', 'nalugala', 'bunono']
+
+/* Values worth offering as a dropdown in the sheet itself, so the office picks
+ * rather than types. Kept here beside the validator, not in the Admin page, so
+ * the list a person is told to paste into Google Sheets is the same list this
+ * file judges their file against.
+ *
+ * `strict` decides what the dropdown should do with anything else, and the two
+ * cases are genuinely different:
+ *
+ *   campus is closed. A value outside the list is not an unusual campus, it is
+ *   a row that will never appear on the website, so the dropdown should reject
+ *   it outright and the validator already calls it an error.
+ *
+ *   category and type are open. An unlisted one still works: it groups, it
+ *   sorts after the known ones and it picks up a fallback colour. The sheet
+ *   already carries a perfectly good "Transport" category that appears in no
+ *   list here. So the dropdown should warn rather than reject, and nothing in
+ *   this file treats an unlisted value as a problem. */
+const CAMPUS_CHOICES = { values: ['all', 'nalugala', 'bunono'], strict: true }
 
 /* Every page that exists on the site. A link beginning with a slash that is not
  * one of these sends a parent to the Page Not Found screen, which the office has
@@ -48,10 +67,11 @@ export const SCHEMAS = {
       { key: 'date',     aliases: ['date', 'published', 'when'],
         help: 'Leave blank for a standing notice. Free text such as Ongoing is also fine.' },
       { key: 'category', aliases: ['category', 'type'],
+        values: ['Academic Calendar', 'Admissions', 'Fees', 'Events', 'Languages', 'Sport', 'Transport', 'General'],
         help: 'Groups the notice and picks its colour. Defaults to General.' },
       { key: 'ticker',   aliases: ['ticker', 'tickertext'],
         help: 'A short version for the scrolling strip. The headline is used if blank.' },
-      { key: 'campus',   aliases: ['campus'],
+      { key: 'campus',   aliases: ['campus'], ...CAMPUS_CHOICES,
         help: 'nalugala, bunono, or blank for both.' },
       { key: 'pinned',   aliases: ['pinned', 'pin', 'featured'],
         help: 'yes to hold this at the top of the list.' },
@@ -104,8 +124,9 @@ export const SCHEMAS = {
       { key: 'location', aliases: ['location', 'venue', 'where'],
         help: 'Where it happens.' },
       { key: 'type',     aliases: ['type', 'category'],
+        values: ['Term', 'Holiday', 'Exam', 'Visitation', 'Sport', 'Meeting', 'Event'],
         help: 'Term, Holiday, Exam, Visitation, Sport, Meeting. Defaults to Event.' },
-      { key: 'campus',   aliases: ['campus'],
+      { key: 'campus',   aliases: ['campus'], ...CAMPUS_CHOICES,
         help: 'nalugala, bunono, or blank for both.' },
     ],
     examples: [
@@ -152,7 +173,10 @@ export const SCHEMAS = {
         help: 'Where the file lives. Use /admissions to point at a page on this site.' },
       { key: 'description', aliases: ['description', 'summary', 'details', 'about'],
         help: 'One line telling parents what is inside.' },
-      { key: 'category',    aliases: ['category', 'group', 'section'],
+      /* Straight from the ordering the Downloads page groups by, rather than a
+       * second copy of the same names. A dropdown listing a category the page
+       * does not know how to order would be a slow moving lie. */
+      { key: 'category',    aliases: ['category', 'group', 'section'], values: DOC_CATEGORY_ORDER,
         help: 'Admissions, Fees, Requirements, Uniform, Policies. Defaults to General.' },
       { key: 'filetype',    aliases: ['filetype', 'type', 'format'],
         help: 'PDF, DOCX. Worked out from the link if blank.' },
@@ -160,7 +184,7 @@ export const SCHEMAS = {
         help: 'Such as 180 KB, so nobody is surprised by a large download.' },
       { key: 'updated',     aliases: ['updated', 'date', 'lastupdated'],
         help: 'When the document was last revised.' },
-      { key: 'campus',      aliases: ['campus'],
+      { key: 'campus',      aliases: ['campus'], ...CAMPUS_CHOICES,
         help: 'nalugala, bunono, or blank for both.' },
     ],
     examples: [
@@ -261,6 +285,27 @@ export function sheetNameScore(sheetName, kind) {
   return SHEET_NAME_HINTS[kind].some(w => n.includes(w)) ? 6 : 0
 }
 
+/* Columns worth turning into a dropdown in the sheet, so the office picks a
+ * value instead of typing one. Returns the letter of the column as it sits in
+ * the sheet, because Google's Data validation dialog asks for a range like
+ * H2:H1000 and counting columns by hand is exactly where this goes wrong. */
+export function dropdownColumns(kind) {
+  const cols = SCHEMAS[kind].columns
+  return cols
+    .map((c, i) => ({ ...c, letter: columnLetter(i) }))
+    .filter(c => c.values)
+}
+
+/** 0 based column index to its spreadsheet letter. 0 is A, 26 is AA. */
+export function columnLetter(index) {
+  let n = index, out = ''
+  do {
+    out = String.fromCharCode(65 + (n % 26)) + out
+    n = Math.floor(n / 26) - 1
+  } while (n >= 0)
+  return out
+}
+
 /** True when a heading row matches every required column of a dataset. */
 export function hasAllRequired(headings, kind) {
   const set = new Set(headings.map(canonical).filter(Boolean))
@@ -338,6 +383,12 @@ export function validateSheet(headings, rows, kind) {
   // ── File level ─────────────────────────────────────────────────────────
   const present = presentColumns(headings, schema)
   const unknown = unknownColumns(headings, schema)
+
+  /* Counted across the whole file so the sharing reminder is given once.
+   * Nothing readable from here proves a file is shared, so a per row warning
+   * would fire on every single Drive link and teach the office to scroll past
+   * warnings, which is worse than not warning at all. */
+  let driveLinks = 0
 
   for (const col of schema.columns.filter(c => c.required)) {
     if (!present.includes(col)) {
@@ -442,9 +493,20 @@ export function validateSheet(headings, rows, kind) {
         const problem = internalRouteProblem(url)
         if (problem) push('error', n, 'url', problem)
       }
-      if (/^https?:\/\/(drive|docs)\.google\.com/.test(url) && !/\/uc\?|export=download/.test(url)) {
-        push('warning', n, 'url',
-          'This Google Drive link opens a preview rather than downloading, and only works if the file is shared with anyone who has the link.')
+      /* Drive links are rewritten into a direct download on the way in, by
+       * directDownloadUrl in schoolData.js, so the preview page problem no
+       * longer needs reporting and the office never has to learn a second URL
+       * format. Two things rewriting cannot fix are still worth saying. */
+      if (/^https?:\/\/(drive|docs)\.google\.com/.test(url)) {
+        driveLinks++
+        if (/\/(drive\/)?(u\/\d+\/)?folders\//.test(url)) {
+          push('warning', n, 'url',
+            'This links to a Drive folder rather than to one document, so parents land in a list of files and have to guess which one they came for. Link the file itself.')
+        }
+        if (!val('filetype')) {
+          push('warning', n, 'filetype',
+            'A Drive link does not say what sort of file it is, so this will show as FILE. Type PDF or DOCX here.')
+        }
       }
       const upd = val('updated')
       if (upd && !parseDate(upd)) {
@@ -455,6 +517,13 @@ export function validateSheet(headings, rows, kind) {
       }
     }
   })
+
+  if (driveLinks) {
+    push('warning', null, 'url',
+      `${driveLinks} ${driveLinks === 1 ? 'document is' : 'documents are'} kept in Google Drive. `
+      + 'Open each one in Drive, press Share, and set General access to Anyone with the link. '
+      + 'Without that, parents see a Request access screen instead of the document, and nothing on this page can detect it.')
+  }
 
   const counts = {
     errors:   issues.filter(i => i.level === 'error').length,
