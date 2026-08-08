@@ -153,13 +153,23 @@
 
 /* ── Custom cursor ───────────────────────────── */
 @media (pointer: fine) {
-  /* Hide the native cursor everywhere — the custom dot + ring replaces it.
+  /* Hide the native cursor only while the replacement is actually mounted.
+
+     CustomCursor puts .mosai-cursor-active on <html> itself and takes it off
+     when it unmounts, so this rule cannot outlive the dot and ring it exists to
+     make room for. It used to apply unconditionally, which left /admin with no
+     pointer at all: the staff tool deliberately renders no visitor decoration,
+     so nothing drew a cursor while the native one stayed hidden.
+
      Text fields keep the native I-beam (the custom cursor hides itself there). */
-  *, *::before, *::after {
+  .mosai-cursor-active,
+  .mosai-cursor-active *,
+  .mosai-cursor-active *::before,
+  .mosai-cursor-active *::after {
     cursor: none !important;
   }
-  input:not([type="submit"]):not([type="button"]):not([type="reset"]),
-  textarea {
+  .mosai-cursor-active input:not([type="submit"]):not([type="button"]):not([type="reset"]),
+  .mosai-cursor-active textarea {
     cursor: text !important;
   }
 }
