@@ -12,33 +12,64 @@
  *
  * Putting them here means every deploy target works with no configuration.
  *
- * The sheets themselves must be shared as "anyone with the link, Viewer".
- * Publishing to the web is not required; the export endpoint below already
- * allows the site to read a link shared sheet.
+ * ── One workbook, one tab per dataset ────────────────────────────────────
+ * All three datasets live as tabs inside a single spreadsheet rather than in
+ * three separate files. The office then has one link to bookmark, one file to
+ * find and one sharing setting to get right, which matters a great deal for
+ * people who do not work in spreadsheets all day. Google exports any single tab
+ * as CSV through the same export endpoint, given that tab's gid.
+ *
+ * The workbook must be shared as "anyone with the link, Viewer". Publishing to
+ * the web is not required; the export endpoint already allows the site to read
+ * a link shared sheet, and returns Access-Control-Allow-Origin: *.
+ *
+ * ── Finding a tab's gid ──────────────────────────────────────────────────
+ * Open the tab in Google Sheets and read it off the address bar, after #gid=.
+ *
+ * Do not assume the first tab is gid=0. Google keeps a tab's original id when
+ * it is renamed or recreated, so gid 0 frequently does not exist at all: on
+ * this workbook it returns a 400. Always copy the real value.
  *
  * An environment variable of the same name still wins if one is set, which
  * leaves room for a staging sheet without editing this file.
  */
 
-const sheet = (id) => `https://docs.google.com/spreadsheets/d/${id}/export?format=csv`
-const edit  = (id) => `https://docs.google.com/spreadsheets/d/${id}/edit`
+const csv  = (id, gid) => `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`
+const edit = (id, gid) => `https://docs.google.com/spreadsheets/d/${id}/edit#gid=${gid}`
 
-const IDS = {
-  announcements: '1gf8wsrDXxi3SiiBUbDWeLwT0Q0YtPHFDV6GPrvQA0rw',
-  events:        '',      // not created yet; the Calendar page shows its empty state
-  documents:     '',      // not created yet; the Downloads page shows its empty state
+/* The school's content workbook. Every dataset below is a tab inside it.
+ *
+ * Re-pointed twice on 19 Aug 2026: first when the workbook was downloaded,
+ * corrected offline and uploaded again, then when that upload was converted
+ * from a stored .xlsx into a real Google Sheet.
+ *
+ * The two moves are not alike, and the difference is worth writing down.
+ * Uploading does not edit the old file, it creates a new one, so the id AND all
+ * three gids changed together. Converting an uploaded .xlsx with Save as Google
+ * Sheets changed the id but KEPT every gid, because the tabs came across whole.
+ * Neither is safe to assume: re-read the gids after any move rather than
+ * carrying them across on the strength of one that happened to survive. */
+const WORKBOOK = '1K2UzMR-5J6fN5Qmcf0d6evFpDERM8HpRKMmPqSfZRaI'
+
+/* A dataset needs BOTH an id and a gid before it counts as configured.
+ *
+ * Requiring the gid is a safety rule, not bookkeeping. Omitting it from the
+ * export URL does not fail: Google quietly serves the workbook's first tab
+ * instead. A half filled entry here would therefore put announcements on the
+ * Calendar page rather than showing the empty state, and it would look
+ * plausible enough that nobody would question it. Missing gid means off. */
+const TABS = {
+  announcements: { id: WORKBOOK, gid: '1837718417' },
+  events:        { id: WORKBOOK, gid: '1040802008' },
+  documents:     { id: WORKBOOK, gid: '1856482' },
 }
+
+const build = (fn) => Object.fromEntries(
+  Object.entries(TABS).map(([name, { id, gid }]) => [name, id && gid ? fn(id, gid) : '']),
+)
 
 /** CSV address the site reads content from. */
-export const SHEET_URLS = {
-  announcements: IDS.announcements ? sheet(IDS.announcements) : '',
-  events:        IDS.events        ? sheet(IDS.events)        : '',
-  documents:     IDS.documents     ? sheet(IDS.documents)     : '',
-}
+export const SHEET_URLS = build(csv)
 
 /** Normal editing address, used for the Open the sheet button on /admin. */
-export const SHEET_EDIT_URLS = {
-  announcements: IDS.announcements ? edit(IDS.announcements) : '',
-  events:        IDS.events        ? edit(IDS.events)        : '',
-  documents:     IDS.documents     ? edit(IDS.documents)     : '',
-}
+export const SHEET_EDIT_URLS = build(edit)

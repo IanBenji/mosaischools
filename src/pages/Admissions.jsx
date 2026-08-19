@@ -5,9 +5,14 @@ import {
   BookOpen, Users, Baby, CreditCard, ShieldAlert,
   Shirt, GraduationCap, Home,
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { useCampus } from '../context/CampusContext'
 import { CAMPUSES } from '../lib/campus'
+import useSheetData from '../hooks/useSheetData'
+import { formDocuments } from '../lib/schoolData'
+import { trackEvent } from '../lib/analytics'
 import PageHeader from '../components/PageHeader'
+import { LoadingRows, EmptyState, StaleNotice } from '../components/DataState'
 import AdmissionsBunono from './AdmissionsBunono'
 import SimpleCaptcha from '../components/SimpleCaptcha'
 import { feeRange } from '../lib/fees'
@@ -93,12 +98,16 @@ const steps = [
   { n: '05', title: 'Pay and Enroll',     desc: 'Confirm your place by paying the registration fee and receive the welcome pack.',         color: 'bg-mosai-blue'     },
 ]
 
-const downloads = [
-  { title: 'Application Form',        desc: 'Standard form for all classes',      size: 'PDF · 2 pages', icon: FileText },
-  { title: 'Fee Schedule 2025/2026',  desc: 'Full fee breakdown and dates',        size: 'PDF · 1 page',  icon: FileText },
-  { title: 'Medical Declaration',     desc: 'Health form required at enrolment',   size: 'PDF · 1 page',  icon: Heart    },
-  { title: 'Transport Request',       desc: 'Request bus service for your child',  size: 'PDF · 1 page',  icon: FileText },
-]
+/* The four cards under "Downloadable Forms" used to be written out here, with
+ * href="#" on every one, so nothing was ever downloaded. They now come from the
+ * Forms category of the school's documents sheet, which means the office adds a
+ * form the same way it posts a notice and no developer is involved.
+ *
+ * A sheet cannot carry an icon, so one is chosen from the file type instead. */
+const ICON_FOR_TYPE = { PDF: FileText, DOC: FileText, DOCX: FileText, LINK: ArrowRight, PAGE: ArrowRight }
+
+// File types the browser opens rather than saves, so we do not force a download.
+const VIEWABLE = ['LINK', 'PAGE']
 
 
 /* â”€â”€â”€ Application form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -343,6 +352,8 @@ function AdmissionsNalugala() {
   const isBunono = campus === 'bunono'
   const p        = campusInfo.profile
   const tel      = campusInfo.phone.replace(/\s+/g, '')
+  const documents = useSheetData('documents')
+  const forms     = formDocuments(documents.rows, campus)
 
   return (
     <main className="bg-white">
@@ -757,32 +768,62 @@ function AdmissionsNalugala() {
             <p className="font-body text-sm text-gray-400">Print, complete and bring to the office</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {downloads.map((doc, i) => {
-              const Icon = doc.icon
-              return (
-                <a
-                  key={i}
-                  href="#"
-                  className="group flex flex-col gap-4 bg-gray-50 hover:bg-white border border-gray-100 hover:border-mosai-blue hover:shadow-lg rounded-2xl p-6 transition-all duration-200"
-                >
-                  <div className="w-11 h-11 bg-mosai-blue-light group-hover:bg-mosai-blue rounded-xl flex items-center justify-center transition-colors duration-200">
-                    <Icon className="w-5 h-5 text-mosai-blue group-hover:text-white transition-colors duration-200" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-heading font-bold text-sm text-mosai-blue-dark mb-1">{doc.title}</h3>
-                    <p className="font-body text-xs text-gray-400 leading-relaxed">{doc.desc}</p>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-body text-xs text-gray-300">{doc.size}</span>
-                    <span className="inline-flex items-center gap-1 font-body text-xs font-semibold text-mosai-blue">
-                      <Download className="w-3.5 h-3.5" /> Download
-                    </span>
-                  </div>
-                </a>
-              )
-            })}
-          </div>
+          {documents.loading ? (
+            <LoadingRows count={4} />
+          ) : forms.length === 0 ? (
+            <EmptyState icon={FileText} title="Forms are being prepared">
+              <p>
+                We are putting our application forms online. Nothing is available to download here
+                just yet, but the form above sends everything the office needs.
+              </p>
+              <p className="mt-3">
+                To collect a printed copy, call{' '}
+                <a href={`tel:${tel}`} className="font-semibold text-mosai-blue hover:underline">{campusInfo.phone}</a>{' '}
+                or come by the office during working hours.
+              </p>
+            </EmptyState>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {forms.map((doc) => {
+                const Icon = ICON_FOR_TYPE[doc.fileType] || FileText
+                const opensInBrowser = VIEWABLE.includes(doc.fileType)
+                const isInternal = doc.url?.startsWith('/')
+                const Wrapper = isInternal ? Link : 'a'
+                const linkProps = isInternal
+                  ? { to: doc.url }
+                  : { href: doc.url, target: '_blank', rel: 'noreferrer', download: opensInBrowser ? undefined : '' }
+
+                return (
+                  <Wrapper
+                    key={doc.id}
+                    {...linkProps}
+                    onClick={() => trackEvent('document_open', { title: doc.title, campus })}
+                    className="group flex flex-col gap-4 bg-gray-50 hover:bg-white border border-gray-100 hover:border-mosai-blue hover:shadow-lg rounded-2xl p-6 transition-all duration-200"
+                  >
+                    <div className="w-11 h-11 bg-mosai-blue-light group-hover:bg-mosai-blue rounded-xl flex items-center justify-center transition-colors duration-200">
+                      <Icon className="w-5 h-5 text-mosai-blue group-hover:text-white transition-colors duration-200" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-heading font-bold text-sm text-mosai-blue-dark mb-1">{doc.title}</h3>
+                      {doc.summary && (
+                        <p className="font-body text-xs text-gray-400 leading-relaxed">{doc.summary}</p>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-body text-xs text-gray-300">
+                        {[doc.fileType, doc.size].filter(Boolean).join(' · ')}
+                      </span>
+                      <span className="inline-flex items-center gap-1 font-body text-xs font-semibold text-mosai-blue">
+                        <Download className="w-3.5 h-3.5" /> {opensInBrowser ? 'Open' : 'Download'}
+                      </span>
+                    </div>
+                  </Wrapper>
+                )
+              })}
+            </div>
+          )}
+
+          {documents.error && <StaleNotice />}
         </div>
       </section>
 

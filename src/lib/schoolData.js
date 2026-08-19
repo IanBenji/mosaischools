@@ -156,9 +156,53 @@ function normaliseEvent(row, i) {
   }
 }
 
+/* Google Drive share links point at a preview page, not at the file.
+ *
+ * A spreadsheet cannot hold a PDF, so the documents sheet only carries a link
+ * and the file itself lives in the school's Drive. What the office copies out of
+ * Drive's Share dialog is .../file/d/<id>/view?usp=sharing, which opens Google's
+ * own viewer: Google chrome around the page, a sign in prompt on some phones,
+ * and no obvious way to keep the file. Rewriting it to the direct address means
+ * "Save it to your phone" on the Downloads page actually saves something.
+ *
+ * This runs on the way in, so the sheet keeps the link the office pasted and
+ * nobody has to learn a second URL format. Anything that is not a Drive address
+ * is returned exactly as given, including the /admissions style internal links.
+ *
+ * Note the file still has to be shared as "anyone with the link". No amount of
+ * URL rewriting substitutes for that, which is why the validator says so. */
+export function directDownloadUrl(raw) {
+  const url = String(raw || '').trim()
+  if (!/^https?:\/\/(drive|docs)\.google\.com\//i.test(url)) return url
+
+  // A folder is a place rather than a file, so there is nothing to download.
+  if (/\/(drive\/)?(u\/\d+\/)?folders\//i.test(url)) return url
+
+  /* Docs, Sheets and Slides are not stored files at all; Google renders them on
+   * demand. They have no download address, but they do export to PDF, which is
+   * what a parent wanted from a "form" anyway. */
+  const native = url.match(/\/(document|spreadsheets|presentation)\/d\/([\w-]+)/i)
+  if (native) return `https://docs.google.com/${native[1]}/d/${native[2]}/export?format=pdf`
+
+  // Already a direct link. Leave it be.
+  if (/\/uc\?|[?&]export=download/i.test(url)) return url
+
+  const id = url.match(/\/file\/d\/([\w-]+)/i)?.[1] || queryParam(url, 'id')
+  return id ? `https://drive.google.com/uc?export=download&id=${id}` : url
+}
+
+/** One query parameter, without letting a malformed URL throw. */
+function queryParam(url, key) {
+  try {
+    return new URL(url).searchParams.get(key)
+  } catch {
+    return null
+  }
+}
+
 /* Documents — the PDFs and forms parents currently phone the office for. */
 function normaliseDocument(row, i) {
-  const url = pick(row, 'url', 'link', 'file', 'href')
+  const url = directDownloadUrl(pick(row, 'url', 'link', 'file', 'href'))
   return {
     id:        `d${i}`,
     title:     pick(row, 'title', 'name', 'document'),
@@ -173,9 +217,21 @@ function normaliseDocument(row, i) {
 }
 
 function guessFileType(url) {
-  const m = String(url || '').split('?')[0].match(/\.([a-z0-9]{2,4})$/i)
+  const s = String(url || '')
+  const m = s.split('?')[0].match(/\.([a-z0-9]{2,4})$/i)
   if (m) return m[1]
-  return /^https?:/i.test(url || '') ? 'link' : 'page'
+
+  /* A Drive address carries no extension, so the guess has to come from the
+   * shape of the link. Getting this wrong is not cosmetic: the Downloads page
+   * treats "link" as something that opens in the browser, so a real form would
+   * lose its download behaviour and its badge would read LINK. A Google export
+   * states its format outright; anything else on Drive is at least known to be
+   * a file, even if we cannot tell which kind. */
+  const exported = s.match(/[?&]format=([a-z0-9]{2,4})/i)
+  if (exported) return exported[1]
+  if (/^https?:\/\/(drive|docs)\.google\.com\//i.test(s)) return 'file'
+
+  return /^https?:/i.test(s) ? 'link' : 'page'
 }
 
 /* Every dataset the school can maintain. `url` is read at module load; a blank
@@ -358,7 +414,7 @@ export function eventWhen(event) {
 
 /* Category order for the Downloads page — the sequence a parent actually needs
  * things in, rather than alphabetical. Anything unlisted follows, A–Z. */
-const DOC_CATEGORY_ORDER = [
+export const DOC_CATEGORY_ORDER = [
   'Admissions', 'Fees', 'Requirements', 'Uniform', 'Academics',
   'Calendar', 'Forms', 'Policies', 'Newsletters', 'General',
 ]
@@ -378,4 +434,19 @@ export function groupDocuments(rows, campus) {
   return [...groups.entries()]
     .map(([category, docs]) => ({ category, docs }))
     .sort((a, b) => rank(a.category) - rank(b.category) || a.category.localeCompare(b.category))
+}
+
+/* Documents for the "Downloadable Forms" block on the Admissions page.
+ *
+ * Which documents land there is decided by category rather than by a column of
+ * its own. That is one rule for the office to remember, and it is the same word
+ * that heads the section on the page, so there is nothing to look up: file it
+ * under Forms and it appears. The test is loose so "Forms", "Admission Forms"
+ * and "Application Forms" all count.
+ *
+ * Nothing is hidden by this. Every document still lists on the Downloads page
+ * whatever its category; this only decides what is repeated on Admissions,
+ * where a parent already reading about applying is most likely to want it. */
+export function formDocuments(rows, campus) {
+  return forCampus(rows, campus).filter(d => /form/i.test(d.category || ''))
 }
