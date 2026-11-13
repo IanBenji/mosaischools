@@ -28,6 +28,36 @@ import imgGames6  from '../assets/TON_8786.webp'
 // â”€â”€ Nursery programs data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const nurseryPrograms = [
   {
+    icon: Sprout,
+    id: 'toddler-class',
+    name: 'Toddler Class (Day Care)',
+    age: 'Ages 1 to 2',
+    image: imgGames1,
+    imageAlt: 'Young Mosai nursery learners dressed up on stage at a school celebration',
+    accent: 'blue',
+    time: '7:30 AM to 5:00 PM',
+    tagline: 'Safe, loving day care for our very youngest',
+    description:
+      'Toddler Class is day care with a purpose. In a bright, safe room with attentive carers, our youngest children follow a calm daily rhythm of play, songs, stories, meals and naps. Parents can drop off early and collect late, and every day ends with a short note on how their child ate, slept and played.',
+    activities: [
+      'Free play with blocks, soft toys and push along toys',
+      'Nursery rhymes, action songs and simple dances',
+      'Picture books and short stories',
+      'Water, sand and sensory play',
+      'Outdoor play on the playground',
+      'Toilet training and simple self care routines',
+    ],
+    subjects: ['Play & Discovery', 'Songs & Rhymes', 'First Words', 'Sensory Play', 'Self Care', 'Rest & Meals'],
+    outcomes: [
+      'Settles happily away from home',
+      'Begins to use first words and simple sentences',
+      'Builds early motor skills: walking, climbing, holding',
+      'Learns to share, take turns and follow a routine',
+    ],
+    dayFee: FEES.toddler.day,
+    boardFee: FEES.toddler.boarding,
+  },
+  {
     icon: Baby,
     name: 'Baby Class',
     age: 'Ages 2 to 3',
@@ -37,7 +67,7 @@ const nurseryPrograms = [
     time: '7:30 AM to 2:00 PM',
     tagline: 'A warm, gentle introduction to school life',
     description:
-      'Baby Class is where the adventure begins. In a calm, homely setting, our youngest learners explore through sensory play, music, storytelling and creative art. Every activity is designed to build confidence, language and motor skills at each child\'s own pace.',
+      'Baby Class is where school proper begins. In a calm, homely setting, our young learners explore through sensory play, music, storytelling and creative art. Every activity is designed to build confidence, language and motor skills at each child\'s own pace.',
     activities: [
       'Animal walks such as bear crawls, frog hops and crab walks',
       'Target games, tossing bean bags into buckets',
@@ -233,7 +263,7 @@ function ProgramsNalugala() {
       <nav className="bg-mosai-blue-dark sticky top-16 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-1 overflow-x-auto py-3">
-            {['Baby Class', 'Middle Class', 'Top Class', 'Primary', 'Activities', 'Games'].map((label, i) => (
+            {['Toddler Class', 'Baby Class', 'Middle Class', 'Top Class', 'Primary', 'Activities', 'Games'].map((label, i) => (
               <a
                 key={i}
                 href={`#${label.toLowerCase().replace(' ', '-')}`}
@@ -290,7 +320,7 @@ function ProgramsNalugala() {
       {/* â”€â”€ 3. Nursery Programs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <div className="py-4 bg-mist text-center">
         <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">Nursery Section</span>
-        <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-1">Baby Class to Top Class</h2>
+        <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-1">Toddler Class to Top Class</h2>
       </div>
 
       {nurseryPrograms.map((prog, i) => {
@@ -301,7 +331,7 @@ function ProgramsNalugala() {
         return (
           <section
             key={i}
-            id={prog.name.toLowerCase().replace(' ', '-')}
+            id={prog.id || prog.name.toLowerCase().replace(' ', '-')}
             className={`py-20 ${isEven ? 'bg-mist' : 'bg-mist-deep'}`}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -337,8 +367,17 @@ function ProgramsNalugala() {
                     </div>
                     <div className="text-center border-l border-gray-100">
                       <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-1">Boarding</p>
-                      <p className="font-heading font-extrabold text-lg text-mosai-red">UGX {feeRange(prog.boardFee)}</p>
-                      <p className="font-body text-xs text-gray-400">per term</p>
+                      {prog.boardFee ? (
+                        <>
+                          <p className="font-heading font-extrabold text-lg text-mosai-red">UGX {feeRange(prog.boardFee)}</p>
+                          <p className="font-body text-xs text-gray-400">per term</p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="font-heading font-extrabold text-lg text-mosai-red">Not offered</p>
+                          <p className="font-body text-xs text-gray-400">day care only</p>
+                        </>
+                      )}
                     </div>
                     <div className="col-span-2 flex items-center gap-2 justify-center pt-1 border-t border-gray-100">
                       <CreditCard className="w-3.5 h-3.5 text-mosai-blue" />

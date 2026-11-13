@@ -90,7 +90,7 @@ export const SCHEMAS = {
       },
       {
         title: 'Admissions open for the 2027 intake',
-        body: 'We are accepting applications for Baby Class, Middle Class, Top Class and Primary. Places are limited, so visit either campus or contact the office to begin.',
+        body: 'We are accepting applications from Toddler Class (day care) through to Primary Five. Places are limited, so visit either campus or contact the office to begin.',
         date: '', category: 'Admissions',
         ticker: 'Admissions open for 2027. Places are limited',
         campus: 'all', pinned: 'yes', expires: '', link: '/admissions',

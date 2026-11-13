@@ -36,7 +36,7 @@ export default function Messages() {
       <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 flex items-start gap-2">
         <AlertCircle className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
         <p className="font-body text-xs text-amber-700 leading-relaxed">
-          For urgent matters please call the school directly on <a href="tel:+256700123456" className="font-semibold underline">+256 700 123 456</a>. Office hours: Monday – Friday, 8:00 AM – 4:00 PM.
+          For urgent matters please call the school directly on <a href="tel:0745431412" className="font-semibold underline">0745431412</a> or <a href="tel:0783926840" className="font-semibold underline">0783926840</a>. Office hours: Monday – Friday, 8:00 AM – 4:00 PM.
         </p>
       </div>
 

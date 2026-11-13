@@ -201,8 +201,8 @@ export default function Login() {
           <p className="text-center font-body text-sm text-gray-400 mt-6">
             Accounts are created by the school administration.<br />
             Contact us at{' '}
-            <a href="mailto:info@mosaischools.ug" className="text-mosai-blue hover:underline">
-              info@mosaischools.ug
+            <a href="mailto:mosaischools@gmail.com" className="text-mosai-blue hover:underline">
+              mosaischools@gmail.com
             </a>
           </p>
         </div>

@@ -187,7 +187,7 @@ export default function ManageStudents() {
                       className="w-full font-body text-sm px-3 py-2.5 border border-zinc-200 rounded-xl bg-zinc-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-mosai-blue/20 focus:border-mosai-blue" />
                   </div>
                 ))}
-                {[['Gender','gender',['M','F']],['Class','class',['Baby Class','Middle Class','Top Class','P.1','P.2','P.3']],['Section','section',['Nursery','Primary']],['Campus','campus',['Nalugala Campus','Bunono Campus']],['Type','type',['Day Scholar','Boarding']]].map(([lbl,name,opts]) => (
+                {[['Gender','gender',['M','F']],['Class','class',['Toddler Class','Baby Class','Middle Class','Top Class','P.1','P.2','P.3','P.4','P.5']],['Section','section',['Nursery','Primary']],['Campus','campus',['Nalugala Campus','Bunono Campus']],['Type','type',['Day Scholar','Boarding']]].map(([lbl,name,opts]) => (
                   <div key={name}>
                     <label className="block font-body text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-1">{lbl}</label>
                     <select value={form[name] ?? ''} onChange={e => setForm(f=>({...f,[name]:e.target.value}))}

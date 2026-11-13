@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import {
-  Baby, BookOpen, Star, GraduationCap, Clock,
+  Baby, BookOpen, Star, GraduationCap, Clock, Heart,
   Dumbbell, Palette, FlaskConical, Utensils, ArrowRight,
 } from 'lucide-react'
 import { useCampus } from '../context/CampusContext'
@@ -31,7 +31,8 @@ export default function ProgramsBunono() {
   const p = campusInfo.profile
 
   const classes = [
-    { icon: Baby,          name: 'Baby Class',   age: 'Ages 2 to 3', time: '7:30 to 2:00', color: '#FF8A6B', note: 'Gentle first steps into school through play, songs and stories.' },
+    { icon: Heart,         name: 'Toddler Class', age: 'Ages 1 to 2', time: '7:30 to 5:00', color: '#9B7EDE', note: 'Loving day care with play, songs, meals and naps, for children from their first birthday.' },
+    { icon: Baby,         name: 'Baby Class',   age: 'Ages 2 to 3', time: '7:30 to 2:00', color: '#FF8A6B', note: 'Gentle first steps into school through play, songs and stories.' },
     { icon: BookOpen,      name: 'Middle Class', age: 'Ages 3 to 4', time: '7:30 to 2:30', color: '#FFC93C', note: 'Curiosity blooms with early phonics, numbers and lots of discovery.' },
     { icon: Star,          name: 'Top Class',    age: 'Ages 5 to 6', time: '7:30 to 3:00', color: '#5FBB6E', note: 'Reading, writing and confidence, fully ready for Primary 1.' },
     { icon: GraduationCap, name: 'Primary',      age: p.primaryRange, time: 'Full day',  color: '#6EC6F2', note: 'A joyful, rigorous primary journey, adding a class every year to P.7.' },

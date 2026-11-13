@@ -102,8 +102,8 @@ export default function Payments() {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {[
-                { section: 'Nursery (Baby, Middle, Top Class)', day: 500000, board: 700000 },
-                { section: 'Primary (P.1 – P.4)',               day: 500000, board: 700000 },
+                { section: 'Nursery (Toddler, Baby, Middle, Top Class)', day: 500000, board: 700000 },
+                { section: 'Primary (P.1 – P.5)',               day: 500000, board: 700000 },
               ].map(row => (
                 <tr key={row.section} className={row.section.includes(mockChild.section.split(' ')[0]) ? 'bg-mosai-blue-light' : ''}>
                   <td className="py-3 font-body text-sm text-slate-700 pr-4">{row.section}</td>

@@ -1,7 +1,7 @@
 // ── Comprehensive mock data — both campuses ──────────────────────
 
 export const CAMPUSES  = ['Nalugala Campus', 'Bunono Campus']
-export const CLASSES   = ['Baby Class', 'Middle Class', 'Top Class', 'P.1', 'P.2', 'P.3']
+export const CLASSES   = ['Toddler Class', 'Baby Class', 'Middle Class', 'Top Class', 'P.1', 'P.2', 'P.3', 'P.4', 'P.5']
 export const SECTIONS  = ['Nursery', 'Primary']
 export const TYPES     = ['Day Scholar', 'Boarding']
 

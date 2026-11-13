@@ -125,7 +125,7 @@ export default function About() {
     ? [
         { value: '2026',         label: 'Opened February'    },
         { value: '100 Learners', label: 'And growing'        },
-        { value: 'Baby to P.4',  label: 'Growing to P.7'     },
+        { value: 'Toddler to P.5', label: 'Growing to P.7'   },
         { value: 'Day & Board',  label: 'Boys and Girls'     },
       ]
     : [
@@ -295,7 +295,7 @@ export default function About() {
                   Mosai Schools was founded in <strong className="text-mosai-blue-dark">January 2025</strong> with the opening of our Nalugala Campus along Garuga Road in Katabi, Wakiso District. Licensed by the <strong className="text-mosai-blue-dark">Ministry of Education and Sports, Uganda</strong>, we set out with a clear mission: to create a model centre of excellence where every child discovers and develops their unique potential.
                 </p>
                 <p>
-                  We started with Baby Class through to Primary 3 and we grow intentionally, adding one class each year until we reach P.7; Primary 4 is now offered at Nalugala. In <strong className="text-mosai-blue-dark">2026</strong> we opened our second campus at Bunono, also in Katabi, bringing our vision of joyful, rigorous education to even more families along the Entebbe corridor.
+                  We started with Baby Class through to Primary 3 and we grow intentionally, adding one class each year until we reach P.7. Today both campuses run from a Toddler Class (day care) through to Primary 5. In <strong className="text-mosai-blue-dark">2026</strong> we opened our second campus at Bunono, also in Katabi, bringing our vision of joyful, rigorous education to even more families along the Entebbe corridor.
                 </p>
                 <p>
                   Our teaching is built on Uganda's national curriculum and enriched with inquiry based IB concepts and the thematic International Primary Curriculum, taught in <strong className="text-mosai-blue-dark">four languages</strong>: English, Swahili, French and Chinese, ensuring our learners are prepared not just for Uganda, but for the world.

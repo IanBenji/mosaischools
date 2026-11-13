@@ -23,7 +23,7 @@ export default function ContactBunono() {
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(campusInfo.mapQuery)}&t=&z=14&ie=UTF8&iwloc=&output=embed`
 
   const bubbles = [
-    { icon: Phone,         label: 'Head Mistress', value: campusInfo.phone,    href: `tel:${tel}`,                 color: '#FF8A6B' },
+    { icon: Phone,         label: 'School office', value: [campusInfo.phone, campusInfo.altPhone].filter(Boolean).join(' / '), href: `tel:${tel}`, color: '#FF8A6B' },
     { icon: MessageCircle, label: 'WhatsApp',     value: 'Chat with us',      href: `https://wa.me/${wa}`,        color: '#5FBB6E' },
     { icon: Mail,          label: 'Email',        value: campusInfo.email,    href: `mailto:${campusInfo.email}`, color: '#6EC6F2' },
     { icon: MapPin,        label: 'Visit',        value: p.area,              href: null,                         color: '#FFC93C' },

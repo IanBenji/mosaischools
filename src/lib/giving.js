@@ -49,7 +49,7 @@ export const SCHOLARSHIPS = {
     {
       icon: 'CalendarCheck',
       title: 'Correct age and class',
-      text: 'The child must be of the right age for an available class, from Baby Class through the primary classes offered at the chosen campus.',
+      text: 'The child must be of the right age for an available class, from Toddler Class (day care) through the primary classes offered at the chosen campus.',
     },
     {
       icon: 'Handshake',

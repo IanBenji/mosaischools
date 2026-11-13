@@ -36,16 +36,16 @@ export const CAMPUSES = {
     district: 'Katabi, Wakiso District',
     accent: 'blue',
     overlayRgb: '21, 55, 100',          // mosai-blue-dark, for hero wash
-    phone: '0759889401',                // Head Mistress, the official school line (shared by both campuses)
-    altPhone: '+256 783 926 840',
-    whatsapp: '+256 759 742 146',
+    phone: '0745431412',                // official school line (shared by both campuses)
+    altPhone: '0783926840',
+    whatsapp: '+256 745 431 412',   // same line as phone, in international form for wa.me
     email: 'mosaischools@gmail.com',
     hero: {
       eyebrow: 'Flagship Campus · Garuga Road',
       headline: 'Where Every',
       accentWord: 'Child Shines.',
       tagline:
-        'Our flagship home along scenic Garuga Road, with modern classrooms, a swimming pool and boarding facilities, nurturing critical thinkers from Baby Class through to Primary.',
+        'Our flagship home along scenic Garuga Road, with modern classrooms, a swimming pool and boarding facilities, nurturing critical thinkers from Toddler Class (Day Care) through to Primary Five.',
       backgrounds: [nalBg1, nalBg2, nalBg3],
       // Full-width homepage slideshow, in order. `pos` is the CSS object-position.
       slides: [
@@ -69,10 +69,10 @@ export const CAMPUSES = {
       opened:      'January 2025',
       openedShort: '2025',
       enrolment:   null,
-      classes:     'Baby Class to Primary Four (P.4)',
-      classesShort:'Baby Class to P.4',
-      primaryRange:'P.1, P.2, P.3 & P.4',
-      primaryTop:  4,                    // highest Primary class currently offered
+      classes:     'Toddler Class (Day Care) to Primary Five (P.5)',
+      classesShort:'Toddler to P.5',
+      primaryRange:'P.1 to P.5',
+      primaryTop:  5,                    // highest Primary class currently offered
       growth:      'Adding one class each year until Primary Seven (P.7)',
       address:     'Garuga Road, off the Kampala to Entebbe Road',
       area:        'Nalugala, Katabi Town Council, Wakiso District',
@@ -99,16 +99,16 @@ export const CAMPUSES = {
     district: 'Katabi Town Council, Wakiso District',
     accent: 'red',
     overlayRgb: '135, 20, 20',          // mosai-red-dark, for hero wash
-    phone: '0759889401',
-    altPhone: '+256 783 926 840',
-    whatsapp: '+256 759 742 146',
+    phone: '0745431412',
+    altPhone: '0783926840',
+    whatsapp: '+256 745 431 412',   // same line as phone, in international form for wa.me
     email: 'mosaischools@gmail.com',
     hero: {
       eyebrow: 'New Campus · Opened February 2026',
       headline: 'A New Home',
       accentWord: 'To Shine.',
       tagline:
-        'Opened February 2026 in Bunono Village, Katabi, offering quality, affordable and holistic education in a safe, caring and learner friendly environment, from Baby Class through Primary.',
+        'Opened February 2026 in Bunono Village, Katabi, offering quality, affordable and holistic education in a safe, caring and learner friendly environment, from Toddler Class (Day Care) through Primary Five.',
       backgrounds: [bunBg1, bunBg2, bunBg3],
       slides: [
         { img: BUN.exercise.img, cap: 'Morning exercise',            pos: 'center 35%', alt: BUN.exercise.alt },
@@ -131,10 +131,10 @@ export const CAMPUSES = {
       opened:      '10 February 2026',
       openedShort: '2026',
       enrolment:   '100 learners',
-      classes:     'Baby Class to Primary Four (P.4)',
-      classesShort:'Baby Class to P.4',
-      primaryRange:'P.1, P.2, P.3 & P.4',
-      primaryTop:  4,
+      classes:     'Toddler Class (Day Care) to Primary Five (P.5)',
+      classesShort:'Toddler to P.5',
+      primaryRange:'P.1 to P.5',
+      primaryTop:  5,
       growth:      'Introducing one additional class each year until Primary Seven (P.7)',
       address:     'Bunono Village, Kabaale Ward, Katabi Town Council',
       area:        'Katabi, Wakiso District',

@@ -17,6 +17,7 @@ import AdmissionsBunono from './AdmissionsBunono'
 import SimpleCaptcha from '../components/SimpleCaptcha'
 import { feeRange, FEES } from '../lib/fees'
 import headerImg  from '../assets/IMG_8754.webp'
+import photoT     from '../assets/TON_8742.webp'
 import photoA     from '../assets/TON_8855.webp'
 import photoB     from '../assets/IMG_8791.webp'
 import photoC     from '../assets/IMG_8682.webp'
@@ -24,6 +25,27 @@ import photoC     from '../assets/IMG_8682.webp'
 /* â”€â”€â”€ Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 const classes = [
+  {
+    name: 'Toddler Class',
+    icon: Baby,
+    age: '1 to 2 yrs',
+    color: 'blue',
+    image: photoT,
+    tagline: 'Day care for our youngest',
+    docs: [
+      'Certified birth certificate copy',
+      'Passport size photo (×2)',
+      'Current immunisation card',
+      'Parent or guardian ID copy',
+      'Names and photos of people allowed to collect the child',
+    ],
+    health: [
+      'Immunisations up to date for age',
+      'Written record of allergies and feeding needs',
+      'Any medicines, with written instructions',
+    ],
+    note: 'Day care only. Children are welcome from their first birthday.',
+  },
   {
     name: 'Baby Class',
     icon: Baby,
@@ -268,7 +290,7 @@ export function AppForm() {
           {inp('Date of Birth', 'dob', 'date')}
           {sel('Gender', 'gender', ['Female','Male','Prefer not to say'])}
           {sel('Preferred Campus', 'campus', campusNames)}
-          {sel('Applying For', 'classFor', ['Baby Class (Age 2 to 3)','Middle Class (Age 3 to 4)','Top Class (Age 5 to 6)','Primary One (P.1)','Primary Two (P.2)','Primary Three (P.3)','Primary Four (P.4)'])}
+          {sel('Applying For', 'classFor', ['Toddler Class / Day Care (Age 1 to 2)','Baby Class (Age 2 to 3)','Middle Class (Age 3 to 4)','Top Class (Age 5 to 6)','Primary One (P.1)','Primary Two (P.2)','Primary Three (P.3)','Primary Four (P.4)','Primary Five (P.5)'])}
           {sel('Start Term', 'startTerm', ['2027 Term 1','2027 Term 2','2027 Term 3'], true)}
         </div>
       </div>
@@ -531,8 +553,8 @@ function AdmissionsNalugala() {
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
               <div className="bg-mosai-blue px-6 py-5">
                 <p className="font-body text-xs text-blue-200 uppercase tracking-widest mb-1">Nursery Section</p>
-                <h3 className="font-heading font-extrabold text-xl text-white">Baby, Middle &amp; Top Class</h3>
-                <p className="font-body text-sm text-blue-200 mt-1">Ages 2 to 6 years</p>
+                <h3 className="font-heading font-extrabold text-xl text-white">Toddler, Baby, Middle &amp; Top Class</h3>
+                <p className="font-body text-sm text-blue-200 mt-1">Ages 1 to 6 years</p>
               </div>
               <div className="px-6 py-5 space-y-4">
                 <div className="flex items-center justify-between py-3 border-b border-gray-100">
@@ -557,7 +579,7 @@ function AdmissionsNalugala() {
                     </div>
                     <div>
                       <p className="font-heading font-bold text-sm text-mosai-blue-dark">Boarding</p>
-                      <p className="font-body text-xs text-gray-400">Stays at school</p>
+                      <p className="font-body text-xs text-gray-400">Baby Class and up; Toddler Class is day care only</p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -839,7 +861,7 @@ function AdmissionsNalugala() {
               </p>
               <div key={campus} className="fade-in-up grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  { icon: Phone,  label: 'Call the Head Mistress', value: campusInfo.phone,            href: `tel:${tel}`                 },
+                  { icon: Phone,  label: 'Call the school', value: campusInfo.phone,            href: `tel:${tel}`                 },
                   { icon: Mail,   label: 'Email',            value: campusInfo.email,             href: `mailto:${campusInfo.email}` },
                   { icon: MapPin, label: 'Visit Us',         value: `${p.address}, ${p.area}`,    href: null                         },
                   { icon: Clock,  label: 'Office Hours',     value: 'Mon to Fri · 7:30 AM to 5:30 PM', href: null                      },

@@ -6,7 +6,10 @@ import { NAL } from '../assets/nalugala-campus'
 
 // Nalugala photos. The nursery cards use photographs from school celebrations,
 // so their alt text describes the celebration rather than a lesson.
-import imgBaby   from '../assets/TON_8742.webp'  // little ones on stage, dressed up
+// There is no photo of the Toddler Class yet, so it takes the picture of the
+// youngest learners, and Baby Class takes the graduation photo.
+import imgToddler from '../assets/TON_8742.webp' // little ones on stage, dressed up
+import imgBaby   from '../assets/TON_8855.webp'  // nursery graduation
 import imgMiddle from '../assets/IMG_8738.webp'  // young learners dancing
 import imgTop    from '../assets/IMG_8754.webp'  // nursery cultural dance
 
@@ -18,8 +21,18 @@ export default function Programs() {
 
   const programs = [
     {
-      image:       imgBaby,
+      image:       imgToddler,
       imageAlt:    'Young Mosai nursery learners dressed up on stage at a school celebration',
+      name:        'Toddler Class (Day Care)',
+      ages:        'Ages 1 to 2',
+      description: 'Loving day care for our very youngest, with a calm routine of play, songs, naps and meals. Small groups and attentive carers help toddlers settle, talk and grow in confidence.',
+      dayFee:      FEES.toddler.day,
+      boardFee:    FEES.toddler.boarding,
+      color:       '#9B7EDE',
+    },
+    {
+      image:       imgBaby,
+      imageAlt:    'Mosai nursery graduates in caps and gowns celebrating on graduation day',
       name:        'Baby Class',
       ages:        'Ages 2 to 3',
       description: 'A gentle, nurturing introduction to school life through play, music and sensory exploration. Children develop social skills, emotional awareness and early language in a warm, loving environment.',
@@ -76,7 +89,7 @@ export default function Programs() {
         </div>
 
         {/* Program cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {programs.map((prog) => (
             <div
               key={prog.name}
@@ -110,7 +123,7 @@ export default function Programs() {
                   </div>
                   <div className="flex items-baseline justify-between gap-2">
                     <span className="font-body text-xs text-gray-500">Boarding</span>
-                    <span className="font-heading font-bold text-sm text-mosai-blue-dark whitespace-nowrap">{feeRange(prog.boardFee)}</span>
+                    <span className="font-heading font-bold text-sm text-mosai-blue-dark whitespace-nowrap">{prog.boardFee ? feeRange(prog.boardFee) : 'Day only'}</span>
                   </div>
                 </div>
 

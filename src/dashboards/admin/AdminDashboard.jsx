@@ -108,7 +108,7 @@ export default function AdminDashboard() {
             {classDistribution.map(cl => {
               const max = Math.max(...classDistribution.map(c => c.total))
               const pct = Math.round((cl.total / max) * 100)
-              const isNursery = ['Baby Class','Middle Class','Top Class'].includes(cl.class)
+              const isNursery = ['Toddler Class','Baby Class','Middle Class','Top Class'].includes(cl.class)
               return (
                 <div key={cl.class} className="flex items-center gap-3">
                   <span className="font-body text-xs font-semibold text-zinc-600 w-24 shrink-0">{cl.class}</span>

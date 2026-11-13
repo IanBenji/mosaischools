@@ -281,7 +281,7 @@ const BUNDLED_DOCUMENTS = [
   { title: 'Application for Admission, 2027', url: pdf('mosai-admission-form-2027.pdf'), description: 'Print it, fill it in and bring it to the office with the documents listed on the form.', category: 'Forms', filetype: 'PDF', size: '205 KB', updated: '2026-11-13' },
   { title: 'Learner Medical Form', url: pdf('mosai-learner-medical-form.pdf'), description: 'Required for every boarder. Part B is completed and stamped by a clinician.', category: 'Forms', filetype: 'PDF', size: '203 KB', updated: '2026-11-13' },
   { title: 'Fee structure, 2027', url: pdf('mosai-fee-structure-2027.pdf'), description: 'Termly tuition for Day and Boarding, other charges, and how to pay through the School Pay System.', category: 'Fees', filetype: 'PDF', size: '203 KB', updated: '2026-11-13' },
-  { title: 'Termly requirements list, 2027', url: pdf('mosai-requirements-list-2027.pdf'), description: 'What Nursery, Primary and boarding learners bring on the first day of term.', category: 'Requirements', filetype: 'PDF', size: '204 KB', updated: '2026-11-13' },
+  { title: 'Termly requirements list, 2027', url: pdf('mosai-requirements-list-2027.pdf'), description: 'What Toddler, Nursery, Primary and boarding learners bring on the first day of term.', category: 'Requirements', filetype: 'PDF', size: '205 KB', updated: '2026-11-13' },
   { title: 'School uniform list', url: pdf('mosai-uniform-list.pdf'), description: 'Uniform for boys and girls, sports and house wear, and grooming rules.', category: 'Uniform', filetype: 'PDF', size: '203 KB', updated: '2026-11-13' },
 ]
 
@@ -322,10 +322,10 @@ function fallbackAnnouncements() {
       date: null,
       dateText: 'Ongoing',
       title: 'Admissions Open for the 2026 Intake',
-      body: 'Mosai Schools is accepting applications for Baby Class, Middle Class, Top Class, and Primary. Spaces are limited. Visit either campus or contact us to begin the enrolment process.',
+      body: 'Mosai Schools is accepting applications from Toddler Class (day care) and the Nursery classes through to Primary Five. Spaces are limited. Visit either campus or contact us to begin the enrolment process.',
       category: 'Admissions',
       campus: '', link: '/admissions',
-      ticker: 'Admissions open for 2026: Baby Class, Middle Class, Top Class and Primary',
+      ticker: 'Admissions open: Toddler Class (day care) to Primary Five',
       pinned: true, expires: null,
     },
     {

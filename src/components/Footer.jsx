@@ -130,7 +130,15 @@ export default function Footer() {
               </li>
               <li className={`flex items-center gap-2 text-sm ${muted}`}>
                 <Phone className="w-4 h-4 shrink-0" style={{ color: accent }} />
-                <a href={`tel:${tel}`} className="hover:text-white transition-colors">{campusInfo.phone}</a>
+                <span>
+                  <a href={`tel:${tel}`} className="hover:text-white transition-colors">{campusInfo.phone}</a>
+                  {campusInfo.altPhone && (
+                    <>
+                      {' · '}
+                      <a href={`tel:${campusInfo.altPhone.replace(/\s+/g, '')}`} className="hover:text-white transition-colors">{campusInfo.altPhone}</a>
+                    </>
+                  )}
+                </span>
               </li>
               <li className={`flex items-center gap-2 text-sm ${muted}`}>
                 <MessageCircle className="w-4 h-4 shrink-0" style={{ color: accent }} />

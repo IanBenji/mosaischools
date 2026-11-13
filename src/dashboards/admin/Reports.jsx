@@ -10,7 +10,7 @@ const REPORT_TYPES = [
 ]
 
 function EnrollmentPreview() {
-  const byClass = ['Baby Class','Middle Class','Top Class','P.1','P.2','P.3'].map(cl => ({
+  const byClass = ['Toddler Class','Baby Class','Middle Class','Top Class','P.1','P.2','P.3','P.4','P.5'].map(cl => ({
     class: cl,
     nalugala: mockStudents.filter(s=>s.class===cl && s.campus==='Nalugala Campus').length,
     bunono:   mockStudents.filter(s=>s.class===cl && s.campus==='Bunono Campus').length,

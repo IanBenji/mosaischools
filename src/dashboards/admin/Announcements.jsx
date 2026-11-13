@@ -3,7 +3,7 @@ import { Megaphone, Plus, Trash2, X, CheckCircle, AlertCircle, Bell } from 'luci
 import { mockAnnouncements } from './mockData'
 import { useAuth } from '../../context/AuthContext'
 
-const TARGETS = ['All','Nalugala Campus','Bunono Campus','Baby Class','Middle Class','Top Class','P.1','P.2','P.3','Nursery Section','Primary Section']
+const TARGETS = ['All','Nalugala Campus','Bunono Campus','Toddler Class','Baby Class','Middle Class','Top Class','P.1','P.2','P.3','P.4','P.5','Nursery Section','Primary Section']
 const CATEGORIES = ['Academic Calendar','Events','Parents','Fees & Payments','Health & Safety','General']
 
 const categoryStyle = {

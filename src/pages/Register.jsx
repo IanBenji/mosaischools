@@ -4,7 +4,7 @@ import { Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import mosaiLogo from '../assets/mosailogo-removebg-preview.png'
 
-const CLASSES  = ['Baby Class', 'Middle Class', 'Top Class', 'P.1', 'P.2', 'P.3']
+const CLASSES  = ['Toddler Class', 'Baby Class', 'Middle Class', 'Top Class', 'P.1', 'P.2', 'P.3', 'P.4', 'P.5']
 const CAMPUSES = ['Nalugala Campus', 'Bunono Campus']
 
 export default function Register() {

@@ -31,10 +31,11 @@ const INK  = 'text-[#43261A]'
 const INK2 = 'text-[#7A5C4A]'
 
 const CLASSES = [
+  { icon: Heart,         name: 'Toddler Class', age: 'Ages 1 to 2', color: '#9B7EDE', note: 'Loving day care for the littlest' },
   { icon: Baby,          name: 'Baby Class',   age: 'Ages 2 to 3', color: '#FF8A6B', note: 'Gentle first steps into school' },
   { icon: BookOpen,      name: 'Middle Class', age: 'Ages 3 to 4', color: '#FFC93C', note: 'Curiosity, play and early skills' },
   { icon: Star,          name: 'Top Class',    age: 'Ages 5 to 6', color: '#5FBB6E', note: 'Getting ready for Primary 1' },
-  { icon: GraduationCap, name: 'Primary 1 to 4',  age: 'And growing', color: '#6EC6F2', note: 'A new class added every year' },
+  { icon: GraduationCap, name: 'Primary 1 to 5',  age: 'And growing', color: '#6EC6F2', note: 'A new class added every year' },
 ]
 
 // Crayon dots for the hero slideshow
@@ -123,7 +124,7 @@ export default function HomeBunono() {
               <div className="flex flex-wrap gap-3">
                 {[
                   { icon: Users,         label: '100 Learners',   color: '#FFC93C' },
-                  { icon: GraduationCap, label: 'Baby to P.4',    color: '#5FBB6E' },
+                  { icon: GraduationCap, label: 'Toddler to P.5', color: '#5FBB6E' },
                   { icon: HomeIcon,      label: 'Day & Boarding', color: '#6EC6F2' },
                   { icon: Phone,         label: campusInfo.phone, color: '#FF8A6B', href: `tel:${tel}` },
                 ].map((s) => {
@@ -211,7 +212,7 @@ export default function HomeBunono() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {CLASSES.map((c, i) => {
               const Icon = c.icon
               return (

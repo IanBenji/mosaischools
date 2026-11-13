@@ -22,7 +22,8 @@ const PRIMARY_CLASSES = [
     focus: 'Completing the lower primary years with confident literacy, numeracy and enquiry about the world around us.' },
   { n: 4, name: 'Primary Four',  stage: 'Transition Year',
     focus: 'The step from lower primary themes to learning by subject: English, Mathematics, Science and Social Studies, with more responsibility for organising their own work.' },
-  { n: 5, name: 'Primary Five',  stage: 'Upper Primary' },
+  { n: 5, name: 'Primary Five',  stage: 'Upper Primary',
+    focus: 'The first upper primary year: deeper work in English, Mathematics, Science and Social Studies, more reading for pleasure, and the study habits that lead towards the PLE.' },
   { n: 6, name: 'Primary Six',   stage: 'Upper Primary' },
   { n: 7, name: 'Primary Seven', stage: 'Upper Primary' },
 ]
@@ -36,7 +37,7 @@ export default function PrimaryJourney({ top, variant = 'dark' }) {
 
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         {offered.map((c, i) => {
           const isNewest = c.n === top
           const color = STORY_COLORS[i % STORY_COLORS.length]

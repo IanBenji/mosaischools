@@ -5,7 +5,7 @@ export default function StatsBar() {
   const facts = [
     { icon: BadgeCheck, label: 'Licensed by', value: 'Ministry of Education & Sports', color: '#5FBB6E' },
     { icon: MapPin,     label: 'Campuses',    value: 'Nalugala 2025 · Bunono 2026',   color: '#FF8A6B' },
-    { icon: BookOpen,   label: 'Programs',    value: 'Baby Class to Primary',          color: '#FFC93C' },
+    { icon: BookOpen,   label: 'Programs',    value: 'Day Care to Primary Five',       color: '#FFC93C' },
     { icon: Globe,      label: 'Languages',   value: 'English · Swahili · French · Chinese', color: '#6EC6F2' },
     { icon: Home,       label: 'Enrolment',   value: 'Day & Boarding available',       color: '#9B7EDE' },
   ]

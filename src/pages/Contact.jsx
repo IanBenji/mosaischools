@@ -324,7 +324,7 @@ export default function Contact() {
               <div className="w-11 h-11 bg-mosai-red-light rounded-xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-200">
                 <Phone className="w-5 h-5 text-mosai-red" />
               </div>
-              <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-1">Phone · Head Mistress</p>
+              <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-1">Phone · School Office</p>
               <a href={`tel:${tel}`} className="font-heading font-extrabold text-base text-mosai-blue-dark hover:text-mosai-blue transition-colors block">
                 {campusInfo.phone}
               </a>

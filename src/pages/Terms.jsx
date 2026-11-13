@@ -118,8 +118,8 @@ export default function Terms() {
               <a href="mailto:mosaischools@gmail.com" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
                 <Mail className="w-4 h-4" /> mosaischools@gmail.com
               </a>
-              <a href="tel:0759889401" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
-                <Phone className="w-4 h-4" /> 0759889401
+              <a href="tel:0745431412" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
+                <Phone className="w-4 h-4" /> 0745431412
               </a>
             </div>
           </div>

@@ -33,7 +33,7 @@ export default function AdmissionsBunono() {
   const p = campusInfo.profile
 
   const fees = [
-    { name: 'Nursery Section', sub: 'Baby, Middle & Top Class', day: FEES.nursery.day, board: FEES.nursery.boarding, color: '#FF8A6B' },
+    { name: 'Nursery Section', sub: 'Toddler (day care only), Baby, Middle & Top Class',day: FEES.nursery.day, board: FEES.nursery.boarding, color: '#FF8A6B' },
     { name: 'Primary Section', sub: p.primaryRange,             day: FEES.primary.day, board: FEES.primary.boarding, color: '#6EC6F2' },
   ]
 

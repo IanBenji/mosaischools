@@ -27,7 +27,7 @@ export default function Hero() {
     { icon: GraduationCap, label: 'Classes',           value: p.classesShort },
     { icon: House,         label: 'Day and boarding',  value: 'Nursery and Primary' },
     { icon: Wallet,        label: 'Fees per term',     value: `From UGX ${feeRange(FEES.nursery.day).split(' to ')[0]}`, to: '/admissions#fees' },
-    { icon: Phone,         label: 'Call the Head Mistress', value: campusInfo.phone, href: `tel:${campusInfo.phone}` },
+    { icon: Phone,         label: 'Call the school', value: campusInfo.phone, href: `tel:${campusInfo.phone}` },
   ]
 
   return (
