@@ -3,7 +3,7 @@ import { Save, CheckCircle, Building2, GraduationCap, CreditCard, CalendarDays, 
 
 const INITIAL = {
   school: {
-    name:       'MOSAI Schools',
+    name:       'Mosai Schools',
     type:       'Private Day and Boarding Nursery & Primary School',
     location:   'Garuga Road, off Kampala-Entebbe Road, Katabi, Wakiso District, Uganda',
     phone:      '+256 700 123 456',
@@ -19,8 +19,8 @@ const INITIAL = {
     midTermBreak:'2026-07-04',
   },
   fees: {
-    nurseryDay:     450000,
-    nurseryBoarding:600000,
+    nurseryDay:     500000,
+    nurseryBoarding:700000,
     primaryDay:     500000,
     primaryBoarding:700000,
     admissionFee:   30000,
@@ -190,7 +190,7 @@ export default function Settings() {
         <div className="bg-white rounded-2xl border border-zinc-100 shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-zinc-100">
             <h2 className="font-heading font-bold text-base text-zinc-800">Class Management</h2>
-            <p className="font-body text-xs text-zinc-400 mt-0.5">MOSAI Schools adds one class per year, expanding to P.7 over time.</p>
+            <p className="font-body text-xs text-zinc-400 mt-0.5">Mosai Schools adds one class per year, expanding to P.7 over time.</p>
           </div>
           <div className="divide-y divide-zinc-100">
             {data.classes.map((c, i) => (

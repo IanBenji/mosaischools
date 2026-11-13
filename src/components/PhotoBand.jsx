@@ -5,7 +5,7 @@ import Lightbox from './Lightbox'
 /* A single photo dropped between sections so images are scattered through a
  * page (not grouped). Tap to expand. Give it `bg` matching the section directly
  * above so the scalloped dividers stay seamless. */
-export default function PhotoBand({ img, cap, bg = 'bg-cream', height = 'h-64 sm:h-80', maxW = 'max-w-4xl' }) {
+export default function PhotoBand({ img, cap, alt, bg = 'bg-cream', height = 'h-64 sm:h-80', maxW = 'max-w-4xl' }) {
   const [idx, setIdx] = useState(null)
   return (
     <section className={`${bg} pb-14`}>
@@ -14,7 +14,7 @@ export default function PhotoBand({ img, cap, bg = 'bg-cream', height = 'h-64 sm
           onClick={() => setIdx(0)}
           className={`group relative cursor-pointer overflow-hidden rounded-[2.5rem] shadow-xl bg-zinc-200 ${height}`}
         >
-          <img src={img} alt={cap || ''} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
+          <img src={img} alt={alt || cap || ''}className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200 flex items-center justify-center">
             <span className="w-12 h-12 rounded-full bg-white/20 border border-white/40 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <ZoomIn className="w-6 h-6 text-white" />

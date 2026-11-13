@@ -18,6 +18,10 @@ import bunGrad     from '../assets/bunono/bunono-06.webp'   // assembly
 import bunPerform  from '../assets/bunono/bunono-13.webp'   // pool play
 import bunActivity from '../assets/bunono/bunono-47.webp'   // playground
 
+// ── Hero slideshow photos ─────────────────────────────────────────
+import { NAL } from '../assets/nalugala-campus'
+import { BUN, bunonoPhotos } from '../assets/bunono'
+
 const STORAGE_KEY = 'mosai.campus'
 const CHOICE_KEY  = 'mosai.campus.chosen'   // records that the visitor made an explicit choice
 
@@ -32,7 +36,7 @@ export const CAMPUSES = {
     district: 'Katabi, Wakiso District',
     accent: 'blue',
     overlayRgb: '21, 55, 100',          // mosai-blue-dark, for hero wash
-    phone: '+256 759 742 146',          // central MOSAI contacts (shared by both campuses)
+    phone: '0759889401',                // Head Mistress, the official school line (shared by both campuses)
     altPhone: '+256 783 926 840',
     whatsapp: '+256 759 742 146',
     email: 'mosaischools@gmail.com',
@@ -43,6 +47,14 @@ export const CAMPUSES = {
       tagline:
         'Our flagship home along scenic Garuga Road, with modern classrooms, a swimming pool and boarding facilities, nurturing critical thinkers from Baby Class through to Primary.',
       backgrounds: [nalBg1, nalBg2, nalBg3],
+      // Full-width homepage slideshow, in order. `pos` is the CSS object-position.
+      slides: [
+        { img: nalGrad,              cap: 'Graduation day',           pos: 'center 30%', alt: 'Mosai nursery graduates in caps and gowns celebrating on graduation day' },
+        { img: NAL.classMotto.img,   cap: 'Our classrooms',           pos: 'center 45%', alt: NAL.classMotto.alt },
+        { img: nalPerform,           cap: 'Performance day',          pos: 'center 35%', alt: 'Mosai learners in white tops and trainers performing a dance routine' },
+        { img: NAL.gardenLesson.img, cap: 'Learning in the garden',   pos: 'center 55%', alt: NAL.gardenLesson.alt },
+        { img: bunonoPhotos[32],     cap: 'Swimming lessons',         pos: 'center 40%', alt: 'Mosai learners splashing and laughing in the school swimming pool' },
+      ],
       collage: [
         { img: nalGrad,    title: 'Graduation Day', subtitle: 'Celebrating every milestone' },
         { img: nalPerform, title: 'Performance Day', subtitle: 'Confidence on stage' },
@@ -57,9 +69,10 @@ export const CAMPUSES = {
       opened:      'January 2025',
       openedShort: '2025',
       enrolment:   null,
-      classes:     'Baby Class to Primary Three (P.3)',
-      classesShort:'Baby Class to P.3',
-      primaryRange:'P.1, P.2 & P.3',
+      classes:     'Baby Class to Primary Four (P.4)',
+      classesShort:'Baby Class to P.4',
+      primaryRange:'P.1, P.2, P.3 & P.4',
+      primaryTop:  4,                    // highest Primary class currently offered
       growth:      'Adding one class each year until Primary Seven (P.7)',
       address:     'Garuga Road, off the Kampala to Entebbe Road',
       area:        'Nalugala, Katabi Town Council, Wakiso District',
@@ -81,12 +94,12 @@ export const CAMPUSES = {
   bunono: {
     name: 'Bunono',
     tagline: 'New Campus · Opened 2026',
-    blurb: 'Our newest campus in Bunono Village, the same MOSAI care, closer to home.',
+    blurb: 'Our newest campus in Bunono Village, the same Mosai care, closer to home.',
     location: 'Bunono Village, Kabaale Ward, Katabi',
     district: 'Katabi Town Council, Wakiso District',
     accent: 'red',
     overlayRgb: '135, 20, 20',          // mosai-red-dark, for hero wash
-    phone: '+256 759 742 146',
+    phone: '0759889401',
     altPhone: '+256 783 926 840',
     whatsapp: '+256 759 742 146',
     email: 'mosaischools@gmail.com',
@@ -97,6 +110,13 @@ export const CAMPUSES = {
       tagline:
         'Opened February 2026 in Bunono Village, Katabi, offering quality, affordable and holistic education in a safe, caring and learner friendly environment, from Baby Class through Primary.',
       backgrounds: [bunBg1, bunBg2, bunBg3],
+      slides: [
+        { img: BUN.exercise.img, cap: 'Morning exercise',            pos: 'center 35%', alt: BUN.exercise.alt },
+        { img: bunBg1,           cap: 'Splash time',                 pos: 'center 40%', alt: 'Mosai Bunono learners splashing and laughing in the school swimming pool' },
+        { img: BUN.houses.img,   cap: 'Proud in our house colours',  pos: 'center 50%', alt: BUN.houses.alt },
+        { img: BUN.front.img,    cap: 'Our Bunono campus',           pos: 'center 45%', alt: BUN.front.alt },
+        { img: bunBg3,           cap: 'Morning assembly',            pos: 'center 40%', alt: 'Mosai Bunono learners in uniform at morning assembly' },
+      ],
       collage: [
         { img: bunGrad,     title: 'Graduation Day',   subtitle: 'Celebrating every milestone' },
         { img: bunPerform,  title: 'Talent & Stage',   subtitle: 'Confidence on show' },
@@ -114,6 +134,7 @@ export const CAMPUSES = {
       classes:     'Baby Class to Primary Four (P.4)',
       classesShort:'Baby Class to P.4',
       primaryRange:'P.1, P.2, P.3 & P.4',
+      primaryTop:  4,
       growth:      'Introducing one additional class each year until Primary Seven (P.7)',
       address:     'Bunono Village, Kabaale Ward, Katabi Town Council',
       area:        'Katabi, Wakiso District',
@@ -136,7 +157,7 @@ export const CAMPUSES = {
   },
 }
 
-// Shared across every MOSAI campus — vision, mission and the four core values.
+// Shared across every Mosai campus — vision, mission and the four core values.
 export const MOSAI_ETHOS = {
   vision:  'To become a model centre of excellence in Mathematics, Science, Technology and Innovation.',
   mission: 'To provide a conducive environment where learners can acquire knowledge, grow and develop to their full potential for self reliance.',

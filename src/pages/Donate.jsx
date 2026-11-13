@@ -240,17 +240,17 @@ export default function Donate() {
   const crayon = { '--crayon-color': campusInfo.theme.crayon }
 
   return (
-    <main className="bg-white">
+    <main className="bg-mist">
 
       {/* ── 1. Header ──────────────────────────────────────────────────── */}
       <PageHeader
         crumb="Donate"
         title="Help a Child"
         accentWord="Go to School"
-        kicker="Support MOSAI Schools"
+        kicker="Support Our Learners"
         subtitle="Affordable fees only work because friends of the school help carry the cost. Your gift buys books, meals, uniforms and school places for children who would otherwise go without."
         image={headerImg}
-        nextBg="#FFFFFF"
+        nextBg="#F3F6FA"
       >
         <div className="flex flex-wrap gap-3">
           <a
@@ -271,13 +271,13 @@ export default function Donate() {
       </PageHeader>
 
       {/* ── 2. Why it matters ──────────────────────────────────────────── */}
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-mist py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <div className="relative order-2 lg:order-1">
               <img
                 src={storyImg}
-                alt="MOSAI Schools learners on stage"
+                alt="Mosai Schools learners on stage"
                 className="h-80 w-full rounded-3xl object-cover shadow-xl sm:h-96"
                 loading="lazy"
                 decoding="async"
@@ -367,7 +367,7 @@ export default function Donate() {
       </section>
 
       {/* ── 4. Where donations go ──────────────────────────────────────── */}
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-mist py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 max-w-2xl">
             <span className="font-body text-xs font-bold tracking-widest text-mosai-red uppercase">Where it goes</span>
@@ -434,7 +434,7 @@ export default function Donate() {
             <span className="font-body text-xs font-bold tracking-widest text-mosai-red-light uppercase">The process</span>
             <h2 className="mt-2 mb-3 font-heading text-3xl font-extrabold text-white sm:text-4xl">How giving works</h2>
             <p className="mx-auto max-w-2xl font-body leading-relaxed text-blue-200">
-              MOSAI Schools does not collect payments through this website. Instead you tell us what you would like to
+              Mosai Schools does not collect payments through this website. Instead you tell us what you would like to
               do, and the school office sends you its official instructions directly.
             </p>
           </div>
@@ -454,7 +454,7 @@ export default function Donate() {
       </section>
 
       {/* ── 7. Trust & accountability ──────────────────────────────────── */}
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-mist py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
             <span className="font-body text-xs font-bold tracking-widest text-mosai-red uppercase">Your gift is safe</span>
@@ -484,7 +484,7 @@ export default function Donate() {
       </section>
 
       {/* ── 8. The form ────────────────────────────────────────────────── */}
-      <section id="give" className="scroll-mt-24 bg-gray-50 py-16 sm:py-20">
+      <section id="give" className="scroll-mt-24 bg-mist-deep py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-5">
 

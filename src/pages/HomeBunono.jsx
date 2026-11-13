@@ -11,11 +11,11 @@ import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
 import Lightbox    from '../components/Lightbox'
 
-import imgHero from '../assets/bunono/bunono-33.webp'  // joyful pool splash
-import imgA    from '../assets/bunono/bunono-25.webp'  // smiling in the pool
-import imgB    from '../assets/bunono/bunono-13.webp'  // pool play
-import imgC    from '../assets/bunono/bunono-06.webp'  // morning assembly
+import useSlideshow from '../hooks/useSlideshow'
+
+import imgC   from '../assets/bunono/bunono-06.webp'  // morning assembly
 import imgD    from '../assets/bunono/bunono-47.webp'  // campus playground
+import { BUN } from '../assets/bunono'
 
 /* ══════════════════════════════════════════════════════════════════════
  * BUNONO HOME — a wholly separate "storybook garden" design.
@@ -37,14 +37,17 @@ const CLASSES = [
   { icon: GraduationCap, name: 'Primary 1 to 4',  age: 'And growing', color: '#6EC6F2', note: 'A new class added every year' },
 ]
 
+// Crayon dots for the hero slideshow
+const DOT_COLORS = ['#FFC93C', '#5FBB6E', '#6EC6F2', '#FF8A6B', '#9B7EDE']
+
 const VALUE_ICONS = { 'God fearing': Shield, 'Love': Heart, 'Humility': Sparkles, 'Excellence': Award }
 const VALUE_COLORS = ['#FF8A6B', '#5FBB6E', '#FFC93C', '#6EC6F2']
 
 const SCRAPBOOK = [
-  { img: imgC, cap: 'Morning assembly',      rot: '-4deg' },
-  { img: imgD, cap: 'Our playground',        rot: '3deg'  },
-  { img: imgA, cap: 'Splash time',           rot: '-2deg' },
-  { img: imgB, cap: 'Big smiles, every day', rot: '4deg'  },
+  { img: imgC,             cap: 'Morning assembly', alt: 'Mosai Bunono learners in uniform gathered for morning assembly', rot: '-4deg' },
+  { img: BUN.stretching.img, cap: BUN.stretching.cap, alt: BUN.stretching.alt,                                           rot: '3deg'  },
+  { img: imgD,             cap: 'Our playground',   alt: 'The colourful playground at Mosai Bunono, beside the classroom blocks', rot: '-2deg' },
+  { img: BUN.verandas.img, cap: BUN.verandas.cap,   alt: BUN.verandas.alt,                                                 rot: '4deg'  },
 ]
 
 export default function HomeBunono() {
@@ -53,25 +56,41 @@ export default function HomeBunono() {
   const wa  = campusInfo.whatsapp.replace(/[^\d]/g, '')
   const tel = campusInfo.phone.replace(/\s+/g, '')
   const [shotIdx, setShotIdx] = useState(null)
+  const slides = campusInfo.hero.slides
+  const [slideIdx, goSlide] = useSlideshow(slides.length, 6000)
 
   return (
     <main className="bg-cream overflow-hidden">
 
-      {/* ═══ 1 · HERO — two-column, photo composition ═══ */}
-      <section
-        className="relative overflow-hidden pt-28 pb-36 sm:pb-44"
-        style={{ background: 'linear-gradient(155deg, #7A1414 0%, #C0392B 45%, #E14B4B 100%)' }}
-      >
-        {/* soft decorative blobs */}
-        <div className="pointer-events-none absolute -top-20 -left-24 w-[28rem] h-[28rem] rounded-full bg-white/10 blur-2xl" />
-        <div className="pointer-events-none absolute -bottom-10 right-1/4 w-80 h-80 rounded-full bg-crayon-sun/20 blur-2xl" />
-        <Doodles names={campusInfo.theme.doodles} />
+      {/* ═══ 1 · HERO — full-width storybook slideshow ═══ */}
+      <section className="relative min-h-[100svh] flex flex-col overflow-hidden bg-mosai-red-dark">
+        {/* Slides: cross-fade, the visible one drifts slowly */}
+        {slides.map((s, i) => (
+          <img
+            key={i}
+            src={s.img}
+            alt={i === slideIdx ? s.alt : ''}
+            aria-hidden={i !== slideIdx}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1400ms] ease-in-out ${i === slideIdx ? 'opacity-100 slide-kenburns' : 'opacity-0'}`}
+            style={{ objectPosition: s.pos }}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchPriority={i === 0 ? 'high' : undefined}
+            decoding="async"
+          />
+        ))}
 
-        <div className="relative z-[3] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Warm red wash rising from the bottom left, photo stays bright top right */}
+        <div className="absolute inset-0 bg-[radial-gradient(120%_90%_at_0%_100%,rgba(122,20,20,0.95)_0%,rgba(183,28,28,0.78)_40%,rgba(225,75,75,0.30)_70%,rgba(225,75,75,0.05)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(122,20,20,0.72)_0%,rgba(122,20,20,0.45)_42%,rgba(122,20,20,0)_68%)] max-lg:bg-[linear-gradient(180deg,rgba(122,20,20,0.35)_0%,rgba(122,20,20,0.55)_100%)]" />
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#7A1414]/70 to-transparent" />
 
-            {/* LEFT — words */}
-            <div className="text-center lg:text-left">
+        {/* Doodles only where there is room; on phones they land on the text */}
+        <div className="hidden md:block"><Doodles names={campusInfo.theme.doodles} count={3} /></div>
+
+        <div className="relative z-[3] flex-1 flex items-end w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-36 sm:pb-44">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr,auto] gap-10 items-end">
+            {/* words */}
+            <div className="max-w-2xl">
               <span className="inline-flex items-center gap-2 -rotate-2 bg-cream text-mosai-red-dark font-heading font-extrabold text-xs uppercase tracking-wide px-4 py-2 rounded-full shadow-lg mb-6">
                 <Sparkles className="w-4 h-4 text-crayon-sun" /> New Campus · Opened 10 Feb 2026
               </span>
@@ -81,11 +100,11 @@ export default function HomeBunono() {
                 <span className="crayon-underline text-white" style={{ '--crayon-color': '#5FBB6E' }}>Shine.</span>
               </h1>
 
-              <p className="font-body text-white/90 text-lg leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0">
+              <p className="font-body text-white/95 text-lg leading-relaxed mb-8 max-w-xl">
                 {campusInfo.hero.tagline}
               </p>
 
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-start mb-8">
+              <div className="flex flex-wrap gap-4 mb-8">
                 <Link
                   to="/admissions"
                   className="inline-flex items-center gap-2 bg-cream text-mosai-red-dark font-heading font-extrabold text-base px-8 py-4 rounded-full shadow-xl hover:-translate-y-0.5 hover:shadow-2xl transition-all duration-200"
@@ -101,54 +120,47 @@ export default function HomeBunono() {
               </div>
 
               {/* fun stat bubbles */}
-              <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+              <div className="flex flex-wrap gap-3">
                 {[
-                  { icon: Users,        label: '100 Learners',   color: '#FFC93C' },
-                  { icon: GraduationCap, label: 'Baby to P.4',     color: '#5FBB6E' },
+                  { icon: Users,         label: '100 Learners',   color: '#FFC93C' },
+                  { icon: GraduationCap, label: 'Baby to P.4',    color: '#5FBB6E' },
                   { icon: HomeIcon,      label: 'Day & Boarding', color: '#6EC6F2' },
+                  { icon: Phone,         label: campusInfo.phone, color: '#FF8A6B', href: `tel:${tel}` },
                 ].map((s) => {
                   const Icon = s.icon
-                  return (
-                    <span key={s.label} className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full pl-1.5 pr-4 py-1.5 font-heading font-bold text-sm text-white">
+                  const cls = 'inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-full pl-1.5 pr-4 py-1.5 font-heading font-bold text-sm text-white'
+                  const inner = (
+                    <>
                       <span className="w-7 h-7 rounded-full flex items-center justify-center" style={{ backgroundColor: s.color }}>
                         <Icon className="w-4 h-4 text-white" />
                       </span>
                       {s.label}
-                    </span>
+                    </>
                   )
+                  return s.href
+                    ? <a key={s.label} href={s.href} className={`${cls} hover:bg-white/25 transition-colors`}>{inner}</a>
+                    : <span key={s.label} className={cls}>{inner}</span>
                 })}
               </div>
             </div>
 
-            {/* RIGHT — photo composition */}
-            <div className="relative mx-auto w-[84%] max-w-sm sm:w-full sm:max-w-md lg:max-w-none">
-              {/* main blob photo */}
-              <div
-                className="relative ring-8 ring-cream shadow-2xl overflow-hidden bg-white rotate-2"
-                style={{ borderRadius: '46% 54% 42% 58% / 55% 42% 58% 45%' }}
-              >
-                <img src={imgHero} alt="Children at Bunono Campus" className="w-full h-80 sm:h-96 object-cover" loading="eager" decoding="async" />
-              </div>
-
-              {/* small round photo peeking bottom-left */}
-              <div className="absolute -bottom-6 -left-4 sm:-left-8 w-32 h-32 sm:w-40 sm:h-40 rounded-full ring-8 ring-cream shadow-xl overflow-hidden bg-white -rotate-6">
-                <img src={imgA} alt="Learners playing" className="w-full h-full object-cover" loading="eager" decoding="async" />
-              </div>
-
-              {/* rotated enrolling badge */}
-              <div className="absolute -top-4 -right-2 sm:-right-4 rotate-6 bg-crayon-grass text-white font-heading font-extrabold text-sm px-4 py-2 rounded-2xl shadow-lg">
-                Now enrolling! ✏️
-              </div>
-
-              {/* sun doodle sticker */}
-              <div className="absolute top-1/2 -right-3 sm:-right-6 w-16 h-16 animate-pop-bounce" style={{ '--doodle-rot': '0deg' }}>
-                <svg viewBox="0 0 48 48" className="animate-doodle-spin" width="100%" height="100%" style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))' }}>
-                  <circle cx="24" cy="24" r="11" fill="#FFC93C" />
-                  {Array.from({ length: 8 }).map((_, i) => {
-                    const a = (i * Math.PI) / 4
-                    return <line key={i} x1={24 + Math.cos(a) * 15} y1={24 + Math.sin(a) * 15} x2={24 + Math.cos(a) * 21} y2={24 + Math.sin(a) * 21} stroke="#FFC93C" strokeWidth="3" strokeLinecap="round" />
-                  })}
-                </svg>
+            {/* caption sticker + crayon dots */}
+            <div className="flex lg:flex-col items-center lg:items-end justify-between gap-4">
+              <p key={slideIdx} className="animate-fade-in-up rotate-2 bg-cream text-[#43261A] font-heading font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl shadow-lg">
+                {slides[slideIdx].cap}
+              </p>
+              <div className="flex items-center gap-2.5" role="group" aria-label="Choose a photo">
+                {slides.map((s, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => goSlide(i)}
+                    aria-label={`Show photo ${i + 1}: ${s.cap}`}
+                    aria-current={i === slideIdx}
+                    className={`rounded-full border-2 border-white transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${i === slideIdx ? 'w-5 h-5' : 'w-3.5 h-3.5 opacity-70 hover:opacity-100'}`}
+                    style={{ backgroundColor: DOT_COLORS[i % DOT_COLORS.length] }}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -184,7 +196,7 @@ export default function HomeBunono() {
       )}
 
       {/* ═══ 3 · OUR CLASSES — crayon bubble cards ═══ */}
-      <section className="relative bg-white py-20">
+      <section className="relative bg-mist py-20">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
         <Doodles names={['balloon', 'star']} count={2} />
         <div className="relative z-[3] max-w-6xl mx-auto px-4 sm:px-6">
@@ -223,7 +235,7 @@ export default function HomeBunono() {
 
       {/* ═══ 4 · SCRAPBOOK — tilted polaroids of school life ═══ */}
       <section className="relative bg-cream py-20">
-        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
+        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 left-0 right-0" />
         <div className="relative z-[3] max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <h2 className={`font-heading font-extrabold text-4xl sm:text-5xl ${INK}`}>
@@ -240,7 +252,7 @@ export default function HomeBunono() {
                 style={{ transform: `rotate(${ph.rot})` }}
               >
                 <div className="relative w-full h-44 rounded-md overflow-hidden bg-zinc-200">
-                  <img src={ph.img} alt={ph.cap} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                  <img src={ph.img} alt={ph.alt} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-200 flex items-center justify-center">
                     <span className="w-10 h-10 rounded-full bg-white/20 border border-white/40 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <ZoomIn className="w-5 h-5 text-white" />
@@ -255,7 +267,7 @@ export default function HomeBunono() {
       </section>
 
       {/* ═══ 5 · CORE VALUES — big friendly circles ═══ */}
-      <section className="relative bg-white py-20">
+      <section className="relative bg-mist py-20">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
         <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-14">
@@ -287,7 +299,7 @@ export default function HomeBunono() {
 
       {/* ═══ 6 · VISIT — coral scallop CTA with real contacts ═══ */}
       <section className="relative pt-24 pb-20" style={{ background: 'linear-gradient(180deg, #E14B4B 0%, #B71C1C 100%)' }}>
-        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
+        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 left-0 right-0" />
         <Doodles names={['star', 'flower']} count={2} />
         <div className="relative z-[3] max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="font-heading font-extrabold text-4xl sm:text-5xl text-white mb-4">

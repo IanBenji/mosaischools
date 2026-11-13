@@ -155,7 +155,7 @@ export default function NewsBunono({ announcements, events }) {
       <PhotoBand img={bunonoPhotos[1]} cap="Morning assembly" bg="bg-cream" />
 
       {/* ── Coming up ──────────────────────────────────────────────────── */}
-      <section className="relative bg-white py-16">
+      <section className="relative bg-mist py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 right-0 left-0" />
         <div className="relative z-[3] mx-auto max-w-5xl px-4 pt-8 sm:px-6">
           <h2 className={`mb-10 text-center font-heading text-3xl font-extrabold sm:text-4xl ${INK}`}>
@@ -207,7 +207,7 @@ export default function NewsBunono({ announcements, events }) {
 
       {/* ── Ask us ─────────────────────────────────────────────────────── */}
       <section className="relative bg-mosai-red py-16 text-white">
-        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 right-0 left-0" />
+        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 right-0 left-0" />
         <div className="relative z-[3] mx-auto max-w-3xl px-4 pt-10 text-center sm:px-6">
           <h2 className="font-heading text-3xl font-extrabold sm:text-4xl">
             Missed{' '}

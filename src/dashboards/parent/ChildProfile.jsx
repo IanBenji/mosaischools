@@ -76,7 +76,7 @@ export default function ChildProfile() {
           ))}
         </div>
         <p className="font-body text-xs text-slate-400 mt-4">
-          MOSAI Schools teaches all four languages as part of its blended international curriculum.
+          Mosai Schools teaches all four languages as part of its blended international curriculum.
         </p>
       </div>
 
@@ -85,11 +85,11 @@ export default function ChildProfile() {
         <h3 className="font-heading font-bold text-base mb-2">Curriculum — {mockChild.class}</h3>
         <p className="font-body text-sm text-blue-200 leading-relaxed">
           {mockChild.name.split(' ')[0]} is enrolled in our <strong className="text-white">{mockChild.section} Section</strong> blended curriculum —
-          combining Uganda's NCDC framework with Cambridge, IB, and British/IPC elements. The programme
+          built on Uganda's NCDC framework and enriched with IB concepts and British/IPC elements. The programme
           emphasises play-based learning, critical thinking, and multilingual development.
         </p>
         <div className="flex flex-wrap gap-2 mt-4">
-          {['NCDC Uganda', 'Cambridge', 'IB Concepts', 'British/IPC'].map(c => (
+          {['NCDC Uganda', 'IB Concepts', 'British/IPC'].map(c => (
             <span key={c} className="font-body text-xs font-semibold px-3 py-1 bg-white/10 text-white rounded-full">{c}</span>
           ))}
         </div>

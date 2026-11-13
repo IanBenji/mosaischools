@@ -1,4 +1,4 @@
-// Teacher mock data — reflects real MOSAI Schools structure
+// Teacher mock data — reflects real Mosai Schools structure
 
 export const mockTeacher = {
   name: 'Ms. Nakato Grace',

@@ -18,7 +18,7 @@ const campuses = [
     location: 'Katabi, Wakiso District',
     district: 'Off Kampala to Entebbe Road',
     description:
-      'Our newest campus in Katabi brings the MOSAI Schools experience to more families in the greater Entebbe area. Bunono Campus features the same high standards of care, safety, and academic excellence as our flagship.',
+      'Our newest campus in Katabi brings the Mosai Schools experience to more families in the greater Entebbe area. Bunono Campus features the same high standards of care, safety, and academic excellence as our flagship.',
     tags: ['Day & Boarding', 'Modern Facilities', 'Qualified Staff', 'Safe Environment'],
     accent: 'red',
     badge: 'New in 2026',
@@ -27,7 +27,7 @@ const campuses = [
 
 export default function Campuses() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-mist">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-14">

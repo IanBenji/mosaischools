@@ -16,7 +16,7 @@ export default function CampusTransition() {
     <div className="campus-wipe pointer-events-none fixed inset-0 z-[9000] flex items-center justify-center" style={{ backgroundColor: color }}>
       <div className="campus-wipe__label flex flex-col items-center gap-3 text-white">
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white p-1.5">
-          <img src={mosaiLogo} alt="MOSAI Schools" className="h-full w-full object-contain" />
+          <img src={mosaiLogo} alt="Mosai Schools" className="h-full w-full object-contain" />
         </div>
         <p className="font-body text-[11px] font-bold uppercase tracking-[0.35em] text-white/60">
           Switching to

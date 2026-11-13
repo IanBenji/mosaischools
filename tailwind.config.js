@@ -17,6 +17,12 @@ export default {
           DEFAULT: '#D32F2F',
           dark: '#B71C1C',
         },
+        // Crest green (the head-and-pen emblem on the school badge)
+        'mosai-green': {
+          light: '#E8F5E9',
+          DEFAULT: '#2E7D32',
+          dark: '#1B5E20',
+        },
         // ── Crayon-box accents — the kindergarten palette ──
         crayon: {
           sun:   '#FFC93C',   // sunshine yellow
@@ -26,6 +32,12 @@ export default {
           grape: '#9B7EDE',   // soft purple
         },
         cream: '#FFF8EE',      // warm page background
+        // Soft page backgrounds that replace pure white section backgrounds
+        // (cards stay white so they still lift off the page).
+        mist: {
+          DEFAULT: '#F3F6FA',  // was bg-white
+          deep:    '#EBF0F6',  // was bg-gray-50, keeps the alternation
+        },
       },
       fontFamily: {
         heading: ['Nunito', 'sans-serif'],

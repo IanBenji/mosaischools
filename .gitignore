@@ -30,3 +30,8 @@ dist-ssr
 
 # Original unoptimized Bunono photos (source only — optimized copies live in src/assets/bunono/)
 src/assets/Bunono assets/
+# Original unoptimized Nalugala photos (source only — optimized copies live in src/assets/nalugala-campus/)
+src/assets/nalugala/
+
+# Local Claude Code settings and worktrees
+.claude/

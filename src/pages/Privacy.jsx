@@ -5,7 +5,7 @@ const LAST_UPDATED = '2 August 2026'
 
 export default function Privacy() {
   return (
-    <main className="bg-white">
+    <main className="bg-mist">
 
       {/* Page header */}
       <section className="relative bg-mosai-blue-dark pt-36 pb-14">
@@ -33,7 +33,7 @@ export default function Privacy() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose-mosai space-y-8">
 
           <p className="font-body text-gray-600 leading-relaxed">
-            MOSAI Schools ("we", "us", or "our") is committed to protecting the privacy of
+            Mosai Schools ("we", "us", or "our") is committed to protecting the privacy of
             parents, learners, staff, and visitors. This policy explains what information we
             collect through our website, how we use it, and the choices you have. By using
             this website, you agree to the practices described below.
@@ -149,8 +149,8 @@ export default function Privacy() {
               <a href="mailto:mosaischools@gmail.com" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
                 <Mail className="w-4 h-4" /> mosaischools@gmail.com
               </a>
-              <a href="tel:+256759742146" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
-                <Phone className="w-4 h-4" /> +256 759 742 146
+              <a href="tel:0759889401" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
+                <Phone className="w-4 h-4" /> 0759889401
               </a>
             </div>
           </div>

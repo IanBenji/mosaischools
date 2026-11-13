@@ -172,7 +172,7 @@ export default function Navbar() {
                   ? 'bg-white/90 group-hover:bg-white'
                   : 'bg-white group-hover:bg-gray-50'
               }`}>
-                <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
+                <img src={mosaiLogo} alt="Mosai Schools" className="w-full h-full object-contain" />
               </div>
               <span className={`font-heading font-extrabold text-xl leading-tight transition-colors duration-200 ${
                 isTransparent ? 'text-white' : 'text-mosai-blue-dark'

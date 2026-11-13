@@ -32,10 +32,10 @@ export default function AdminLayout() {
       {/* Logo */}
       <div className="flex items-center gap-3 px-5 py-5 border-b border-white/8">
         <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shrink-0 p-1">
-          <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
+          <img src={mosaiLogo} alt="Mosai Schools" className="w-full h-full object-contain" />
         </div>
         <div>
-          <p className="font-heading font-extrabold text-sm leading-tight text-white">MOSAI Schools</p>
+          <p className="font-heading font-extrabold text-sm leading-tight text-white">Mosai Schools</p>
           <p className="font-body text-xs text-zinc-400">Admin Panel</p>
         </div>
         {mobile && (
@@ -125,9 +125,9 @@ export default function AdminLayout() {
           </button>
           <div className="flex items-center gap-2">
             <span className="w-7 h-7 rounded-md bg-white flex items-center justify-center shrink-0 p-0.5">
-              <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
+              <img src={mosaiLogo} alt="Mosai Schools" className="w-full h-full object-contain" />
             </span>
-            <span className="font-heading font-bold text-sm text-white">MOSAI Admin</span>
+            <span className="font-heading font-bold text-sm text-white">Mosai Admin</span>
           </div>
         </header>
         <main className="flex-1 overflow-y-auto"><Outlet /></main>

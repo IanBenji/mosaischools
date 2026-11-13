@@ -4,6 +4,8 @@ import { X, ZoomIn, ChevronLeft, ChevronRight, MapPin, ArrowRight, Images } from
 import PageHeader from '../components/PageHeader'
 import { useCampus } from '../context/CampusContext'
 import GalleryBunono from './GalleryBunono'
+import { NAL, NAL_GALLERY } from '../assets/nalugala-campus'
+import { BUN } from '../assets/bunono'
 
 // â”€â”€ Static imports give Vite-hashed URLs — no download until <img src> is set â”€â”€
 import imgCls1 from '../assets/TON_8855.webp'
@@ -49,9 +51,14 @@ const photos = [
   { src: imgFac1, cat: 'Our Garden',   caption: 'In the school garden',     span: 'lg:col-span-2' },
   { src: imgFac2, cat: 'Special Days', caption: 'Parents and guests',       span: '' },
   { src: imgFac3, cat: 'Graduation',   caption: 'Graduation day',           span: '' },
+  // Campus, boarding and garden photos added November 2026
+  ...NAL_GALLERY.map((ph, i) => ({
+    src: ph.img, cat: ph.cat, caption: ph.cap, alt: ph.alt,
+    span: i === 0 || i === 5 || i === 10 ? 'lg:col-span-2' : '',
+  })),
 ]
 
-const CATEGORIES = ['All', 'Graduation', 'Performances', 'Our Garden', 'Special Days']
+const CATEGORIES = ['All', 'Our Campus', 'Boarding', 'Our Garden', 'Graduation', 'Performances', 'Special Days']
 const PAGE_SIZE   = 12
 
 const countFor = (cat) =>
@@ -63,16 +70,17 @@ const campusTours = [
     badge: 'Flagship, opened January 2025',
     location: 'Garuga Road, off Kampala to Entebbe Road, Katabi',
     accent: 'blue',
-    hero: imgCmp1,
-    thumbs: [imgCls1, imgSpt1, imgFac1],
+    hero: NAL.compound.img,
+    thumbs: [NAL.classMotto.img, NAL.dormBlue.img, NAL.farmSign.img],
   },
   {
     name: 'Bunono Campus',
     badge: 'New Campus, opened 2026',
     location: 'Katabi, Wakiso District',
     accent: 'red',
-    hero: imgCmp2,
-    thumbs: [imgCls2, imgSpt2, imgFac2],
+    // Real Bunono photos, so each tour card shows the campus it names.
+    hero: BUN.front.img,
+    thumbs: [BUN.verandas.img, BUN.climbing.img, BUN.houses.img],
   },
 ]
 
@@ -162,16 +170,16 @@ function GalleryNalugala() {
   const next = () => setLightbox(i => (i + 1) % filtered.length)
 
   return (
-    <main className="bg-white">
+    <main className="bg-mist">
 
       {/* â”€â”€ Page Header (campus-specific design) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <PageHeader
         crumb="Gallery"
         title="Photo"
         accentWord="Gallery"
-        subtitle="Life at MOSAI Schools. A glimpse into the daily joy, creativity and learning across our Nalugala and Bunono campuses."
+        subtitle="Life at Mosai Schools. A glimpse into the daily joy, creativity and learning across our Nalugala and Bunono campuses."
         image={imgEvt1}
-        nextBg="#FFFFFF"
+        nextBg="#F3F6FA"
       >
         <div className="flex items-center gap-3">
           <span className="font-body text-sm font-semibold text-white/80">{photos.length} photos</span>
@@ -209,7 +217,7 @@ function GalleryNalugala() {
       </div>
 
       {/* â”€â”€ Photo Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-10 bg-gray-50">
+      <section className="py-10 bg-mist-deep">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filtered.length === 0 ? (
             <div className="text-center py-24 text-gray-400">
@@ -230,7 +238,7 @@ function GalleryNalugala() {
                     {/* LazyImg — src only injected when near viewport */}
                     <LazyImg
                       src={p.src}
-                      alt={p.caption}
+                      alt={p.alt || p.caption}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
 
@@ -287,7 +295,7 @@ function GalleryNalugala() {
       </section>
 
       {/* â”€â”€ Campus Tours â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-mist">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">Visit Us</span>
@@ -361,7 +369,7 @@ function GalleryNalugala() {
         <div className="max-w-xl mx-auto px-4">
           <h2 className="font-heading font-extrabold text-3xl text-mosai-blue-dark mb-3">Come See It in Person</h2>
           <p className="font-body text-sm text-gray-500 mb-7 leading-relaxed">
-            Photos are only the beginning. Book a visit to either our Nalugala or Bunono campus and experience the warmth of MOSAI Schools first hand.
+            Photos are only the beginning. Book a visit to either our Nalugala or Bunono campus and experience the warmth of Mosai Schools first hand.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link to="/contact" className="inline-flex items-center gap-2 bg-mosai-red hover:bg-mosai-red-dark text-white font-heading font-bold text-sm px-8 py-3.5 rounded-full transition-colors duration-200 shadow-md">
@@ -398,7 +406,7 @@ function GalleryNalugala() {
             <img
               key={lightboxIdx}
               src={photo.src}
-              alt={photo.caption}
+              alt={photo.alt || photo.caption}
               className="max-h-[78vh] w-full object-contain rounded-2xl shadow-2xl"
               loading="eager"
               decoding="async"

@@ -9,6 +9,7 @@ import PageHeader  from '../components/PageHeader'
 import PhotoBand   from '../components/PhotoBand'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
+import AboutLifeBunono from '../sections/AboutLifeBunono'
 import { bunonoPhotos } from '../assets/bunono'
 
 import imgHeader     from '../assets/bunono/bunono-02.webp'  // morning assembly, Bunono
@@ -94,7 +95,7 @@ export default function AboutBunono() {
 
       {/* Headteacher welcome — speech bubble */}
       {p.welcome && (
-        <section className="relative bg-white py-16">
+        <section className="relative bg-mist py-16">
           <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
           <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 items-start">
@@ -118,7 +119,7 @@ export default function AboutBunono() {
 
       {/* Director's message — photo card + speech bubble */}
       <section className="relative bg-cream py-16">
-        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
+        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 left-0 right-0" />
         <Doodles names={['star', 'leaf']} count={2} />
         <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
@@ -134,13 +135,13 @@ export default function AboutBunono() {
                 <img src={imgDirector} alt={p.director} className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
               <p className={`font-heading font-extrabold mt-4 ${INK}`}>{p.director}</p>
-              <p className="font-body text-sm text-mosai-blue font-semibold">Director, MOSAI Schools</p>
+              <p className="font-body text-sm text-mosai-blue font-semibold">Director, Mosai Schools</p>
             </div>
             <div className="relative bg-white rounded-[2rem] p-8 shadow-sm border-2 border-dashed border-crayon-sky">
               <span className="absolute -left-3 top-10 hidden md:block w-6 h-6 bg-white border-l-2 border-b-2 border-dashed border-crayon-sky rotate-45" />
               <div className={`space-y-4 font-body leading-relaxed ${INK2}`}>
                 <p>
-                  It is my honour to welcome you to our school, a learning community committed to excellence, integrity, and holistic education. At MOSAI Schools, we believe that every child is unique and capable of achieving greatness when nurtured with care, vision, and purpose.
+                  It is my honour to welcome you to our school, a learning community committed to excellence, integrity, and holistic education. At Mosai Schools, we believe that every child is unique and capable of achieving greatness when nurtured with care, vision, and purpose.
                 </p>
                 <p>
                   The message is <span className={`font-bold ${INK}`}>Self agency</span>, the core belief that the capacity for growth, transformation, and self improvement is largely internal. We teach our learners that real change starts by looking inward, and the main mandate of our school is identifying the unique potential of each child and building self confidence and self belief.
@@ -160,11 +161,11 @@ export default function AboutBunono() {
       </section>
 
       {/* scattered photo */}
-      <PhotoBand img={bunonoPhotos[0]} cap="Morning assembly" bg="bg-white" />
+      <PhotoBand img={bunonoPhotos[0]} cap="Morning assembly" bg="bg-mist" />
 
       {/* Vision & Mission — two big blob cards */}
       <section className="relative bg-cream py-16">
-        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
+        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 left-0 right-0" />
         <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="bg-mosai-red text-white p-10 shadow-lg rotate-1" style={{ borderRadius: '46% 54% 42% 58% / 55% 42% 58% 45%' }}>
@@ -183,7 +184,7 @@ export default function AboutBunono() {
       <PhotoBand img={bunonoPhotos[43]} cap="The school crest" bg="bg-cream" />
 
       {/* Core values — circles */}
-      <section className="relative bg-white py-16">
+      <section className="relative bg-mist py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
         <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
@@ -210,9 +211,12 @@ export default function AboutBunono() {
         </div>
       </section>
 
+      {/* Life at Mosai: Nutrition, Day and Boarding, Games and Sports */}
+      <AboutLifeBunono />
+
       {/* CTA */}
       <section className="relative pt-20 pb-16" style={{ background: 'linear-gradient(180deg, #E14B4B 0%, #B71C1C 100%)' }}>
-        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
+        <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
         <Doodles names={['star', 'flower']} count={2} />
         <div className="relative z-[3] max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="font-heading font-extrabold text-4xl text-white mb-4">Come Grow With Us</h2>

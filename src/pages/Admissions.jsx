@@ -15,7 +15,7 @@ import PageHeader from '../components/PageHeader'
 import { LoadingRows, EmptyState, StaleNotice } from '../components/DataState'
 import AdmissionsBunono from './AdmissionsBunono'
 import SimpleCaptcha from '../components/SimpleCaptcha'
-import { feeRange } from '../lib/fees'
+import { feeRange, FEES } from '../lib/fees'
 import headerImg  from '../assets/IMG_8754.webp'
 import photoA     from '../assets/TON_8855.webp'
 import photoB     from '../assets/IMG_8791.webp'
@@ -268,8 +268,8 @@ export function AppForm() {
           {inp('Date of Birth', 'dob', 'date')}
           {sel('Gender', 'gender', ['Female','Male','Prefer not to say'])}
           {sel('Preferred Campus', 'campus', campusNames)}
-          {sel('Applying For', 'classFor', ['Baby Class (Age 2 to 3)','Middle Class (Age 3 to 4)','Top Class (Age 5 to 6)'])}
-          {sel('Start Term', 'startTerm', ['2025 Term 2','2025 Term 3','2026 Term 1'], true)}
+          {sel('Applying For', 'classFor', ['Baby Class (Age 2 to 3)','Middle Class (Age 3 to 4)','Top Class (Age 5 to 6)','Primary One (P.1)','Primary Two (P.2)','Primary Three (P.3)','Primary Four (P.4)'])}
+          {sel('Start Term', 'startTerm', ['2027 Term 1','2027 Term 2','2027 Term 3'], true)}
         </div>
       </div>
 
@@ -356,7 +356,7 @@ function AdmissionsNalugala() {
   const forms     = formDocuments(documents.rows, campus)
 
   return (
-    <main className="bg-white">
+    <main className="bg-mist">
 
       {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <PageHeader
@@ -493,7 +493,7 @@ function AdmissionsNalugala() {
       </section>
 
       {/* â”€â”€ Fee Structure â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section id="fees" className="py-20 bg-gray-50">
+      <section id="fees" className="py-20 bg-mist-deep">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header */}
@@ -532,7 +532,7 @@ function AdmissionsNalugala() {
               <div className="bg-mosai-blue px-6 py-5">
                 <p className="font-body text-xs text-blue-200 uppercase tracking-widest mb-1">Nursery Section</p>
                 <h3 className="font-heading font-extrabold text-xl text-white">Baby, Middle &amp; Top Class</h3>
-                <p className="font-body text-sm text-blue-200 mt-1">Ages 3 to 6 years</p>
+                <p className="font-body text-sm text-blue-200 mt-1">Ages 2 to 6 years</p>
               </div>
               <div className="px-6 py-5 space-y-4">
                 <div className="flex items-center justify-between py-3 border-b border-gray-100">
@@ -546,7 +546,7 @@ function AdmissionsNalugala() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(450000)}</p>
+                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(FEES.nursery.day)}</p>
                     <p className="font-body text-xs text-gray-400">per term</p>
                   </div>
                 </div>
@@ -561,7 +561,7 @@ function AdmissionsNalugala() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(600000)}</p>
+                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(FEES.nursery.boarding)}</p>
                     <p className="font-body text-xs text-gray-400">per term</p>
                   </div>
                 </div>
@@ -587,7 +587,7 @@ function AdmissionsNalugala() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(500000)}</p>
+                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(FEES.primary.day)}</p>
                     <p className="font-body text-xs text-gray-400">per term</p>
                   </div>
                 </div>
@@ -602,7 +602,7 @@ function AdmissionsNalugala() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(700000)}</p>
+                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(FEES.primary.boarding)}</p>
                     <p className="font-body text-xs text-gray-400">per term</p>
                   </div>
                 </div>
@@ -615,7 +615,7 @@ function AdmissionsNalugala() {
             <h3 className="font-heading font-bold text-base text-mosai-blue-dark mb-4">What the Term Fee Covers</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { icon: BookOpen,      text: 'Quality education using blended NCDC, Cambridge, IB & IPC curriculum' },
+                { icon: BookOpen,      text: 'Quality education built on the NCDC curriculum, enriched with IB concepts and IPC' },
                 { icon: CheckCircle,   text: 'All learning materials and printed books (provided by school)' },
                 { icon: GraduationCap, text: isBunono ? 'Access to playground and all campus facilities' : 'Access to playground, swimming pool and all school facilities' },
                 { icon: Users,         text: 'All extracurricular and sports activities' },
@@ -663,7 +663,7 @@ function AdmissionsNalugala() {
       </section>
 
       {/* â”€â”€ Process — horizontal card strip â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-24 bg-white overflow-hidden">
+      <section className="py-24 bg-mist overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">Simple and Clear</span>
@@ -707,7 +707,7 @@ function AdmissionsNalugala() {
       </section>
 
       {/* â”€â”€ Application form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section id="apply" className="py-24 bg-gray-50">
+      <section id="apply" className="py-24 bg-mist-deep">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
 
@@ -758,7 +758,7 @@ function AdmissionsNalugala() {
       </section>
 
       {/* â”€â”€ Downloads â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-mist">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
@@ -839,7 +839,7 @@ function AdmissionsNalugala() {
               </p>
               <div key={campus} className="fade-in-up grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  { icon: Phone,  label: 'Call or WhatsApp', value: campusInfo.phone,             href: `tel:${tel}`                 },
+                  { icon: Phone,  label: 'Call the Head Mistress', value: campusInfo.phone,            href: `tel:${tel}`                 },
                   { icon: Mail,   label: 'Email',            value: campusInfo.email,             href: `mailto:${campusInfo.email}` },
                   { icon: MapPin, label: 'Visit Us',         value: `${p.address}, ${p.area}`,    href: null                         },
                   { icon: Clock,  label: 'Office Hours',     value: 'Mon to Fri · 7:30 AM to 5:30 PM', href: null                      },

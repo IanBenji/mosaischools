@@ -74,7 +74,7 @@ export default function ScholarshipsBunono() {
             <p className={`font-heading text-xl leading-relaxed font-bold sm:text-2xl ${INK}`}>
               {SCHOLARSHIPS.statement}
             </p>
-            <p className={`mt-4 font-body text-sm ${INK2}`}>MOSAI Schools management</p>
+            <p className={`mt-4 font-body text-sm ${INK2}`}>Mosai Schools management</p>
           </div>
         </div>
       </section>
@@ -97,7 +97,7 @@ export default function ScholarshipsBunono() {
       <PhotoBand img={bunonoPhotos[5]} cap="Assembly at Bunono" bg="bg-cream" />
 
       {/* ── Aims — big round badges ────────────────────────────────────── */}
-      <section className="relative bg-white py-16">
+      <section className="relative bg-mist py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 right-0 left-0" />
         <div className="relative z-[3] mx-auto max-w-6xl px-4 pt-8 sm:px-6">
           <h2 className={`mb-12 text-center font-heading text-3xl font-extrabold sm:text-4xl ${INK}`}>
@@ -127,7 +127,7 @@ export default function ScholarshipsBunono() {
 
       {/* ── Eligibility — dashed bubble cards ──────────────────────────── */}
       <section className="relative bg-cream py-16">
-        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 right-0 left-0" />
+        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 right-0 left-0" />
         <Doodles names={['balloon', 'leaf']} count={2} />
         <div className="relative z-[3] mx-auto max-w-6xl px-4 pt-8 sm:px-6">
           <div className="mx-auto mb-12 max-w-2xl text-center">
@@ -227,7 +227,7 @@ export default function ScholarshipsBunono() {
       <PhotoBand img={bunonoPhotos[12]} cap="Learning together" bg="bg-cream" />
 
       {/* ── Apply ──────────────────────────────────────────────────────── */}
-      <section id="apply" className="relative scroll-mt-24 bg-white py-16">
+      <section id="apply" className="relative scroll-mt-24 bg-mist py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 right-0 left-0" />
         <div className="relative z-[3] mx-auto max-w-7xl px-4 pt-8 sm:px-6">
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-5">

@@ -6,7 +6,7 @@ export const SECTIONS  = ['Nursery', 'Primary']
 export const TYPES     = ['Day Scholar', 'Boarding']
 
 export const FEE_STRUCTURE = {
-  Nursery: { 'Day Scholar': 450000, Boarding: 600000 },
+  Nursery: { 'Day Scholar': 500000, Boarding: 700000 },
   Primary: { 'Day Scholar': 500000, Boarding: 700000 },
 }
 

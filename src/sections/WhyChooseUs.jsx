@@ -1,14 +1,12 @@
 ﻿import { Check, BookOpen, Shield, Sparkles } from 'lucide-react'
 
-// Each photo directly illustrates the pillar it supports
-import imgClassroom from '../assets/IMG_8674.webp' // Digital boards = quality learning
-import imgOutdoor   from '../assets/TON_8779.webp' // Obstacle course = active, safe environment
-import imgSports    from '../assets/TON_8742.webp' // Relay races = beyond the classroom
+import { NAL } from '../assets/nalugala-campus'
 
+// Each photo directly illustrates the pillar it supports (Nalugala campus).
 const pillars = [
   {
-    image:    imgClassroom,
-    imageAlt: 'Modern classroom with digital boards at MOSAI Schools',
+    image:    NAL.classMotto.img,
+    imageAlt: NAL.classMotto.alt,
     icon:     BookOpen,
     color:    '#6EC6F2',
     title:    'Excellence in Learning',
@@ -16,17 +14,17 @@ const pillars = [
     points: [
       'Qualified and continuously trained class teachers',
       'Digital interactive boards and computer labs',
-      'Blended NCDC, Cambridge, IB and British/IPC curriculum',
+      'Built on the NCDC curriculum, enriched with IB concepts and IPC',
       'Instruction in four languages: English, Swahili, French, Chinese',
     ],
   },
   {
-    image:    imgOutdoor,
-    imageAlt: 'Children on outdoor obstacle course at MOSAI Schools',
+    image:    NAL.gate.img,
+    imageAlt: NAL.gate.alt,
     icon:     Shield,
     color:    '#FF8A6B',
     title:    'Safe and Nurturing',
-    intro:    'Every child deserves to feel completely safe. MOSAI Schools is built around security, care and pastoral support.',
+    intro:    'Every child deserves to feel completely safe. Mosai Schools is built around security, care and pastoral support.',
     points: [
       '24/7 security guards and CCTV cameras on campus',
       'Comfortable boarding with supervised pastoral care',
@@ -35,12 +33,12 @@ const pillars = [
     ],
   },
   {
-    image:    imgSports,
-    imageAlt: 'Learners competing in relay races at MOSAI Schools',
+    image:    NAL.playground.img,
+    imageAlt: NAL.playground.alt,
     icon:     Sparkles,
     color:    '#5FBB6E',
     title:    'Beyond the Classroom',
-    intro:    'Education at MOSAI goes further than textbooks, as we nurture the whole child through sport, creativity and life skills.',
+    intro:    'Education at Mosai goes further than textbooks, as we nurture the whole child through sport, creativity and life skills.',
     points: [
       'On site swimming pool with trained instructors',
       'Sports programme: soccer, netball, athletics, basketball',
@@ -52,7 +50,7 @@ const pillars = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-mist">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
@@ -60,7 +58,7 @@ export default function WhyChooseUs() {
           <span className="font-heading text-sm font-extrabold text-mosai-red uppercase tracking-widest">Our Difference</span>
           <h2 className="font-heading font-extrabold text-4xl sm:text-5xl text-mosai-blue-dark mt-2">
             Why{' '}
-            <span className="crayon-underline" style={{ '--crayon-color': '#FFC93C' }}>MOSAI Schools?</span>
+            <span className="crayon-underline" style={{ '--crayon-color': '#FFC93C' }}>Mosai Schools?</span>
           </h2>
           <p className="font-body text-gray-500 mt-4 max-w-xl mx-auto">
             Three big promises we keep for every child, every day, across both campuses.

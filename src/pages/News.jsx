@@ -34,7 +34,7 @@ export default function News() {
   const wa         = campusInfo.whatsapp.replace(/[^\d]/g, '')
 
   return (
-    <main className="bg-white">
+    <main className="bg-mist">
 
       <PageHeader
         crumb="News"
@@ -43,7 +43,7 @@ export default function News() {
         kicker="Announcements & updates"
         subtitle={`Term dates, admissions notices, events and everything else families need to know at our ${campusInfo.name} Campus.`}
         image={headerImg}
-        nextBg="#FFFFFF"
+        nextBg="#F3F6FA"
       >
         <div className="flex flex-wrap gap-3">
           <Link
@@ -61,7 +61,7 @@ export default function News() {
         </div>
       </PageHeader>
 
-      <section className="bg-gray-50 py-16 sm:py-20">
+      <section className="bg-mist-deep py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-3">
 

@@ -7,7 +7,7 @@ import WaveDivider from '../components/WaveDivider'
 import Lightbox    from '../components/Lightbox'
 
 import imgHeader from '../assets/bunono/bunono-15.webp'
-import { bunonoPhotos } from '../assets/bunono'
+import { bunonoPhotos, BUN_GALLERY } from '../assets/bunono'
 
 /* Bunono GALLERY — a joyful tilted "scrapbook" wall of real Bunono photos.
  * Captions follow the actual content of each photo (assembly / pool / campus). */
@@ -28,11 +28,11 @@ function captionFor(n, i) {
   return 'Our campus'     // 39–46 — the Bunono campus buildings
 }
 
-const PHOTOS = bunonoPhotos.map((img, i) => ({
-  img,
-  cap: captionFor(i + 1, i),
-  rot: ROTS[i % ROTS.length],
-}))
+// The November 2026 campus photos lead, then the original numbered set.
+const PHOTOS = [
+  ...BUN_GALLERY.map(({ img, cap, alt }) => ({ img, cap, alt })),
+  ...bunonoPhotos.map((img, i) => ({ img, cap: captionFor(i + 1, i) })),
+].map((ph, i) => ({ ...ph, rot: ROTS[i % ROTS.length] }))
 
 export default function GalleryBunono() {
   const [idx, setIdx] = useState(null)
@@ -61,7 +61,7 @@ export default function GalleryBunono() {
                 style={{ transform: `rotate(${ph.rot})` }}
               >
                 <div className="relative w-full h-48 rounded-md overflow-hidden bg-zinc-200">
-                  <img src={ph.img} alt={ph.cap} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                  <img src={ph.img} alt={ph.alt || ph.cap} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-200 flex items-center justify-center">
                     <span className="w-10 h-10 rounded-full bg-white/20 border border-white/40 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <ZoomIn className="w-5 h-5 text-white" />

@@ -5,7 +5,7 @@ const LAST_UPDATED = '11 June 2026'
 
 export default function Terms() {
   return (
-    <main className="bg-white">
+    <main className="bg-mist">
 
       {/* Page header */}
       <section className="relative bg-mosai-blue-dark pt-36 pb-14">
@@ -33,14 +33,14 @@ export default function Terms() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
           <p className="font-body text-gray-600 leading-relaxed">
-            Welcome to the MOSAI Schools website. By accessing or using this website, you agree to
+            Welcome to the Mosai Schools website. By accessing or using this website, you agree to
             these Terms of Use. If you do not agree with any part of these terms, please discontinue
             use of the website.
           </p>
 
           <Section title="1. Use of the Website">
             <p>
-              This website is provided for general information about MOSAI Schools, our programmes,
+              This website is provided for general information about Mosai Schools, our programmes,
               admissions, and campus life. You agree to use it only for lawful purposes and in a way
               that does not infringe the rights of, or restrict the use of this website by, any other party.
             </p>
@@ -75,7 +75,7 @@ export default function Terms() {
           <Section title="5. Intellectual Property">
             <p>
               All content on this website, including text, logos, images and design, is the property
-              of MOSAI Schools or its licensors and is protected by applicable laws. You may not
+              of Mosai Schools or its licensors and is protected by applicable laws. You may not
               reproduce, distribute, or use this content for commercial purposes without our written permission.
             </p>
           </Section>
@@ -89,14 +89,14 @@ export default function Terms() {
 
           <Section title="7. Limitation of Liability">
             <p>
-              MOSAI Schools shall not be liable for any loss or damage arising from your use of, or
+              Mosai Schools shall not be liable for any loss or damage arising from your use of, or
               inability to use, this website, to the fullest extent permitted by law.
             </p>
           </Section>
 
           <Section title="8. Governing Law">
             <p>
-              These Terms of Use are governed by the laws of the Republic of Uganda. MOSAI Schools is
+              These Terms of Use are governed by the laws of the Republic of Uganda. Mosai Schools is
               licensed by the Ministry of Education and Sports, Uganda.
             </p>
           </Section>
@@ -118,8 +118,8 @@ export default function Terms() {
               <a href="mailto:mosaischools@gmail.com" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
                 <Mail className="w-4 h-4" /> mosaischools@gmail.com
               </a>
-              <a href="tel:+256759742146" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
-                <Phone className="w-4 h-4" /> +256 759 742 146
+              <a href="tel:0759889401" className="inline-flex items-center gap-2 font-body text-sm font-semibold text-mosai-blue hover:text-mosai-blue-dark transition-colors">
+                <Phone className="w-4 h-4" /> 0759889401
               </a>
             </div>
           </div>

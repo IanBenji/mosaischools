@@ -59,7 +59,7 @@ export default function Announcements() {
 
       <div>
         <h1 className="font-heading font-extrabold text-2xl text-slate-800">Announcements</h1>
-        <p className="font-body text-sm text-slate-500 mt-0.5">School news and notices from MOSAI Schools administration.</p>
+        <p className="font-body text-sm text-slate-500 mt-0.5">School news and notices from Mosai Schools administration.</p>
       </div>
 
       <div className="space-y-4">

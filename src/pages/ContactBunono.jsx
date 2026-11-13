@@ -5,7 +5,7 @@ import PhotoBand   from '../components/PhotoBand'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
 import { ContactForm } from './Contact'
-import { bunonoPhotos } from '../assets/bunono'
+import { BUN } from '../assets/bunono'
 
 import imgHeader from '../assets/bunono/bunono-45.webp'  // Bunono classroom block
 
@@ -23,7 +23,7 @@ export default function ContactBunono() {
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(campusInfo.mapQuery)}&t=&z=14&ie=UTF8&iwloc=&output=embed`
 
   const bubbles = [
-    { icon: Phone,         label: 'Call us',      value: campusInfo.phone,    href: `tel:${tel}`,                 color: '#FF8A6B' },
+    { icon: Phone,         label: 'Head Mistress', value: campusInfo.phone,    href: `tel:${tel}`,                 color: '#FF8A6B' },
     { icon: MessageCircle, label: 'WhatsApp',     value: 'Chat with us',      href: `https://wa.me/${wa}`,        color: '#5FBB6E' },
     { icon: Mail,          label: 'Email',        value: campusInfo.email,    href: `mailto:${campusInfo.email}`, color: '#6EC6F2' },
     { icon: MapPin,        label: 'Visit',        value: p.area,              href: null,                         color: '#FFC93C' },
@@ -68,10 +68,10 @@ export default function ContactBunono() {
       </section>
 
       {/* scattered photo */}
-      <PhotoBand img={bunonoPhotos[39]} cap="Our campus" bg="bg-cream" />
+      <PhotoBand img={BUN.gate.img} cap="Find us at the Mosai Schools gate" alt={BUN.gate.alt} bg="bg-cream" />
 
       {/* Form + map */}
-      <section className="relative bg-white py-16">
+      <section className="relative bg-mist py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
         <div className="relative z-[3] max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
@@ -102,7 +102,7 @@ export default function ContactBunono() {
       </section>
 
       {/* scattered photo */}
-      <PhotoBand img={bunonoPhotos[44]} cap="Our classrooms" bg="bg-white" />
+      <PhotoBand img={BUN.verandas.img} cap={BUN.verandas.cap} alt={BUN.verandas.alt} bg="bg-mist" />
     </main>
   )
 }

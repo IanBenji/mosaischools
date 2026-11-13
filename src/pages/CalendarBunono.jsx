@@ -37,12 +37,12 @@ export default function CalendarBunono({ events }) {
   const tel      = campusInfo.phone.replace(/\s+/g, '')
 
   function addAll() {
-    downloadIcs(upcoming, 'mosai-bunono-calendar.ics', 'MOSAI Schools, Bunono Campus')
+    downloadIcs(upcoming, 'mosai-bunono-calendar.ics', 'Mosai Schools, Bunono Campus')
     trackEvent('calendar_download', { campus, scope: 'all', count: upcoming.length })
   }
 
   function addOne(event) {
-    downloadIcs(event, `${slugify(event.title)}.ics`, 'MOSAI Schools')
+    downloadIcs(event, `${slugify(event.title)}.ics`, 'Mosai Schools')
     trackEvent('calendar_download', { campus, scope: 'event' })
   }
 

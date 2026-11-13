@@ -13,7 +13,9 @@ import { CAMPUSES } from '../lib/campus'
 import PageHeader from '../components/PageHeader'
 import ContactBunono from './ContactBunono'
 
-import headerImg from '../assets/IMG_8829.webp'
+import { NAL } from '../assets/nalugala-campus'
+
+const headerImg = NAL.office.img   // the Nalugala front office, where visiting families are received
 
 const SUBJECTS = [
   'General Inquiry',
@@ -101,7 +103,7 @@ export function ContactForm({ defaultSubject = '' }) {
       </div>
       <h3 className="font-heading font-extrabold text-2xl text-mosai-blue-dark mb-2">Message Sent!</h3>
       <p className="font-body text-sm text-gray-500 max-w-xs mb-2">
-        Thank you for reaching out to MOSAI Schools. We will respond within one working day.
+        Thank you for reaching out to Mosai Schools. We will respond within one working day.
       </p>
       <p className="font-body text-xs text-gray-400 mb-8">
         Confirmation sent to <span className="font-semibold text-mosai-blue">{form.email}</span>
@@ -212,7 +214,7 @@ export function ContactForm({ defaultSubject = '' }) {
       <div className="flex items-start gap-2.5 bg-mosai-blue-light rounded-xl px-4 py-3">
         <AlertCircle className="w-4 h-4 text-mosai-blue mt-0.5 shrink-0" />
         <p className="font-body text-xs text-gray-600 leading-relaxed">
-          By submitting this form you consent to MOSAI Schools processing your data to respond to your inquiry. We will not share your information with third parties.
+          By submitting this form you consent to Mosai Schools processing your data to respond to your inquiry. We will not share your information with third parties.
         </p>
       </div>
 
@@ -252,7 +254,7 @@ export default function Contact() {
   const campusHero = campusInfo.hero.backgrounds[0]
 
   return (
-    <main className="bg-white">
+    <main className="bg-mist">
 
       {/* â”€â”€ 1. Page Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <PageHeader
@@ -261,7 +263,7 @@ export default function Contact() {
         accentWord="Us"
         subtitle={`We'd love to hear from you. Reach out to our ${campusInfo.name} Campus with any questions about admissions, programs, or school life, and our team responds within one working day.`}
         image={headerImg}
-        nextBg="#FFFFFF"
+        nextBg="#F3F6FA"
       >
         <div className="flex flex-wrap gap-3">
           <a
@@ -280,7 +282,7 @@ export default function Contact() {
       </PageHeader>
 
       {/* â”€â”€ 2. Contact Info Cards â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="bg-white pb-10">
+      <section className="bg-mist pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 -mt-12 relative z-10">
 
@@ -322,14 +324,17 @@ export default function Contact() {
               <div className="w-11 h-11 bg-mosai-red-light rounded-xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-200">
                 <Phone className="w-5 h-5 text-mosai-red" />
               </div>
-              <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-1">Phone</p>
-              <a href={`tel:${tel}`} className="font-heading font-bold text-sm text-mosai-blue-dark hover:text-mosai-blue transition-colors block">
+              <p className="font-body text-xs text-gray-400 uppercase tracking-wide mb-1">Phone · Head Mistress</p>
+              <a href={`tel:${tel}`} className="font-heading font-extrabold text-base text-mosai-blue-dark hover:text-mosai-blue transition-colors block">
                 {campusInfo.phone}
               </a>
               {altTel && (
-                <a href={`tel:${altTel}`} className="font-heading font-bold text-sm text-mosai-blue-dark hover:text-mosai-blue transition-colors block">
-                  {campusInfo.altPhone}
-                </a>
+                <>
+                  <p className="font-body text-[11px] text-gray-400 uppercase tracking-wide mt-2">Also</p>
+                  <a href={`tel:${altTel}`} className="font-heading font-bold text-sm text-mosai-blue-dark hover:text-mosai-blue transition-colors block">
+                    {campusInfo.altPhone}
+                  </a>
+                </>
               )}
               <a href={`https://wa.me/${wa}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 font-body text-xs font-semibold text-mosai-red hover:text-mosai-red-dark transition-colors mt-1.5 mb-4">
                 <MessageCircle className="w-3.5 h-3.5" /> Chat on WhatsApp
@@ -370,7 +375,7 @@ export default function Contact() {
       </section>
 
       {/* â”€â”€ 3 + 4. Form & Map â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-mist-deep">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
 
@@ -391,7 +396,7 @@ export default function Contact() {
               <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100" style={{ height: '280px' }}>
                 <iframe
                   key={campus}
-                  title={`MOSAI Schools ${campusInfo.name} Campus, ${campusInfo.mapQuery}`}
+                  title={`Mosai Schools ${campusInfo.name} Campus, ${campusInfo.mapQuery}`}
                   src={mapSrc}
                   width="100%"
                   height="280"

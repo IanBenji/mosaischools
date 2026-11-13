@@ -1,9 +1,11 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useCampus } from '../context/CampusContext'
 import PageHeader from '../components/PageHeader'
 import ProgramsBunono from './ProgramsBunono'
-import { feeRange } from '../lib/fees'
+import PrimaryJourney from '../components/PrimaryJourney'
+import { feeRange, FEES } from '../lib/fees'
+import { NAL } from '../assets/nalugala-campus'
 import {
   Baby, BookOpen, GraduationCap, CheckCircle, ArrowRight,
   Clock, CreditCard, Globe, FlaskConical, Monitor, Waves,
@@ -14,9 +16,8 @@ import {
 
 import imgHeader  from '../assets/IMG_8647.webp'
 import imgBaby    from '../assets/TON_8855.webp'
-import imgMid     from '../assets/IMG_8791.webp'
-import imgTop     from '../assets/IMG_8754.webp'
-import imgPrimary from '../assets/IMG_8818.webp'
+import imgMid     from '../assets/IMG_8738.webp'   // young learners dancing
+import imgTop     from '../assets/IMG_8754.webp'   // nursery cultural dance
 import imgGames1  from '../assets/TON_8742.webp'
 import imgGames2  from '../assets/IMG_8677.webp'
 import imgGames3  from '../assets/TON_8779.webp'
@@ -29,8 +30,9 @@ const nurseryPrograms = [
   {
     icon: Baby,
     name: 'Baby Class',
-    age: 'Ages 3 to 4',
+    age: 'Ages 2 to 3',
     image: imgBaby,
+    imageAlt: 'Mosai nursery graduates in caps and gowns celebrating on graduation day',
     accent: 'red',
     time: '7:30 AM to 2:00 PM',
     tagline: 'A warm, gentle introduction to school life',
@@ -51,14 +53,15 @@ const nurseryPrograms = [
       'Introduces numbers, shapes and colours through play',
       'Fosters independence and social interaction',
     ],
-    dayFee: 450000,
-    boardFee: 600000,
+    dayFee: FEES.nursery.day,
+    boardFee: FEES.nursery.boarding,
   },
   {
     icon: BookOpen,
     name: 'Middle Class',
-    age: 'Ages 4 to 5',
+    age: 'Ages 3 to 4',
     image: imgMid,
+    imageAlt: 'Young Mosai learners dancing together at a school celebration',
     accent: 'blue',
     time: '7:30 AM to 2:30 PM',
     tagline: 'Building curiosity, confidence and early skills',
@@ -79,14 +82,15 @@ const nurseryPrograms = [
       'Strengthens counting and early number sense',
       'Grows in emotional regulation and empathy',
     ],
-    dayFee: 450000,
-    boardFee: 600000,
+    dayFee: FEES.nursery.day,
+    boardFee: FEES.nursery.boarding,
   },
   {
     icon: Star,
     name: 'Top Class',
     age: 'Ages 5 to 6',
     image: imgTop,
+    imageAlt: 'Mosai nursery learners in traditional dress performing a cultural dance',
     accent: 'red',
     time: '7:30 AM to 3:00 PM',
     tagline: 'Fully prepared and ready for Primary 1',
@@ -107,8 +111,8 @@ const nurseryPrograms = [
       'Demonstrates strong listening and comprehension',
       'Transitions confidently to Primary 1',
     ],
-    dayFee: 450000,
-    boardFee: 600000,
+    dayFee: FEES.nursery.day,
+    boardFee: FEES.nursery.boarding,
   },
 ]
 
@@ -196,7 +200,6 @@ const languages = ['English', 'Swahili', 'French', 'Chinese']
 
 const curricula = [
   { icon: BookOpen,    name: 'NCDC Uganda',           desc: 'National curriculum grounding in Ugandan identity and academic essentials.' },
-  { icon: GraduationCap, name: 'Cambridge International', desc: 'Globally recognised standards that develop independent thinkers.' },
   { icon: FlaskConical,  name: 'IB Concepts',            desc: 'Inquiry based learning that promotes curiosity and critical thinking.' },
   { icon: Globe,         name: 'British / IPC',           desc: 'Thematic cross curricular learning enriched with local values.' },
 ]
@@ -214,7 +217,7 @@ function ProgramsNalugala() {
   const p = campusInfo.profile
 
   return (
-    <main className="bg-white">
+    <main className="bg-mist">
 
       {/* â”€â”€ 1. Page Header (campus-specific design) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <PageHeader
@@ -250,11 +253,11 @@ function ProgramsNalugala() {
             <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">How We Teach</span>
             <h2 className="font-heading font-extrabold text-3xl text-mosai-blue-dark mt-2">Our Blended Curriculum</h2>
             <p className="font-body text-gray-500 mt-3 max-w-2xl mx-auto text-sm leading-relaxed">
-              We combine four world class frameworks into one coherent, learner centred curriculum that delivers global inquiry based learning while staying rooted in Ugandan values and culture.
+              We build on Uganda's national curriculum and enrich it with inquiry based and thematic approaches, so learning is curious and connected while staying rooted in Ugandan values and culture.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 max-w-4xl mx-auto">
             {curricula.map((c, i) => {
               const Icon = c.icon
               return (
@@ -285,7 +288,7 @@ function ProgramsNalugala() {
       </section>
 
       {/* â”€â”€ 3. Nursery Programs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <div className="py-4 bg-white text-center">
+      <div className="py-4 bg-mist text-center">
         <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">Nursery Section</span>
         <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-1">Baby Class to Top Class</h2>
       </div>
@@ -299,7 +302,7 @@ function ProgramsNalugala() {
           <section
             key={i}
             id={prog.name.toLowerCase().replace(' ', '-')}
-            className={`py-20 ${isEven ? 'bg-white' : 'bg-gray-50'}`}
+            className={`py-20 ${isEven ? 'bg-mist' : 'bg-mist-deep'}`}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className={`grid grid-cols-1 lg:grid-cols-2 gap-14 items-start ${!isEven ? 'lg:[direction:rtl]' : ''}`}>
@@ -309,7 +312,7 @@ function ProgramsNalugala() {
                   <div className="relative rounded-3xl overflow-hidden shadow-xl group">
                     <img
                       src={prog.image}
-                      alt={prog.name}
+                      alt={prog.imageAlt}
                       className="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
@@ -380,7 +383,7 @@ function ProgramsNalugala() {
                     <div className="space-y-2">
                       {prog.outcomes.map((o) => (
                         <div key={o} className="flex items-start gap-2">
-                          <span className={`text-xs mt-0.5 shrink-0 ${isRed ? 'text-mosai-red' : 'text-mosai-blue'}`}>âœ¦</span>
+                          <span className={`text-xs mt-0.5 shrink-0 ${isRed ? 'text-mosai-red' : 'text-mosai-blue'}`}>✦</span>
                           <span className="font-body text-sm text-gray-600">{o}</span>
                         </div>
                       ))}
@@ -414,7 +417,7 @@ function ProgramsNalugala() {
                 {p.primaryRange}: <span className="text-mosai-red-light">Growing Every Year</span>
               </h2>
               <p className="font-body text-blue-100 text-sm leading-relaxed mb-6">
-                Our primary section provides a rigorous yet joyful education combining Uganda's NCDC curriculum with Cambridge, IB and British/IPC frameworks. At our {campusInfo.name} Campus we currently offer {p.primaryRange}, adding one class each year until we reach P.7, ensuring learners benefit from continuity of care and curriculum as they grow.
+                Our primary section provides a rigorous yet joyful education built on Uganda's NCDC curriculum and enriched with inquiry based, thematic learning. At our {campusInfo.name} Campus we currently offer {p.primaryRange}, adding one class each year until we reach P.7, ensuring learners benefit from continuity of care and curriculum as they grow.
               </p>
 
               {/* Academic activities */}
@@ -454,7 +457,7 @@ function ProgramsNalugala() {
                     'Multilingual ability across four languages',
                   ].map((o) => (
                     <div key={o} className="flex items-start gap-2">
-                      <span className="text-mosai-red-light text-xs mt-0.5 shrink-0">âœ¦</span>
+                      <span className="text-mosai-red-light text-xs mt-0.5 shrink-0">✦</span>
                       <span className="font-body text-sm text-blue-100">{o}</span>
                     </div>
                   ))}
@@ -481,9 +484,11 @@ function ProgramsNalugala() {
             <div>
               <div className="relative rounded-3xl overflow-hidden shadow-xl group mb-4">
                 <img
-                  src={imgPrimary}
-                  alt="Primary section"
+                  src={NAL.classVeranda.img}
+                  alt={NAL.classVeranda.alt}
                   className="w-full h-96 object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 text-white">
@@ -499,12 +504,12 @@ function ProgramsNalugala() {
               <div className="bg-white/10 border border-white/15 rounded-2xl p-5 grid grid-cols-2 gap-4">
                 <div className="text-center">
                   <p className="font-body text-xs text-blue-300 uppercase tracking-wide mb-1">Day Scholar</p>
-                  <p className="font-heading font-extrabold text-lg text-white">UGX {feeRange(500000)}</p>
+                  <p className="font-heading font-extrabold text-lg text-white">UGX {feeRange(FEES.primary.day)}</p>
                   <p className="font-body text-xs text-blue-300">per term</p>
                 </div>
                 <div className="text-center border-l border-white/15">
                   <p className="font-body text-xs text-blue-300 uppercase tracking-wide mb-1">Boarding</p>
-                  <p className="font-heading font-extrabold text-lg text-mosai-red-light">UGX {feeRange(700000)}</p>
+                  <p className="font-heading font-extrabold text-lg text-mosai-red-light">UGX {feeRange(FEES.primary.boarding)}</p>
                   <p className="font-body text-xs text-blue-300">per term</p>
                 </div>
                 <div className="col-span-2 flex items-center gap-2 justify-center pt-1 border-t border-white/10">
@@ -514,11 +519,25 @@ function ProgramsNalugala() {
               </div>
             </div>
           </div>
+
+          {/* Class by class — P.1 to P.7 */}
+          <div className="mt-16 pt-12 border-t border-white/10">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
+              <div>
+                <span className="font-body text-xs font-bold text-mosai-red-light uppercase tracking-widest">The Primary Journey</span>
+                <h3 className="font-heading font-extrabold text-3xl mt-1">Class by Class</h3>
+              </div>
+              <p className="font-body text-sm text-blue-200 max-w-md sm:text-right">
+                Lower primary builds strong foundations; Primary Four is the bridge into learning by subject.
+              </p>
+            </div>
+            <PrimaryJourney top={p.primaryTop} variant="dark" />
+          </div>
         </div>
       </section>
 
       {/* â”€â”€ 5. Activities & Sports â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section id="activities" className="py-20 bg-white">
+      <section id="activities" className="py-20 bg-mist">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">Beyond the Classroom</span>
@@ -602,7 +621,7 @@ function ProgramsNalugala() {
       </section>
 
       {/* â”€â”€ 6. Nursery Games â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section id="games" className="py-20 bg-gray-50">
+      <section id="games" className="py-20 bg-mist-deep">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">Play Based Learning</span>
@@ -646,7 +665,7 @@ function ProgramsNalugala() {
       </section>
 
       {/* â”€â”€ 7. CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-16 bg-white text-center">
+      <section className="py-16 bg-mist text-center">
         <div className="max-w-2xl mx-auto px-4">
           <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">Enroll Today</span>
           <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-2 mb-3">

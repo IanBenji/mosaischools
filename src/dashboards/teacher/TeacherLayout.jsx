@@ -33,10 +33,10 @@ export default function TeacherLayout() {
       {/* Logo */}
       <div className="flex items-center gap-3 px-5 py-5 border-b border-white/10">
         <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center shrink-0 p-1">
-          <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
+          <img src={mosaiLogo} alt="Mosai Schools" className="w-full h-full object-contain" />
         </div>
         <div>
-          <p className="font-heading font-extrabold text-sm leading-tight">MOSAI Schools</p>
+          <p className="font-heading font-extrabold text-sm leading-tight">Mosai Schools</p>
           <p className="font-body text-xs text-blue-300">Teacher Portal</p>
         </div>
         {mobile && (
@@ -132,9 +132,9 @@ export default function TeacherLayout() {
           </button>
           <div className="flex items-center gap-2">
             <span className="w-7 h-7 rounded-md bg-white flex items-center justify-center shrink-0 p-0.5">
-              <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
+              <img src={mosaiLogo} alt="Mosai Schools" className="w-full h-full object-contain" />
             </span>
-            <span className="font-heading font-bold text-sm text-white">MOSAI Teacher Portal</span>
+            <span className="font-heading font-bold text-sm text-white">Mosai Teacher Portal</span>
           </div>
         </header>
 

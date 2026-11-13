@@ -29,7 +29,7 @@ export default function Downloads() {
   const tel    = campusInfo.phone.replace(/\s+/g, '')
 
   return (
-    <main className="bg-white">
+    <main className="bg-mist">
 
       <PageHeader
         crumb="Downloads"
@@ -38,7 +38,7 @@ export default function Downloads() {
         kicker="Everything in one place"
         subtitle="The fee structure, class requirements, uniform lists and school forms that families ask us for most often. Save them to your phone and bring them when you visit."
         image={headerImg}
-        nextBg="#FFFFFF"
+        nextBg="#F3F6FA"
       >
         <div className="flex flex-wrap gap-3">
           <Link
@@ -56,7 +56,7 @@ export default function Downloads() {
         </div>
       </PageHeader>
 
-      <section className="bg-gray-50 py-16 sm:py-20">
+      <section className="bg-mist-deep py-16 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
 
           {documents.loading ? (

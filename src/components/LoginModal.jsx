@@ -93,7 +93,7 @@ export default function LoginModal({ type, onClose, onSwitch }) {
             </div>
             <div>
               <div className="flex items-center gap-1.5 mb-0.5">
-                <img src={mosaiLogo} alt="MOSAI Schools" className="w-4 h-4 object-contain" />
+                <img src={mosaiLogo} alt="Mosai Schools" className="w-4 h-4 object-contain" />
                 <span className="font-body text-xs text-gray-400 font-medium">Mosai Schools</span>
               </div>
               <h2 className="font-heading font-extrabold text-xl text-mosai-blue-dark">{cfg.title}</h2>

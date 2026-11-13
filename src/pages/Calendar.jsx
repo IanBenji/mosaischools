@@ -32,17 +32,17 @@ export default function Calendar() {
   const tel      = campusInfo.phone.replace(/\s+/g, '')
 
   function addAll() {
-    downloadIcs(upcoming, 'mosai-schools-calendar.ics', `MOSAI Schools, ${campusInfo.name} Campus`)
+    downloadIcs(upcoming, 'mosai-schools-calendar.ics', `Mosai Schools, ${campusInfo.name} Campus`)
     trackEvent('calendar_download', { campus, scope: 'all', count: upcoming.length })
   }
 
   function addOne(event) {
-    downloadIcs(event, `${slugify(event.title)}.ics`, 'MOSAI Schools')
+    downloadIcs(event, `${slugify(event.title)}.ics`, 'Mosai Schools')
     trackEvent('calendar_download', { campus, scope: 'event' })
   }
 
   return (
-    <main className="bg-white">
+    <main className="bg-mist">
 
       <PageHeader
         crumb="Calendar"
@@ -51,7 +51,7 @@ export default function Calendar() {
         kicker="School calendar"
         subtitle={`When term opens and closes, holidays, exams, visitation and everything else worth putting in your diary at our ${campusInfo.name} Campus.`}
         image={headerImg}
-        nextBg="#FFFFFF"
+        nextBg="#F3F6FA"
       >
         <div className="flex flex-wrap gap-3">
           {upcoming.length > 0 && (
@@ -72,7 +72,7 @@ export default function Calendar() {
         </div>
       </PageHeader>
 
-      <section className="bg-gray-50 py-16 sm:py-20">
+      <section className="bg-mist-deep py-16 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
 
           {events.loading ? (

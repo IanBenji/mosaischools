@@ -28,17 +28,17 @@ export default function Scholarships() {
   const wa  = campusInfo.whatsapp.replace(/[^\d]/g, '')
 
   return (
-    <main className="bg-white">
+    <main className="bg-mist">
 
       {/* ── 1. Page header ─────────────────────────────────────────────── */}
       <PageHeader
         crumb="Scholarships"
-        title="MOSAI"
+        title="Mosai"
         accentWord="Scholarships"
         kicker="Limited places · Awarded on merit and need"
         subtitle="A limited number of scholarships for vulnerable and disadvantaged, yet able and gifted children, so that ability, not circumstance, decides how far a child goes."
         image={headerImg}
-        nextBg="#FFFFFF"
+        nextBg="#F3F6FA"
       >
         <div className="flex flex-wrap gap-3">
           <a
@@ -57,7 +57,7 @@ export default function Scholarships() {
       </PageHeader>
 
       {/* ── 2. The school's statement + purpose ────────────────────────── */}
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-mist py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
           {/* Official wording, quoted */}
@@ -66,7 +66,7 @@ export default function Scholarships() {
             <p className="font-heading text-xl leading-relaxed font-bold text-mosai-blue-dark sm:text-2xl">
               {SCHOLARSHIPS.statement}
             </p>
-            <p className="mt-4 font-body text-sm text-gray-500">MOSAI Schools management</p>
+            <p className="mt-4 font-body text-sm text-gray-500">Mosai Schools management</p>
           </div>
 
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -84,7 +84,7 @@ export default function Scholarships() {
             <div className="relative">
               <img
                 src={purposeImg}
-                alt="MOSAI Schools learners"
+                alt="Mosai Schools learners"
                 className="h-80 w-full rounded-3xl object-cover shadow-xl sm:h-96"
                 loading="lazy"
                 decoding="async"
@@ -127,7 +127,7 @@ export default function Scholarships() {
       </section>
 
       {/* ── 4. Eligibility ─────────────────────────────────────────────── */}
-      <section className="bg-white py-16 sm:py-20">
+      <section className="bg-mist py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 max-w-2xl">
             <span className="font-body text-xs font-bold tracking-widest text-mosai-red uppercase">Eligibility</span>
@@ -213,7 +213,7 @@ export default function Scholarships() {
       </section>
 
       {/* ── 7. Apply / enquire ─────────────────────────────────────────── */}
-      <section id="apply" className="scroll-mt-24 bg-gray-50 py-16 sm:py-20">
+      <section id="apply" className="scroll-mt-24 bg-mist-deep py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-5">
 

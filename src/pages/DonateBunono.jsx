@@ -90,7 +90,7 @@ export default function DonateBunono() {
       <PhotoBand img={bunonoPhotos[32]} cap="A day at Bunono" bg="bg-cream" />
 
       {/* ── Impact tiers — price tags on tilted cards ──────────────────── */}
-      <section className="relative bg-white py-16">
+      <section className="relative bg-mist py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 right-0 left-0" />
         <div className="relative z-[3] mx-auto max-w-6xl px-4 pt-8 sm:px-6">
           <div className="mx-auto mb-12 max-w-2xl text-center">
@@ -147,7 +147,7 @@ export default function DonateBunono() {
 
       {/* ── Where it goes — round badges ───────────────────────────────── */}
       <section className="relative bg-cream py-16">
-        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 right-0 left-0" />
+        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 right-0 left-0" />
         <Doodles names={['flower', 'leaf']} count={2} />
         <div className="relative z-[3] mx-auto max-w-6xl px-4 pt-8 sm:px-6">
           <div className="mx-auto mb-12 max-w-2xl text-center">
@@ -181,7 +181,7 @@ export default function DonateBunono() {
       </section>
 
       {/* ── Ways to give ───────────────────────────────────────────────── */}
-      <section className="relative bg-white py-16">
+      <section className="relative bg-mist py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 right-0 left-0" />
         <div className="relative z-[3] mx-auto max-w-6xl px-4 pt-8 sm:px-6">
           <h2 className={`mb-12 text-center font-heading text-3xl font-extrabold sm:text-4xl ${INK}`}>
@@ -214,7 +214,7 @@ export default function DonateBunono() {
 
       {/* ── How giving works ───────────────────────────────────────────── */}
       <section className="relative bg-mosai-red py-16 text-white">
-        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 right-0 left-0" />
+        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 right-0 left-0" />
         <div className="relative z-[3] mx-auto max-w-6xl px-4 pt-10 sm:px-6">
           <div className="mb-12 text-center">
             <h2 className="mb-3 font-heading text-3xl font-extrabold sm:text-4xl">
@@ -222,7 +222,7 @@ export default function DonateBunono() {
               <span className="crayon-underline" style={{ '--crayon-color': '#FFC93C' }}>works</span>
             </h2>
             <p className="mx-auto max-w-2xl font-body leading-relaxed text-white/85">
-              MOSAI Schools does not take payments through this website. You tell us what you would like to do, and the
+              Mosai Schools does not take payments through this website. You tell us what you would like to do, and the
               school office sends its official instructions directly to you.
             </p>
           </div>
@@ -279,7 +279,7 @@ export default function DonateBunono() {
       <PhotoBand img={bunonoPhotos[46]} cap="Room to play and grow" bg="bg-cream" />
 
       {/* ── The form ───────────────────────────────────────────────────── */}
-      <section id="give" className="relative scroll-mt-24 bg-white py-16">
+      <section id="give" className="relative scroll-mt-24 bg-mist py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 right-0 left-0" />
         <div className="relative z-[3] mx-auto max-w-7xl px-4 pt-8 sm:px-6">
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-5">

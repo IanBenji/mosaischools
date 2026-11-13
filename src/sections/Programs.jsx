@@ -1,55 +1,64 @@
 import { ArrowRight, Globe } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { feeRange } from '../lib/fees'
+import { useCampus } from '../context/CampusContext'
+import { feeRange, FEES } from '../lib/fees'
+import { NAL } from '../assets/nalugala-campus'
 
-// Real classroom photos — each matches the actual class level
-import imgBaby    from '../assets/TON_8855.webp'  // Baby Class circle time
-import imgMiddle  from '../assets/IMG_8791.webp'  // Middle Class phonics
-import imgTop     from '../assets/IMG_8754.webp'  // Top Class mathematics
-import imgPrimary from '../assets/IMG_8818.webp'  // Primary computer class
-
-const programs = [
-  {
-    image:       imgBaby,
-    imageAlt:    'Baby Class learners at morning circle time',
-    name:        'Baby Class',
-    ages:        'Ages 3 to 4',
-    description: 'A gentle, nurturing introduction to school life through play, music and sensory exploration. Children develop social skills, emotional awareness and early language in a warm, loving environment.',
-    feeBase:     450000,
-    color:       '#FF8A6B',
-  },
-  {
-    image:       imgMiddle,
-    imageAlt:    'Middle Class learners during phonics lesson',
-    name:        'Middle Class',
-    ages:        'Ages 4 to 5',
-    description: 'Building early literacy, numeracy and social skills through structured play and creative activities. Learners grow in confidence as they explore science, arts and language.',
-    feeBase:     450000,
-    color:       '#FFC93C',
-  },
-  {
-    image:       imgTop,
-    imageAlt:    'Top Class learners during mathematics session',
-    name:        'Top Class',
-    ages:        'Ages 5 to 6',
-    description: 'Preparing children fully for Primary 1 with focused reading, writing, mathematics and critical thinking. Every learner transitions to primary school ready and confident.',
-    feeBase:     450000,
-    color:       '#6EC6F2',
-  },
-  {
-    image:       imgPrimary,
-    imageAlt:    'Primary section learners during computer class',
-    name:        'Primary Section',
-    ages:        'P.1, P.2 and P.3',
-    description: 'A rigorous yet joyful primary education blending Uganda\'s NCDC curriculum with Cambridge, IB and British/IPC frameworks. Adding one class per year through to P.7.',
-    feeBase:     500000,
-    color:       '#5FBB6E',
-  },
-]
+// Nalugala photos. The nursery cards use photographs from school celebrations,
+// so their alt text describes the celebration rather than a lesson.
+import imgBaby   from '../assets/TON_8742.webp'  // little ones on stage, dressed up
+import imgMiddle from '../assets/IMG_8738.webp'  // young learners dancing
+import imgTop    from '../assets/IMG_8754.webp'  // nursery cultural dance
 
 const languages = ['English', 'Swahili', 'French', 'Chinese']
 
 export default function Programs() {
+  const { campusInfo } = useCampus()
+  const p = campusInfo.profile
+
+  const programs = [
+    {
+      image:       imgBaby,
+      imageAlt:    'Young Mosai nursery learners dressed up on stage at a school celebration',
+      name:        'Baby Class',
+      ages:        'Ages 2 to 3',
+      description: 'A gentle, nurturing introduction to school life through play, music and sensory exploration. Children develop social skills, emotional awareness and early language in a warm, loving environment.',
+      dayFee:      FEES.nursery.day,
+      boardFee:    FEES.nursery.boarding,
+      color:       '#FF8A6B',
+    },
+    {
+      image:       imgMiddle,
+      imageAlt:    'Young Mosai learners dancing together at a school celebration',
+      name:        'Middle Class',
+      ages:        'Ages 3 to 4',
+      description: 'Building early literacy, numeracy and social skills through structured play and creative activities. Learners grow in confidence as they explore science, arts and language.',
+      dayFee:      FEES.nursery.day,
+      boardFee:    FEES.nursery.boarding,
+      color:       '#FFC93C',
+    },
+    {
+      image:       imgTop,
+      imageAlt:    'Mosai nursery learners in traditional dress performing a cultural dance',
+      name:        'Top Class',
+      ages:        'Ages 5 to 6',
+      description: 'Preparing children fully for Primary 1 with focused reading, writing, mathematics and critical thinking. Every learner transitions to primary school ready and confident.',
+      dayFee:      FEES.nursery.day,
+      boardFee:    FEES.nursery.boarding,
+      color:       '#6EC6F2',
+    },
+    {
+      image:       NAL.classVeranda.img,
+      imageAlt:    NAL.classVeranda.alt,
+      name:        'Primary Section',
+      ages:        p.primaryRange,
+      description: 'A rigorous yet joyful primary education built on Uganda\'s NCDC curriculum, with Primary Four as the bridge into learning by subject. Adding one class per year through to P.7.',
+      dayFee:      FEES.primary.day,
+      boardFee:    FEES.primary.boarding,
+      color:       '#5FBB6E',
+    },
+  ]
+
   return (
     <section className="py-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,14 +75,13 @@ export default function Programs() {
           </p>
         </div>
 
-        {/* Program cards with real classroom photos */}
+        {/* Program cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {programs.map((prog, i) => (
+          {programs.map((prog) => (
             <div
-              key={i}
+              key={prog.name}
               className="group rounded-3xl overflow-hidden bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
             >
-              {/* Real classroom photo */}
               <div className="relative h-44 overflow-hidden bg-zinc-200">
                 <img
                   src={prog.image}
@@ -94,9 +102,16 @@ export default function Programs() {
                 <p className="font-body text-sm text-gray-500 leading-relaxed mb-4 flex-1">{prog.description}</p>
 
                 {/* Fee */}
-                <div className="mb-4 py-2.5 px-3 rounded-2xl" style={{ backgroundColor: prog.color + '1F' }}>
-                  <span className="font-body text-xs text-gray-500">Day Scholar · per term</span>
-                  <p className="font-heading font-bold text-sm text-mosai-blue-dark">UGX {feeRange(prog.feeBase)}</p>
+                <div className="mb-4 py-2.5 px-3 rounded-2xl space-y-1.5" style={{ backgroundColor: prog.color + '1F' }}>
+                  <p className="font-body text-[11px] text-gray-500 uppercase tracking-wide">Per term · UGX</p>
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="font-body text-xs text-gray-500">Day</span>
+                    <span className="font-heading font-bold text-sm text-mosai-blue-dark whitespace-nowrap">{feeRange(prog.dayFee)}</span>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="font-body text-xs text-gray-500">Boarding</span>
+                    <span className="font-heading font-bold text-sm text-mosai-blue-dark whitespace-nowrap">{feeRange(prog.boardFee)}</span>
+                  </div>
                 </div>
 
                 <Link
@@ -119,7 +134,7 @@ export default function Programs() {
             </span>
             <div>
               <p className="font-heading font-bold text-sm text-white">Languages of Instruction</p>
-              <p className="font-body text-xs text-blue-300 mt-0.5">NCDC Uganda · Cambridge · IB · British/IPC curriculum blend</p>
+              <p className="font-body text-xs text-blue-300 mt-0.5">Built on the NCDC Uganda curriculum, enriched with inquiry based learning</p>
             </div>
           </div>
           <div className="flex flex-wrap gap-2">

@@ -9,7 +9,7 @@ import PhotoBand   from '../components/PhotoBand'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
 import { AppForm } from './Admissions'
-import { feeRange } from '../lib/fees'
+import { feeRange, FEES } from '../lib/fees'
 import { bunonoPhotos } from '../assets/bunono'
 
 import imgHeader from '../assets/bunono/bunono-44.webp'  // Bunono campus building + crest
@@ -33,8 +33,8 @@ export default function AdmissionsBunono() {
   const p = campusInfo.profile
 
   const fees = [
-    { name: 'Nursery Section', sub: 'Baby, Middle & Top Class', day: 450000, board: 600000, color: '#FF8A6B' },
-    { name: 'Primary Section', sub: p.primaryRange,             day: 500000, board: 700000, color: '#6EC6F2' },
+    { name: 'Nursery Section', sub: 'Baby, Middle & Top Class', day: FEES.nursery.day, board: FEES.nursery.boarding, color: '#FF8A6B' },
+    { name: 'Primary Section', sub: p.primaryRange,             day: FEES.primary.day, board: FEES.primary.boarding, color: '#6EC6F2' },
   ]
 
   return (
@@ -81,7 +81,7 @@ export default function AdmissionsBunono() {
       <PhotoBand img={bunonoPhotos[8]} cap="Poolside fun" bg="bg-cream" />
 
       {/* Fees — playful cards */}
-      <section id="fees" className="relative bg-white py-16">
+      <section id="fees" className="relative bg-mist py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
         <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
@@ -127,11 +127,11 @@ export default function AdmissionsBunono() {
       </section>
 
       {/* scattered photo */}
-      <PhotoBand img={bunonoPhotos[12]} cap="Splash time" bg="bg-white" />
+      <PhotoBand img={bunonoPhotos[12]} cap="Splash time" bg="bg-mist" />
 
       {/* Application form */}
       <section id="apply" className="relative bg-cream py-16">
-        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
+        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 left-0 right-0" />
         <div className="relative z-[3] max-w-3xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-8">
             <span className="inline-flex items-center gap-2 bg-crayon-grass text-white font-heading font-extrabold text-xs uppercase tracking-wide px-4 py-2 rounded-full shadow mb-4">

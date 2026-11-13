@@ -23,7 +23,7 @@ export default function WhatsAppButton() {
 
   const number = campusInfo.whatsapp.replace(/[^\d]/g, '')
   const message = encodeURIComponent(
-    `Hello MOSAI Schools, I am writing about the ${campusInfo.name} Campus. I would like to ask about `,
+    `Hello Mosai Schools, I am writing about the ${campusInfo.name} Campus. I would like to ask about `,
   )
   const href = `https://wa.me/${number}?text=${message}`
 
@@ -50,7 +50,7 @@ export default function WhatsAppButton() {
         target="_blank"
         rel="noreferrer"
         onClick={() => { dismiss(); trackEvent('whatsapp_click', { campus }) }}
-        aria-label={`Chat with MOSAI Schools ${campusInfo.name} Campus on WhatsApp`}
+        aria-label={`Chat with Mosai Schools ${campusInfo.name} Campus on WhatsApp`}
         className="group relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/40 active:scale-95"
       >
         {/* Gentle attention ring — motion-safe only */}

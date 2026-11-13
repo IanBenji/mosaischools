@@ -68,6 +68,9 @@
   animation: kenburns 7s ease-out forwards;
   will-change: transform;
 }
+@media (prefers-reduced-motion: reduce) {
+  .slide-kenburns { animation: none; }
+}
 
 /* ── Content fade-in-up ──────────────────────── */
 @keyframes fade-in-up {

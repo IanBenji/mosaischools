@@ -8,6 +8,7 @@ import PageHeader  from '../components/PageHeader'
 import PhotoBand   from '../components/PhotoBand'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
+import PrimaryJourney from '../components/PrimaryJourney'
 import { bunonoPhotos } from '../assets/bunono'
 
 import imgHeader from '../assets/bunono/bunono-09.webp'  // learners at Bunono
@@ -82,6 +83,21 @@ export default function ProgramsBunono() {
               )
             })}
           </div>
+
+          {/* Primary, class by class */}
+          <div id="primary" className="mt-16 scroll-mt-36">
+            <div className="text-center mb-8">
+              <p className="font-heading font-extrabold text-mosai-red uppercase tracking-widest text-sm">Growing up, one class at a time</p>
+              <h3 className={`font-heading font-extrabold text-3xl sm:text-4xl mt-2 ${INK}`}>
+                Our{' '}
+                <span className="crayon-underline" style={{ '--crayon-color': '#6EC6F2' }}>Primary Journey</span>
+              </h3>
+              <p className={`font-body mt-3 max-w-2xl mx-auto ${INK2}`}>
+                Lower primary builds strong foundations, and Primary Four is the bridge into learning by subject.
+              </p>
+            </div>
+            <PrimaryJourney top={p.primaryTop} variant="storybook" />
+          </div>
         </div>
       </section>
 
@@ -89,7 +105,7 @@ export default function ProgramsBunono() {
       <PhotoBand img={bunonoPhotos[14]} cap="Swimming lessons" bg="bg-cream" />
 
       {/* Activities — playful chip groups */}
-      <section className="relative bg-white py-16">
+      <section className="relative bg-mist py-16">
         <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
         <div className="relative z-[3] max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
@@ -123,11 +139,11 @@ export default function ProgramsBunono() {
       </section>
 
       {/* scattered photo */}
-      <PhotoBand img={bunonoPhotos[32]} cap="Splash time" bg="bg-white" />
+      <PhotoBand img={bunonoPhotos[32]} cap="Splash time" bg="bg-mist" />
 
       {/* CTA */}
       <section className="relative pt-20 pb-16" style={{ background: 'linear-gradient(180deg, #E14B4B 0%, #B71C1C 100%)' }}>
-        <WaveDivider variant="scallop" color="#FFFFFF" flip className="absolute top-0 left-0 right-0" />
+        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 left-0 right-0" />
         <Doodles names={['star', 'flower']} count={2} />
         <div className="relative z-[3] max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="font-heading font-extrabold text-4xl text-white mb-4">Find Your Child's Class</h2>
