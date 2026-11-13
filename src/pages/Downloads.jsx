@@ -102,7 +102,7 @@ export default function Downloads() {
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       {docs.map((doc) => {
                         const opensInBrowser = VIEWABLE.includes(doc.fileType)
-                        const isInternal = doc.url?.startsWith('/')
+                        const isInternal = doc.fileType === 'PAGE' && doc.url?.startsWith('/')
                         const Wrapper = isInternal ? Link : 'a'
                         const linkProps = isInternal
                           ? { to: doc.url }

@@ -60,8 +60,14 @@ const WORKBOOK = '1K2UzMR-5J6fN5Qmcf0d6evFpDERM8HpRKMmPqSfZRaI'
  * plausible enough that nobody would question it. Missing gid means off. */
 const TABS = {
   announcements: { id: WORKBOOK, gid: '1837718417' },
-  events:        { id: WORKBOOK, gid: '1040802008' },
-  documents:     { id: WORKBOOK, gid: '1856482' },
+
+  /* Switched off on 13 Nov 2026, because both tabs only held rows marked
+   * PLACEHOLDER. Until the office fills them, the site shows the calendar and
+   * documents bundled in schoolData.js instead. Once the tabs hold real rows,
+   * put the gids back (events 1040802008, documents 1856482) and the sheet
+   * takes over again with no other change. */
+  events:        { id: WORKBOOK, gid: '' },
+  documents:     { id: WORKBOOK, gid: '' },
 }
 
 const build = (fn) => Object.fromEntries(

@@ -97,7 +97,7 @@ export default function DownloadsBunono({ documents }) {
                     <div className="grid grid-cols-1 gap-7 sm:grid-cols-2">
                       {docs.map((doc, i) => {
                         const opensInBrowser = VIEWABLE.includes(doc.fileType)
-                        const isInternal = doc.url?.startsWith('/')
+                        const isInternal = doc.fileType === 'PAGE' && doc.url?.startsWith('/')
                         const Wrapper = isInternal ? Link : 'a'
                         const linkProps = isInternal
                           ? { to: doc.url }

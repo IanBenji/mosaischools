@@ -787,7 +787,7 @@ function AdmissionsNalugala() {
               {forms.map((doc) => {
                 const Icon = ICON_FOR_TYPE[doc.fileType] || FileText
                 const opensInBrowser = VIEWABLE.includes(doc.fileType)
-                const isInternal = doc.url?.startsWith('/')
+                const isInternal = doc.fileType === 'PAGE' && doc.url?.startsWith('/')
                 const Wrapper = isInternal ? Link : 'a'
                 const linkProps = isInternal
                   ? { to: doc.url }

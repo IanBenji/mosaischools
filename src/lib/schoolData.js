@@ -241,6 +241,50 @@ function guessFileType(url) {
 // rules and the sheet validator be unit tested in plain Node.
 const env = import.meta.env ?? {}
 
+/* The bundled calendar and documents, used whenever the sheet tab is off.
+ *
+ * Written as sheet rows on purpose, and run through the same normalisers, so
+ * they behave exactly like rows the office types and can be pasted straight
+ * into the sheet (docs/sheet-templates/ holds the same rows as CSV).
+ *
+ * Term dates follow the Ministry of Education and Sports pattern: Term III 2026
+ * closes on 4 December and 2027 opens on 1 February. The PDFs live in
+ * public/documents/, so their address follows the site's base path. */
+const BASE = (env.BASE_URL || '/').replace(/\/?$/, '/')
+const pdf = (file) => `${BASE}documents/${file}`
+
+const BUNDLED_EVENTS = [
+  { title: 'End of year examinations', start: '2026-11-23', end: '2026-11-27', type: 'Exam', location: 'Classrooms', details: 'Final assessments for Term III. Learners should arrive by 7:30 AM with all their stationery.' },
+  { title: 'Bunono Graduation and Speech Day', start: '2026-11-21', time: '10:00', endtime: '14:00', type: 'Event', campus: 'bunono', location: 'Bunono Campus', details: 'Top Class graduates in caps and gowns, performances from every class and the Head Teacher’s address. Parents and guardians are warmly invited.' },
+  { title: 'Nalugala Graduation and Speech Day', start: '2026-11-28', time: '10:00', endtime: '14:00', type: 'Event', campus: 'nalugala', location: 'Nalugala Campus, Garuga Road', details: 'Top Class graduation, prize giving and performances. Parents and guardians are warmly invited.' },
+  { title: 'Term III ends', start: '2026-12-04', type: 'Term', details: 'Report cards are issued at the close of the day. Boarders are collected from 12:00 noon.' },
+  { title: 'Christmas holiday', start: '2026-12-05', end: '2027-01-31', type: 'Holiday', details: 'The office stays open on weekdays for admissions, 9:00 AM to 1:00 PM, except over Christmas and New Year.' },
+  { title: 'Boarders report for Term I', start: '2027-01-31', time: '14:00', endtime: '18:00', type: 'Term', details: 'Boarders arrive with their requirements, checked in by the matron and the class teacher.' },
+  { title: 'Term I 2027 begins', start: '2027-02-01', time: '07:30', type: 'Term', details: 'All learners report in full uniform. Fees are payable through the School Pay System by the first day of term.' },
+  { title: 'Janani Luwum Day', start: '2027-02-16', type: 'Holiday', details: 'Public holiday. No classes.' },
+  { title: 'Parents’ meeting (PTA)', start: '2027-02-20', time: '10:00', endtime: '13:00', type: 'Meeting', details: 'Meet the class teachers, hear the plan for the year and elect class representatives.' },
+  { title: 'Nalugala Visitation Day', start: '2027-03-06', time: '10:00', endtime: '15:00', type: 'Visitation', campus: 'nalugala', location: 'Nalugala Campus', details: 'Parents and guardians of boarders are welcome. Please carry your child’s visitation card.' },
+  { title: 'International Women’s Day', start: '2027-03-08', type: 'Holiday', details: 'Public holiday. No classes.' },
+  { title: 'Bunono Visitation Day', start: '2027-03-13', time: '10:00', endtime: '15:00', type: 'Visitation', campus: 'bunono', location: 'Bunono Campus', details: 'Parents and guardians of boarders are welcome. Please carry your child’s visitation card.' },
+  { title: 'Easter mid term break', start: '2027-03-25', end: '2027-03-29', type: 'Holiday', details: 'Learners go home on Thursday at 1:00 PM and return on Tuesday 30 March by 7:30 AM.' },
+  { title: 'End of Term I examinations', start: '2027-04-19', end: '2027-04-23', type: 'Exam', location: 'Classrooms' },
+  { title: 'Term I ends', start: '2027-04-30', type: 'Term', details: 'Report cards are issued at the close of the day.' },
+  { title: 'Term II 2027 begins', start: '2027-05-24', time: '07:30', type: 'Term', details: 'Boarders may arrive from 2:00 PM on Sunday 23 May.' },
+  { title: 'Uganda Martyrs Day', start: '2027-06-03', type: 'Holiday', details: 'Public holiday. No classes.' },
+  { title: 'Heroes Day', start: '2027-06-09', type: 'Holiday', details: 'Public holiday. No classes.' },
+  { title: 'Inter house Sports Day', start: '2027-07-03', time: '09:00', endtime: '16:00', type: 'Sport', details: 'Athletics, swimming and games between the houses at both campuses. Parents are welcome to come and cheer.' },
+  { title: 'Term II ends', start: '2027-08-20', type: 'Term', details: 'Report cards are issued at the close of the day.' },
+  { title: 'Term III 2027 begins', start: '2027-09-13', time: '07:30', type: 'Term', details: 'Boarders may arrive from 2:00 PM on Sunday 12 September.' },
+]
+
+const BUNDLED_DOCUMENTS = [
+  { title: 'Application for Admission, 2027', url: pdf('mosai-admission-form-2027.pdf'), description: 'Print it, fill it in and bring it to the office with the documents listed on the form.', category: 'Forms', filetype: 'PDF', size: '205 KB', updated: '2026-11-13' },
+  { title: 'Learner Medical Form', url: pdf('mosai-learner-medical-form.pdf'), description: 'Required for every boarder. Part B is completed and stamped by a clinician.', category: 'Forms', filetype: 'PDF', size: '203 KB', updated: '2026-11-13' },
+  { title: 'Fee structure, 2027', url: pdf('mosai-fee-structure-2027.pdf'), description: 'Termly tuition for Day and Boarding, other charges, and how to pay through the School Pay System.', category: 'Fees', filetype: 'PDF', size: '203 KB', updated: '2026-11-13' },
+  { title: 'Termly requirements list, 2027', url: pdf('mosai-requirements-list-2027.pdf'), description: 'What Nursery, Primary and boarding learners bring on the first day of term.', category: 'Requirements', filetype: 'PDF', size: '204 KB', updated: '2026-11-13' },
+  { title: 'School uniform list', url: pdf('mosai-uniform-list.pdf'), description: 'Uniform for boys and girls, sports and house wear, and grooming rules.', category: 'Uniform', filetype: 'PDF', size: '203 KB', updated: '2026-11-13' },
+]
+
 export const DATASETS = {
   announcements: {
     url:      env.VITE_SHEET_ANNOUNCEMENTS || SHEET_URLS.announcements,
@@ -250,23 +294,14 @@ export const DATASETS = {
   events: {
     url:      env.VITE_SHEET_EVENTS || SHEET_URLS.events,
     normalise: normaliseEvent,
-    fallback:  [],           // deliberately empty — see note below
+    fallback:  BUNDLED_EVENTS.map(normaliseEvent),
   },
   documents: {
     url:      env.VITE_SHEET_DOCUMENTS || SHEET_URLS.documents,
     normalise: normaliseDocument,
-    fallback:  [],           // deliberately empty — see note below
+    fallback:  BUNDLED_DOCUMENTS.map(normaliseDocument),
   },
 }
-
-/* Why `events` and `documents` ship empty:
- *
- * Announcements can fall back safely because the three below were already
- * published on the site, so nothing new is being asserted. Term dates and
- * document links are different — inventing plausible-looking ones would put
- * dates in front of parents that the school never approved, and parents act on
- * term dates. Both pages therefore render a proper empty state until the school
- * fills its sheet. Templates with example rows: docs/sheet-templates/. */
 
 function fallbackAnnouncements() {
   // The notices already hardcoded into the site before this became editable.
@@ -448,5 +483,6 @@ export function groupDocuments(rows, campus) {
  * whatever its category; this only decides what is repeated on Admissions,
  * where a parent already reading about applying is most likely to want it. */
 export function formDocuments(rows, campus) {
-  return forCampus(rows, campus).filter(d => /form/i.test(d.category || ''))
+  // Whole word only, or "Uniform" would count as a form.
+  return forCampus(rows, campus).filter(d => /\bforms?\b/i.test(d.category || ''))
 }
