@@ -86,7 +86,7 @@ const campusTours = [
 
 // â”€â”€ LazyImg — withholds src until cell is near the viewport â”€â”€â”€â”€â”€â”€â”€â”€
 // This prevents ANY network request for off-screen images.
-function LazyImg({ src, alt, className, onVisible }) {
+function LazyImg({ src, alt, className }) {
   const wrapRef  = useRef(null)
   const [show,   setShow]   = useState(false)
   const [loaded, setLoaded] = useState(false)
@@ -100,7 +100,6 @@ function LazyImg({ src, alt, className, onVisible }) {
         if (entry.isIntersecting) {
           setShow(true)
           observer.disconnect()
-          onVisible?.()
         }
       },
       { rootMargin: '400px' }

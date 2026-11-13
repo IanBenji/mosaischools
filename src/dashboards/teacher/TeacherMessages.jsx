@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import { Send, AlertCircle, Phone } from 'lucide-react'
 import { mockMessages, mockStudents } from './mockData'
-import { useAuth } from '../../context/AuthContext'
 
 export default function TeacherMessages() {
-  const { user } = useAuth()
   const [conversations, setConversations] = useState(mockMessages)
   const [selected,  setSelected]  = useState(conversations[0])
   const [draft,     setDraft]     = useState('')

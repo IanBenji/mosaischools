@@ -20,6 +20,22 @@ function exportCSV(students) {
 
 const blankForm = { name:'', age:'', gender:'', class:'Baby Class', section:'Nursery', campus:'Nalugala Campus', type:'Day Scholar', parentName:'', parentPhone:'' }
 
+/* Kept out of ManageStudents so it stays one component type between renders.
+ *
+ * Built inside the page it would be redefined on every keystroke in the search
+ * box, and React would replace all four dropdowns rather than update them. A
+ * remounted <select> loses focus, which is why an open list used to shut itself
+ * the moment anything else on the page changed. */
+function SelectFilter({ label, value, opts, onChange }) {
+  return (
+    <select value={value} onChange={e => onChange(e.target.value)}
+      className="font-body text-sm px-3 py-2 border border-zinc-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-mosai-blue/20">
+      <option value="All">{label}: All</option>
+      {opts.map(o => <option key={o}>{o}</option>)}
+    </select>
+  )
+}
+
 export default function ManageStudents() {
   const [students, setStudents] = useState(mockStudents)
   const [query,    setQuery]    = useState('')
@@ -61,14 +77,6 @@ export default function ManageStudents() {
     setTimeout(() => { setSaved(false); closeModal() }, 1000)
   }
 
-  const SelectFilter = ({ label, k, opts }) => (
-    <select value={filters[k]} onChange={e => setFilter(k, e.target.value)}
-      className="font-body text-sm px-3 py-2 border border-zinc-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-mosai-blue/20">
-      <option value="All">{label}: All</option>
-      {opts.map(o => <option key={o}>{o}</option>)}
-    </select>
-  )
-
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-5">
 
@@ -96,10 +104,10 @@ export default function ManageStudents() {
           <input type="text" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search name, admission no., parent…"
             className="pl-9 pr-4 py-2 font-body text-sm border border-zinc-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-mosai-blue/20 w-72" />
         </div>
-        <SelectFilter label="Campus"  k="campus"  opts={CAMPUSES} />
-        <SelectFilter label="Section" k="section" opts={SECTIONS} />
-        <SelectFilter label="Class"   k="class"   opts={CLASSES}  />
-        <SelectFilter label="Type"    k="type"    opts={TYPES}    />
+        <SelectFilter label="Campus"  value={filters.campus}  opts={CAMPUSES} onChange={v => setFilter('campus',  v)} />
+        <SelectFilter label="Section" value={filters.section} opts={SECTIONS} onChange={v => setFilter('section', v)} />
+        <SelectFilter label="Class"   value={filters.class}   opts={CLASSES}  onChange={v => setFilter('class',   v)} />
+        <SelectFilter label="Type"    value={filters.type}    opts={TYPES}    onChange={v => setFilter('type',    v)} />
       </div>
 
       {/* Table */}

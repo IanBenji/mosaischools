@@ -19,14 +19,15 @@ const navItems = [
   { to:'/admin/settings',     icon:Settings,        label:'Settings'               },
 ]
 
-export default function AdminLayout() {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-
-  function handleLogout() { logout(); navigate('/login') }
-
-  const Sidebar = ({ mobile = false }) => (
+/* Declared here rather than inside AdminLayout on purpose.
+ *
+ * A component built during its parent's render is a brand new type on every
+ * render, so React unmounts the old tree and mounts a fresh one instead of
+ * updating it. For a sidebar that costs the scroll position of a long nav list
+ * and any focus inside it. Taking the state it needs as props keeps one stable
+ * type across renders. */
+function Sidebar({ mobile = false, user, onClose, onLogout }) {
+  return (
     <aside className={`flex flex-col h-full bg-zinc-900 text-white ${mobile ? 'w-72' : 'w-64'}`}>
 
       {/* Logo */}
@@ -39,7 +40,7 @@ export default function AdminLayout() {
           <p className="font-body text-xs text-zinc-400">Admin Panel</p>
         </div>
         {mobile && (
-          <button onClick={() => setSidebarOpen(false)} className="ml-auto text-zinc-500 hover:text-white">
+          <button onClick={onClose} className="ml-auto text-zinc-500 hover:text-white">
             <X className="w-5 h-5" />
           </button>
         )}
@@ -61,7 +62,7 @@ export default function AdminLayout() {
             key={to}
             to={to}
             end={end}
-            onClick={() => setSidebarOpen(false)}
+            onClick={onClose}
             className={({ isActive }) =>
               `group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-heading font-semibold transition-all duration-150 ${
                 isActive
@@ -98,7 +99,7 @@ export default function AdminLayout() {
           </div>
         </div>
         <button
-          onClick={handleLogout}
+          onClick={onLogout}
           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-heading font-semibold text-zinc-400 hover:text-white hover:bg-red-500/15 transition-all duration-150"
         >
           <LogOut className="w-4 h-4" /> Sign Out
@@ -106,15 +107,29 @@ export default function AdminLayout() {
       </div>
     </aside>
   )
+}
+
+export default function AdminLayout() {
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  function handleLogout() { logout(); navigate('/login') }
+
+  const close = () => setSidebarOpen(false)
 
   return (
     <div className="flex h-screen bg-zinc-100 overflow-hidden">
-      <div className="hidden lg:flex flex-col shrink-0"><Sidebar /></div>
+      <div className="hidden lg:flex flex-col shrink-0">
+        <Sidebar user={user} onClose={close} onLogout={handleLogout} />
+      </div>
 
       {sidebarOpen && (
         <div className="fixed inset-0 z-50 flex lg:hidden">
-          <div className="fixed inset-0 bg-black/70" onClick={() => setSidebarOpen(false)} />
-          <div className="relative z-10"><Sidebar mobile /></div>
+          <div className="fixed inset-0 bg-black/70" onClick={close} />
+          <div className="relative z-10">
+            <Sidebar mobile user={user} onClose={close} onLogout={handleLogout} />
+          </div>
         </div>
       )}
 

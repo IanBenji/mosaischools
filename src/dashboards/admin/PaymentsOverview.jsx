@@ -16,10 +16,7 @@ export default function PaymentsOverview() {
     return matchC && matchCl && matchS
   })
 
-  const visibleExpected  = visible.reduce((s,p) => s + p.amountDue, 0)
   const visibleCollected = visible.reduce((s,p) => s + p.amountPaid, 0)
-  const outstanding      = visibleExpected - visibleCollected
-  const pct = visibleExpected ? Math.round((visibleCollected / visibleExpected) * 100) : 0
 
   function exportCSV() {
     const rows = [['Student','Class','Campus','Type','Amount Due','Amount Paid','Balance','Status','Ref','Date']]

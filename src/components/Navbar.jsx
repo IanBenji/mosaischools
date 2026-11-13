@@ -126,17 +126,31 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Reset scroll state on route change (new page always starts at top)
-  useEffect(() => {
-    setScrolled(window.scrollY > 60)
-  }, [location.pathname])
-
-  // A tapped link closes the drawer behind the new page.
-  useEffect(() => {
+  /* Everything the header has to forget when the route changes: the new page
+   * opens at the top, and a drawer left standing would sit over it.
+   *
+   * Done while rendering rather than in an effect. Resetting state in an effect
+   * means React has already painted the old value — the condensed header, the
+   * open drawer — before the correction lands, so the drawer is briefly visible
+   * on top of the page just navigated to. Comparing against the path we last
+   * rendered lets React finish this render with the right values instead, which
+   * is its documented way to reset state when a value changes.
+   *
+   * scrolled goes to false rather than re-reading window.scrollY because
+   * ScrollRestoration puts every new route back at the top; reading the scroll
+   * position here would only race it, and would make rendering impure. */
+  const [renderedPath, setRenderedPath] = useState(location.pathname)
+  if (renderedPath !== location.pathname) {
+    setRenderedPath(location.pathname)
+    setScrolled(false)
     setMenuOpen(false)
     setMenuClosing(false)
-    clearTimeout(closeTimer.current)
-  }, [location.pathname])
+  }
+
+  /* The half finished slide out is dropped separately, because a ref may not be
+   * touched while rendering. Left running, its callback would land up to 200ms
+   * into the new page and shut a drawer the visitor had just reopened. */
+  useEffect(() => { clearTimeout(closeTimer.current) }, [location.pathname])
 
   // Hold the page still behind the open drawer.
   useEffect(() => {

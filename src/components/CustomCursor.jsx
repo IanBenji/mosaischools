@@ -16,6 +16,12 @@ export default function CustomCursor() {
   useEffect(() => {
     if (!window.matchMedia('(pointer: fine)').matches) return
 
+    /* Claims the rule in index.css that hides the native cursor, so hiding it is
+     * tied to this component being on screen rather than asserted globally. A
+     * page that renders no cursor of its own therefore keeps the real one. */
+    const root = document.documentElement
+    root.classList.add('mosai-cursor-active')
+
     const dot  = dotRef.current
     const ring = ringRef.current
     let targetX = -100, targetY = -100
@@ -73,6 +79,7 @@ export default function CustomCursor() {
     document.addEventListener('mouseout', onLeave)
 
     return () => {
+      root.classList.remove('mosai-cursor-active')
       cancelAnimationFrame(rafId)
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mousedown', onDown)
