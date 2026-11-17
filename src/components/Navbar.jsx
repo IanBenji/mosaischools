@@ -4,6 +4,10 @@ import { Menu, X, MapPin, ChevronDown, Check, Heart } from 'lucide-react'
 import { CAMPUSES } from '../lib/campus'
 import { useCampus } from '../context/CampusContext'
 import mosaiLogo from '../assets/mosailogo-removebg-preview.png'
+// Dark theme is switched off for now. To restore it, uncomment this import, the
+// two <ThemeToggle /> lines below, ThemeProvider in App.jsx and the theme
+// script in index.html.
+// import ThemeToggle from './ThemeToggle'
 
 /* Portal Login UI is DISABLED (requires a backend). See the commented block
  * near the end of this file to restore it once authentication exists.
@@ -186,12 +190,12 @@ export default function Navbar() {
                   ? 'bg-white/90 group-hover:bg-white'
                   : 'bg-white group-hover:bg-gray-50'
               }`}>
-                <img src={mosaiLogo} alt="Mosai Schools" className="w-full h-full object-contain" />
+                <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
               </div>
               <span className={`font-heading font-extrabold text-xl leading-tight transition-colors duration-200 ${
                 isTransparent ? 'text-white' : 'text-mosai-blue-dark'
               }`}>
-                Mosai
+                MOSAI
                 <br />
                 <span className={`text-sm font-bold ${isTransparent ? 'text-red-300' : 'text-mosai-red'}`}>
                   Schools
@@ -364,6 +368,9 @@ export default function Navbar() {
               ))}
             </div>
 
+            {/* Light / dark theme (switched off for now)
+            <ThemeToggle onDark={isTransparent} className="hidden lg:flex" /> */}
+
             {/* Donate — deliberately set apart from the nav links */}
             <NavLink
               to="/donate"
@@ -422,9 +429,10 @@ export default function Navbar() {
                   <img src={mosaiLogo} alt="" className="h-full w-full object-contain" />
                 </div>
                 <span className="font-heading text-base font-extrabold leading-none text-mosai-blue-dark">
-                  Mosai <span className="text-mosai-red">Schools</span>
+                  MOSAI <span className="text-mosai-red">Schools</span>
                 </span>
               </Link>
+              {/* <ThemeToggle className="ml-auto mr-1" />  dark theme switched off for now */}
               <button
                 type="button"
                 onClick={closeMenu}

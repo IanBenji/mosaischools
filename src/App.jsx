@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AuthProvider }    from './context/AuthContext'
 import { CampusProvider }  from './context/CampusContext'
+// import { ThemeProvider }   from './context/ThemeContext'   // dark theme switched off for now
 import Navbar              from './components/Navbar'
 import Footer              from './components/Footer'
 import CustomCursor        from './components/CustomCursor'
@@ -92,6 +93,7 @@ function VisitorChrome() {
 
 function App() {
   return (
+    // <ThemeProvider>  (dark theme switched off for now)
     <AuthProvider>
       <CampusProvider>
       <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
@@ -190,6 +192,7 @@ function App() {
       </BrowserRouter>
       </CampusProvider>
     </AuthProvider>
+    // </ThemeProvider>
   )
 }
 

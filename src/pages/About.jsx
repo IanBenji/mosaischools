@@ -58,9 +58,9 @@ const campuses = [
     image: NAL.compound.img,
     imageAlt: NAL.compound.alt,
     color: 'blue',
-    tags: ['Day and Boarding', 'Swimming Pool', 'Digital Classrooms'],
+    tags: ['Day & Primary Boarding', 'Swimming Pool', 'Digital Classrooms'],
     description:
-      'Our flagship campus sits on Garuga Road in a serene, green setting. A full day and boarding facility with modern digital classrooms, an on site swimming pool, spacious outdoor grounds, and 24/7 security.',
+      'Our flagship campus sits on Garuga Road in a serene, green setting. Day school for every class, Primary boarding, modern digital classrooms, an on site swimming pool, spacious outdoor grounds, and 24/7 security.',
   },
   {
     name: 'Bunono Campus',
@@ -72,9 +72,9 @@ const campuses = [
     image: BUN.front.img,
     imageAlt: BUN.front.alt,
     color: 'red',
-    tags: ['Day and Boarding', 'Modern Facilities', 'Qualified Staff'],
+    tags: ['Day & Primary Boarding', 'Modern Facilities', 'Qualified Staff'],
     description:
-      'Opened in 2026, our Bunono Campus extends the Mosai vision to more families along the Entebbe corridor. Same high standards, same warm community, and the same commitment to every child\'s potential.',
+      'Opened in 2026, our Bunono Campus extends the MOSAI vision to more families along the Entebbe corridor. Same high standards, same warm community, and the same commitment to every child\'s potential.',
   },
 ]
 
@@ -105,10 +105,10 @@ const curricula = [
 const facilities = [
   { label: '24/7 Security',      sub: 'Gated campus, guards and CCTV', photo: NAL.gate },
   { label: 'Digital Classrooms', sub: 'Interactive smart boards',      photo: NAL.classMotto },
-  { label: 'Boarding House',     sub: 'Nursery and Primary',           photo: NAL.dormBlue },
+  { label: 'Boarding House',     sub: 'Primary learners only',           photo: NAL.dormBlue },
   { label: 'Urban Farm',         sub: 'Learners grow vegetables',      photo: NAL.gardenSacks },
   { label: 'School Office',      sub: 'Where families are welcomed',   photo: NAL.office },
-  { label: 'Swimming Pool',      sub: 'Trained instructors',           photo: { img: bunonoPhotos[8], alt: 'Mosai learners sitting on the edge of the school swimming pool with their feet in the water' } },
+  { label: 'Swimming Pool',      sub: 'Trained instructors',           photo: { img: bunonoPhotos[8], alt: 'MOSAI learners sitting on the edge of the Bunono Campus swimming pool with their feet in the water' } },
   { label: 'Nutritious Meals',   sub: 'Freshly prepared daily',        icon: Utensils },
   { label: 'School Transport',   sub: 'Key route coverage',            icon: Bus },
 ]
@@ -142,8 +142,8 @@ export default function About() {
       <PageHeader
         crumb="About"
         title="About"
-        accentWord="Mosai Schools"
-        subtitle="A private day and boarding nursery and primary school dedicated to unlocking the greatness in every child, in Katabi, Wakiso District, Uganda."
+        accentWord="MOSAI Schools"
+        subtitle="A private nursery (day) and primary (day and boarding) school dedicated to unlocking the greatness in every child, in Katabi, Wakiso District, Uganda."
         image={imgHeader}
         nextBg="#153764"
       />
@@ -180,8 +180,8 @@ export default function About() {
               </h2>
               <p className="font-body text-gray-500 mt-3 max-w-2xl mx-auto text-sm leading-relaxed">
                 {isBunono
-                  ? 'A private nursery and primary day and boarding school in Bunono Village, Katabi, providing quality, affordable and holistic education in a safe, caring and learner friendly environment.'
-                  : 'Our flagship campus on Garuga Road, the birthplace of Mosai Schools and home to our boarding facilities, swimming pool and modern digital classrooms.'}
+                  ? 'A private nursery and primary school in Bunono Village, Katabi, with day school for every class and boarding for Primary learners, providing quality, affordable and holistic education in a safe, caring and learner friendly environment.'
+                  : 'Our flagship campus on Garuga Road, the birthplace of MOSAI Schools and home to our boarding facilities, swimming pool and modern digital classrooms.'}
               </p>
             </div>
 
@@ -270,13 +270,13 @@ export default function About() {
             {/* Photo collage */}
             <div className="grid grid-cols-2 gap-3 h-[480px]">
               <div className="rounded-3xl overflow-hidden row-span-2 bg-zinc-200 shadow-lg">
-                <img src={imgStory1} alt="A Mosai learner speaking into a microphone in the school garden" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                <img src={imgStory1} alt="A MOSAI learner speaking into a microphone in the school garden" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
               <div className="rounded-3xl overflow-hidden bg-zinc-200 shadow-lg">
-                <img src={imgStory2} alt="Young Mosai learners in costume performing a drama on stage" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                <img src={imgStory2} alt="Young MOSAI learners in costume performing a drama on stage" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
               <div className="rounded-3xl overflow-hidden relative bg-zinc-200 shadow-lg">
-                <img src={imgStory3} alt="A guest speaker addressing parents and learners at a Mosai celebration" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                <img src={imgStory3} alt="A guest speaker addressing parents and learners at a MOSAI celebration" className="w-full h-full object-cover" loading="lazy" decoding="async" />
                 <div className="absolute inset-0 bg-mosai-blue-dark/65 flex flex-col items-center justify-center text-white text-center p-4">
                   <p className="font-heading font-extrabold text-4xl">2025</p>
                   <p className="font-body text-xs text-blue-200 mt-1">Founded, Nalugala Campus</p>
@@ -286,13 +286,13 @@ export default function About() {
 
             {/* Text */}
             <div>
-              <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">Our Story</span>
-              <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-3 mb-8 leading-tight">
+              <span className="font-body text-sm font-bold text-mosai-red uppercase tracking-widest">Our Story</span>
+              <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-mosai-blue-dark mt-3 mb-8 leading-tight">
                 Where It All Began
               </h2>
-              <div className="space-y-5 font-body text-gray-600 text-sm leading-relaxed">
+              <div className="space-y-5 font-body text-gray-700 text-base lg:text-lg leading-relaxed">
                 <p>
-                  Mosai Schools was founded in <strong className="text-mosai-blue-dark">January 2025</strong> with the opening of our Nalugala Campus along Garuga Road in Katabi, Wakiso District. Licensed by the <strong className="text-mosai-blue-dark">Ministry of Education and Sports, Uganda</strong>, we set out with a clear mission: to create a model centre of excellence where every child discovers and develops their unique potential.
+                  MOSAI Schools was founded in <strong className="text-mosai-blue-dark">January 2025</strong> with the opening of our Nalugala Campus along Garuga Road in Katabi, Wakiso District. Licensed by the <strong className="text-mosai-blue-dark">Ministry of Education and Sports, Uganda</strong>, we set out with a clear mission: to create a model centre of excellence where every child discovers and develops their unique potential.
                 </p>
                 <p>
                   We started with Baby Class through to Primary 3 and we grow intentionally, adding one class each year until we reach P.7. Today both campuses run from a Toddler Class (day care) through to Primary 5. In <strong className="text-mosai-blue-dark">2026</strong> we opened our second campus at Bunono, also in Katabi, bringing our vision of joyful, rigorous education to even more families along the Entebbe corridor.
@@ -301,7 +301,7 @@ export default function About() {
                   Our teaching is built on Uganda's national curriculum and enriched with inquiry based IB concepts and the thematic International Primary Curriculum, taught in <strong className="text-mosai-blue-dark">four languages</strong>: English, Swahili, French and Chinese, ensuring our learners are prepared not just for Uganda, but for the world.
                 </p>
                 <p>
-                  We are a <strong className="text-mosai-blue-dark">private day and boarding school</strong>, and we are proud to offer a home away from home for every learner who stays with us.
+                  We are a <strong className="text-mosai-blue-dark">private day and boarding school</strong>. Every class is open to day scholars, and boarding is offered to our Primary learners, with a home away from home for every child who stays with us.
                 </p>
               </div>
               <Link
@@ -330,7 +330,7 @@ export default function About() {
                 <div className="rounded-3xl overflow-hidden shadow-2xl aspect-[3/4] bg-zinc-200">
                   <img
                     src={imgDirector}
-                    alt="Director, Mosai Schools"
+                    alt="Director, MOSAI Schools"
                     className="w-full h-full object-cover"
                     loading="lazy"
                     decoding="async"
@@ -338,7 +338,7 @@ export default function About() {
                 </div>
                 <div className="absolute -bottom-5 left-6 right-6 bg-mosai-blue-dark text-white rounded-2xl px-6 py-4 shadow-xl">
                   <p className="font-heading font-bold text-base">Director</p>
-                  <p className="font-body text-xs text-blue-300 mt-0.5">Mosai Schools, Uganda</p>
+                  <p className="font-body text-xs text-blue-300 mt-0.5">MOSAI Schools, Uganda</p>
                 </div>
               </div>
             </div>
@@ -350,7 +350,7 @@ export default function About() {
               </span>
               <div className="space-y-5 font-body text-gray-600 text-sm leading-relaxed">
                 <p>
-                  It is my honour to welcome you to our school, a learning community committed to excellence, integrity, and holistic education. At Mosai Schools, we believe that every child is unique and capable of achieving greatness when nurtured with care, vision, and purpose.
+                  It is my honour to welcome you to our school, a learning community committed to excellence, integrity, and holistic education. At MOSAI Schools, we believe that every child is unique and capable of achieving greatness when nurtured with care, vision, and purpose.
                 </p>
                 <p>
                   The message is <strong className="text-mosai-blue-dark">Self agency</strong>. The core belief that the capacity for growth, transformation, and self improvement is largely internal. We believe and teach our learners that real change starts by looking inward. The main mandate of our school is identifying the unique potential of each child and creating a belief of self confidence and self belief.
@@ -408,7 +408,7 @@ export default function About() {
             <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">What We Stand For</span>
             <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-3">Our Core Values</h2>
             <p className="font-body text-gray-500 mt-3 max-w-md mx-auto text-sm">
-              Four pillars that shape every learner, every teacher, and every decision at Mosai Schools.
+              Four pillars that shape every learner, every teacher, and every decision at MOSAI Schools.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -528,7 +528,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* 8b — Life at Mosai: Nutrition, Day and Boarding, Games and Sports */}
+      {/* 8b — Life at MOSAI: Nutrition, Day and Boarding, Games and Sports */}
       <AboutLifeNalugala />
 
       {/* 9 — Facilities â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
@@ -538,7 +538,7 @@ export default function About() {
             <span className="font-body text-xs font-bold text-mosai-red uppercase tracking-widest">What We Provide</span>
             <h2 className="font-heading font-extrabold text-4xl text-mosai-blue-dark mt-3">Our Facilities</h2>
             <p className="font-body text-gray-500 mt-3 max-w-md mx-auto text-sm">
-              Every space at Mosai Schools is designed to keep children safe, inspired, and thriving.
+              Every space at MOSAI Schools is designed to keep children safe, inspired, and thriving.
             </p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -593,10 +593,10 @@ export default function About() {
         <div className="relative z-10 h-full flex items-center justify-center text-center px-4">
           <div className="max-w-xl">
             <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white mb-4">
-              Become Part of the Mosai Family
+              Become Part of the MOSAI Family
             </h2>
             <p className="font-body text-white/70 text-sm mb-6">
-              Applications for 2026 are open now. Spaces at both campuses are limited. Secure your child's place today.
+              Applications for 2027 are open now. Spaces at both campuses are limited. Secure your child's place today.
             </p>
             <Link
               to="/admissions"

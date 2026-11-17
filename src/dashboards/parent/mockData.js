@@ -1,4 +1,4 @@
-// Mock data reflecting real Mosai Schools structure
+// Mock data reflecting real MOSAI Schools structure
 export const mockChild = {
   name: 'Aisha Nankunda',
   age: 5,
@@ -84,7 +84,7 @@ export const mockMessages = [
   },
   {
     id: 2,
-    from: 'Mosai Schools Office',
+    from: 'MOSAI Schools Office',
     role: 'Administration',
     avatar: 'MS',
     time: 'Yesterday, 2:30 PM',

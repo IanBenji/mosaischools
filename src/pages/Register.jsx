@@ -124,7 +124,7 @@ export default function Register() {
         <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-5">
           <CheckCircle className="w-10 h-10 text-green-500" />
         </div>
-        <h3 className="font-heading font-extrabold text-2xl text-mosai-blue-dark mb-2">Welcome to Mosai!</h3>
+        <h3 className="font-heading font-extrabold text-2xl text-mosai-blue-dark mb-2">Welcome to MOSAI!</h3>
         <p className="font-body text-sm text-gray-500">
           Your account has been created. Redirecting you now…
         </p>
@@ -140,10 +140,10 @@ export default function Register() {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex flex-col items-center gap-2 group">
             <div className="w-14 h-14 bg-white group-hover:bg-gray-50 rounded-2xl flex items-center justify-center transition-colors duration-200 border border-white/20 p-1.5">
-              <img src={mosaiLogo} alt="Mosai Schools" className="w-full h-full object-contain" />
+              <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
             </div>
             <div>
-              <p className="font-heading font-extrabold text-xl text-white leading-none">Mosai Schools</p>
+              <p className="font-heading font-extrabold text-xl text-white leading-none">MOSAI Schools</p>
               <p className="font-body text-xs text-blue-200 mt-0.5">Parent Registration</p>
             </div>
           </Link>
@@ -153,7 +153,7 @@ export default function Register() {
         <div className="bg-white rounded-3xl shadow-2xl p-8">
           <h2 className="font-heading font-extrabold text-2xl text-mosai-blue-dark mb-1">Create Your Account</h2>
           <p className="font-body text-sm text-gray-500 mb-7">
-            Register to access the Mosai Schools parent portal and track your child's progress.
+            Register to access the MOSAI Schools parent portal and track your child's progress.
           </p>
 
           <form onSubmit={submit} noValidate className="space-y-5">
@@ -205,7 +205,7 @@ export default function Register() {
                   className="w-4 h-4 mt-0.5 rounded border-gray-300 text-mosai-blue focus:ring-mosai-blue/30 shrink-0"
                 />
                 <span className="font-body text-sm text-gray-600 leading-relaxed">
-                  I agree to Mosai Schools'{' '}
+                  I agree to MOSAI Schools'{' '}
                   <a href="#" className="text-mosai-blue hover:underline font-semibold">Terms of Service</a>
                   {' '}and{' '}
                   <a href="#" className="text-mosai-blue hover:underline font-semibold">Privacy Policy</a>.
@@ -244,7 +244,7 @@ export default function Register() {
 
         <p className="text-center mt-6">
           <Link to="/" className="font-body text-sm text-white/60 hover:text-white transition-colors">
-            ← Back to Mosai Schools website
+            ← Back to MOSAI Schools website
           </Link>
         </p>
       </div>

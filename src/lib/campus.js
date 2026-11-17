@@ -20,7 +20,7 @@ import bunActivity from '../assets/bunono/bunono-47.webp'   // playground
 
 // ── Hero slideshow photos ─────────────────────────────────────────
 import { NAL } from '../assets/nalugala-campus'
-import { BUN, bunonoPhotos } from '../assets/bunono'
+import { BUN } from '../assets/bunono'
 
 const STORAGE_KEY = 'mosai.campus'
 const CHOICE_KEY  = 'mosai.campus.chosen'   // records that the visitor made an explicit choice
@@ -49,11 +49,11 @@ export const CAMPUSES = {
       backgrounds: [nalBg1, nalBg2, nalBg3],
       // Full-width homepage slideshow, in order. `pos` is the CSS object-position.
       slides: [
-        { img: nalGrad,              cap: 'Graduation day',           pos: 'center 30%', alt: 'Mosai nursery graduates in caps and gowns celebrating on graduation day' },
+        { img: nalGrad,              cap: 'Graduation day',           pos: 'center 30%', alt: 'MOSAI nursery graduates in caps and gowns celebrating on graduation day' },
         { img: NAL.classMotto.img,   cap: 'Our classrooms',           pos: 'center 45%', alt: NAL.classMotto.alt },
-        { img: nalPerform,           cap: 'Performance day',          pos: 'center 35%', alt: 'Mosai learners in white tops and trainers performing a dance routine' },
+        { img: nalPerform,           cap: 'Performance day',          pos: 'center 35%', alt: 'MOSAI learners in white tops and trainers performing a dance routine' },
         { img: NAL.gardenLesson.img, cap: 'Learning in the garden',   pos: 'center 55%', alt: NAL.gardenLesson.alt },
-        { img: bunonoPhotos[32],     cap: 'Swimming lessons',         pos: 'center 40%', alt: 'Mosai learners splashing and laughing in the school swimming pool' },
+        { img: BUN.front.img,        cap: 'Our Bunono Campus',        pos: 'center 45%', alt: 'MOSAI Schools Bunono Campus: the front entrance' },
       ],
       collage: [
         { img: nalGrad,    title: 'Graduation Day', subtitle: 'Celebrating every milestone' },
@@ -94,7 +94,7 @@ export const CAMPUSES = {
   bunono: {
     name: 'Bunono',
     tagline: 'New Campus · Opened 2026',
-    blurb: 'Our newest campus in Bunono Village, the same Mosai care, closer to home.',
+    blurb: 'Our newest campus in Bunono Village, the same MOSAI care, closer to home.',
     location: 'Bunono Village, Kabaale Ward, Katabi',
     district: 'Katabi Town Council, Wakiso District',
     accent: 'red',
@@ -112,10 +112,10 @@ export const CAMPUSES = {
       backgrounds: [bunBg1, bunBg2, bunBg3],
       slides: [
         { img: BUN.exercise.img, cap: 'Morning exercise',            pos: 'center 35%', alt: BUN.exercise.alt },
-        { img: bunBg1,           cap: 'Splash time',                 pos: 'center 40%', alt: 'Mosai Bunono learners splashing and laughing in the school swimming pool' },
+        { img: bunBg1,           cap: 'Splash time',                 pos: 'center 40%', alt: 'MOSAI Bunono learners splashing and laughing in the school swimming pool' },
         { img: BUN.houses.img,   cap: 'Proud in our house colours',  pos: 'center 50%', alt: BUN.houses.alt },
         { img: BUN.front.img,    cap: 'Our Bunono campus',           pos: 'center 45%', alt: BUN.front.alt },
-        { img: bunBg3,           cap: 'Morning assembly',            pos: 'center 40%', alt: 'Mosai Bunono learners in uniform at morning assembly' },
+        { img: bunBg3,           cap: 'Morning assembly',            pos: 'center 40%', alt: 'MOSAI Bunono learners in uniform at morning assembly' },
       ],
       collage: [
         { img: bunGrad,     title: 'Graduation Day',   subtitle: 'Celebrating every milestone' },
@@ -139,7 +139,7 @@ export const CAMPUSES = {
       address:     'Bunono Village, Kabaale Ward, Katabi Town Council',
       area:        'Katabi, Wakiso District',
       welcome:
-        'Welcome to Mosai Schools. We are committed to providing quality education in a safe, caring and supportive environment where every learner is nurtured to discover their potential and achieve excellence. Through teamwork, discipline and partnership with parents, we continue to build the Mosai family and prepare our children for a bright and successful future. Welcome to Mosai Schools!',
+        'Welcome to MOSAI Schools. We are committed to providing quality education in a safe, caring and supportive environment where every learner is nurtured to discover their potential and achieve excellence. Through teamwork, discipline and partnership with parents, we continue to build the MOSAI family and prepare our children for a bright and successful future. Welcome to MOSAI Schools!',
       staff:
         'Our school is run by a competent and qualified team that nurtures learners in both academic and moral affairs to bring up a holistic person. Led by an experienced headteacher, our teaching staff are fully qualified to Ministry of Education and Sports standards, from Grade III to graduate level, with many pursuing further upgrading courses at university. Our support staff are well trained in their areas of speciality and committed to the warm customer care that families know us for.',
     },
@@ -157,7 +157,7 @@ export const CAMPUSES = {
   },
 }
 
-// Shared across every Mosai campus — vision, mission and the four core values.
+// Shared across every MOSAI campus — vision, mission and the four core values.
 export const MOSAI_ETHOS = {
   vision:  'To become a model centre of excellence in Mathematics, Science, Technology and Innovation.',
   mission: 'To provide a conducive environment where learners can acquire knowledge, grow and develop to their full potential for self reliance.',

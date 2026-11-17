@@ -9,9 +9,9 @@ import { NAL } from '../assets/nalugala-campus'
 // There is no photo of the Toddler Class yet, so it takes the picture of the
 // youngest learners, and Baby Class takes the graduation photo.
 import imgToddler from '../assets/TON_8742.webp' // little ones on stage, dressed up
-import imgBaby   from '../assets/TON_8855.webp'  // nursery graduation
-import imgMiddle from '../assets/IMG_8738.webp'  // young learners dancing
-import imgTop    from '../assets/IMG_8754.webp'  // nursery cultural dance
+import imgBaby   from '../assets/IMG_8738.webp'  // little ones dancing
+import imgMiddle from '../assets/IMG_8754.webp'  // nursery cultural dance
+import imgTop    from '../assets/TON_8855.webp'  // Top Class graduation (sashes read Top Class)
 
 const languages = ['English', 'Swahili', 'French', 'Chinese']
 
@@ -22,7 +22,7 @@ export default function Programs() {
   const programs = [
     {
       image:       imgToddler,
-      imageAlt:    'Young Mosai nursery learners dressed up on stage at a school celebration',
+      imageAlt:    'Young MOSAI nursery learners dressed up on stage at a school celebration',
       name:        'Toddler Class (Day Care)',
       ages:        'Ages 1 to 2',
       description: 'Loving day care for our very youngest, with a calm routine of play, songs, naps and meals. Small groups and attentive carers help toddlers settle, talk and grow in confidence.',
@@ -32,7 +32,7 @@ export default function Programs() {
     },
     {
       image:       imgBaby,
-      imageAlt:    'Mosai nursery graduates in caps and gowns celebrating on graduation day',
+      imageAlt:    'Young MOSAI nursery learners dancing together at a school celebration',
       name:        'Baby Class',
       ages:        'Ages 2 to 3',
       description: 'A gentle, nurturing introduction to school life through play, music and sensory exploration. Children develop social skills, emotional awareness and early language in a warm, loving environment.',
@@ -42,7 +42,7 @@ export default function Programs() {
     },
     {
       image:       imgMiddle,
-      imageAlt:    'Young Mosai learners dancing together at a school celebration',
+      imageAlt:    'MOSAI nursery learners in traditional dress performing a cultural dance',
       name:        'Middle Class',
       ages:        'Ages 3 to 4',
       description: 'Building early literacy, numeracy and social skills through structured play and creative activities. Learners grow in confidence as they explore science, arts and language.',
@@ -52,7 +52,7 @@ export default function Programs() {
     },
     {
       image:       imgTop,
-      imageAlt:    'Mosai nursery learners in traditional dress performing a cultural dance',
+      imageAlt:    'MOSAI Top Class graduates in caps and gowns celebrating on graduation day',
       name:        'Top Class',
       ages:        'Ages 5 to 6',
       description: 'Preparing children fully for Primary 1 with focused reading, writing, mathematics and critical thinking. Every learner transitions to primary school ready and confident.',

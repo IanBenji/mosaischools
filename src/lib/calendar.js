@@ -77,14 +77,14 @@ function vevent(event, stamp) {
 }
 
 /** Builds a complete .ics document for one or more events. */
-export function buildIcs(events, calendarName = 'Mosai Schools') {
+export function buildIcs(events, calendarName = 'MOSAI Schools') {
   const usable = events.filter(e => e.start)
   const stamp = `${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`
 
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Mosai Schools//Website//EN',
+    'PRODID:-//MOSAI Schools//Website//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     fold(`X-WR-CALNAME:${esc(calendarName)}`),

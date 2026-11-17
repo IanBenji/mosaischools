@@ -247,40 +247,52 @@ const env = import.meta.env ?? {}
  * they behave exactly like rows the office types and can be pasted straight
  * into the sheet (docs/sheet-templates/ holds the same rows as CSV).
  *
- * Term dates follow the Ministry of Education and Sports pattern: Term III 2026
- * closes on 4 December and 2027 opens on 1 February. The PDFs live in
- * public/documents/, so their address follows the site's base path. */
+ * The calendar is the Ministry of Education and Sports PROVISIONAL School
+ * Academic Year Calendar 2027, supplied by the school board (Nov 2026). It is
+ * transcribed exactly: term dates, term holidays and day counts. The board
+ * sheet also lists reporting dates for S.1 and S.5; those are secondary
+ * classes, which MOSAI (Toddler Class to P.5) does not run, so they are left
+ * out. Nothing else is added: add school events here (or in the sheet) only
+ * once the school confirms them. The PDFs live in public/documents/, so their
+ * address follows the site's base path. */
 const BASE = (env.BASE_URL || '/').replace(/\/?$/, '/')
 const pdf = (file) => `${BASE}documents/${file}`
 
-const BUNDLED_EVENTS = [
-  { title: 'End of year examinations', start: '2026-11-23', end: '2026-11-27', type: 'Exam', location: 'Classrooms', details: 'Final assessments for Term III. Learners should arrive by 7:30 AM with all their stationery.' },
-  { title: 'Bunono Graduation and Speech Day', start: '2026-11-21', time: '10:00', endtime: '14:00', type: 'Event', campus: 'bunono', location: 'Bunono Campus', details: 'Top Class graduates in caps and gowns, performances from every class and the Head Teacher’s address. Parents and guardians are warmly invited.' },
-  { title: 'Nalugala Graduation and Speech Day', start: '2026-11-28', time: '10:00', endtime: '14:00', type: 'Event', campus: 'nalugala', location: 'Nalugala Campus, Garuga Road', details: 'Top Class graduation, prize giving and performances. Parents and guardians are warmly invited.' },
-  { title: 'Term III ends', start: '2026-12-04', type: 'Term', details: 'Report cards are issued at the close of the day. Boarders are collected from 12:00 noon.' },
-  { title: 'Christmas holiday', start: '2026-12-05', end: '2027-01-31', type: 'Holiday', details: 'The office stays open on weekdays for admissions, 9:00 AM to 1:00 PM, except over Christmas and New Year.' },
-  { title: 'Boarders report for Term I', start: '2027-01-31', time: '14:00', endtime: '18:00', type: 'Term', details: 'Boarders arrive with their requirements, checked in by the matron and the class teacher.' },
-  { title: 'Term I 2027 begins', start: '2027-02-01', time: '07:30', type: 'Term', details: 'All learners report in full uniform. Fees are payable through the School Pay System by the first day of term.' },
-  { title: 'Janani Luwum Day', start: '2027-02-16', type: 'Holiday', details: 'Public holiday. No classes.' },
-  { title: 'Parents’ meeting (PTA)', start: '2027-02-20', time: '10:00', endtime: '13:00', type: 'Meeting', details: 'Meet the class teachers, hear the plan for the year and elect class representatives.' },
-  { title: 'Nalugala Visitation Day', start: '2027-03-06', time: '10:00', endtime: '15:00', type: 'Visitation', campus: 'nalugala', location: 'Nalugala Campus', details: 'Parents and guardians of boarders are welcome. Please carry your child’s visitation card.' },
-  { title: 'International Women’s Day', start: '2027-03-08', type: 'Holiday', details: 'Public holiday. No classes.' },
-  { title: 'Bunono Visitation Day', start: '2027-03-13', time: '10:00', endtime: '15:00', type: 'Visitation', campus: 'bunono', location: 'Bunono Campus', details: 'Parents and guardians of boarders are welcome. Please carry your child’s visitation card.' },
-  { title: 'Easter mid term break', start: '2027-03-25', end: '2027-03-29', type: 'Holiday', details: 'Learners go home on Thursday at 1:00 PM and return on Tuesday 30 March by 7:30 AM.' },
-  { title: 'End of Term I examinations', start: '2027-04-19', end: '2027-04-23', type: 'Exam', location: 'Classrooms' },
-  { title: 'Term I ends', start: '2027-04-30', type: 'Term', details: 'Report cards are issued at the close of the day.' },
-  { title: 'Term II 2027 begins', start: '2027-05-24', time: '07:30', type: 'Term', details: 'Boarders may arrive from 2:00 PM on Sunday 23 May.' },
-  { title: 'Uganda Martyrs Day', start: '2027-06-03', type: 'Holiday', details: 'Public holiday. No classes.' },
-  { title: 'Heroes Day', start: '2027-06-09', type: 'Holiday', details: 'Public holiday. No classes.' },
-  { title: 'Inter house Sports Day', start: '2027-07-03', time: '09:00', endtime: '16:00', type: 'Sport', details: 'Athletics, swimming and games between the houses at both campuses. Parents are welcome to come and cheer.' },
-  { title: 'Term II ends', start: '2027-08-20', type: 'Term', details: 'Report cards are issued at the close of the day.' },
-  { title: 'Term III 2027 begins', start: '2027-09-13', time: '07:30', type: 'Term', details: 'Boarders may arrive from 2:00 PM on Sunday 12 September.' },
-]
+// The official 2027 calendar as structured data, rendered as tables on the
+// Calendar pages. BUNDLED_EVENTS below is built from the same rows, so the
+// tables and the event list can never disagree.
+export const ACADEMIC_YEAR_2027 = {
+  year: 2027,
+  source: 'Ministry of Education and Sports, Provisional School Academic Year Calendar 2027',
+  provisional: true,
+  terms: [
+    { term: 'I',   from: '2027-02-01', to: '2027-04-30', days: 89 },
+    { term: 'II',  from: '2027-05-24', to: '2027-08-20', days: 89 },
+    { term: 'III', from: '2027-09-13', to: '2027-12-03', days: 82 },
+  ],
+  totalDays: 260,
+  holidays: [
+    { term: 'I',   from: '2027-05-01', to: '2027-05-23', days: 23 },
+    { term: 'II',  from: '2027-08-21', to: '2027-09-12', days: 23 },
+    { term: 'III', from: '2027-12-04', to: '2028-01-30', days: 58 },
+  ],
+}
+
+const SOURCE_NOTE = 'Ministry of Education and Sports provisional calendar 2027.'
+
+const BUNDLED_EVENTS = ACADEMIC_YEAR_2027.terms.flatMap((t, i) => {
+  const h = ACADEMIC_YEAR_2027.holidays[i]
+  return [
+    { title: `Term ${t.term} 2027 opens`,  start: t.from, type: 'Term', details: `Term ${t.term} is ${t.days} days long. ${SOURCE_NOTE}` },
+    { title: `Term ${t.term} 2027 closes`, start: t.to,   type: 'Term', details: `Last day of Term ${t.term}. ${SOURCE_NOTE}` },
+    { title: `Term ${h.term} holiday`, start: h.from, end: h.to, type: 'Holiday', details: `${h.days} days. ${SOURCE_NOTE}` },
+  ]
+})
 
 const BUNDLED_DOCUMENTS = [
   { title: 'Application for Admission, 2027', url: pdf('mosai-admission-form-2027.pdf'), description: 'Print it, fill it in and bring it to the office with the documents listed on the form.', category: 'Forms', filetype: 'PDF', size: '205 KB', updated: '2026-11-13' },
   { title: 'Learner Medical Form', url: pdf('mosai-learner-medical-form.pdf'), description: 'Required for every boarder. Part B is completed and stamped by a clinician.', category: 'Forms', filetype: 'PDF', size: '203 KB', updated: '2026-11-13' },
-  { title: 'Fee structure, 2027', url: pdf('mosai-fee-structure-2027.pdf'), description: 'Termly tuition for Day and Boarding, other charges, and how to pay through the School Pay System.', category: 'Fees', filetype: 'PDF', size: '203 KB', updated: '2026-11-13' },
+  { title: 'Fee structure, 2027', url: pdf('mosai-fee-structure-2027.pdf'), description: 'Termly tuition for Day and Boarding, other charges, and how to pay through the School Pay System.', category: 'Fees', filetype: 'PDF', size: '204 KB', updated: '2026-11-13' },
   { title: 'Termly requirements list, 2027', url: pdf('mosai-requirements-list-2027.pdf'), description: 'What Toddler, Nursery, Primary and boarding learners bring on the first day of term.', category: 'Requirements', filetype: 'PDF', size: '205 KB', updated: '2026-11-13' },
   { title: 'School uniform list', url: pdf('mosai-uniform-list.pdf'), description: 'Uniform for boys and girls, sports and house wear, and grooming rules.', category: 'Uniform', filetype: 'PDF', size: '203 KB', updated: '2026-11-13' },
 ]
@@ -308,24 +320,24 @@ function fallbackAnnouncements() {
   return [
     {
       id: 'a0',
-      date: parseDate('2026-05-25'),
-      dateText: '25 May 2026',
-      title: 'Term II 2026 Begins: 25 May 2026',
-      body: 'We warmly welcome all learners back for Term II, 2026. Please ensure school fees are settled via the School Pay System and uniforms are ready before the first day of term.',
+      date: parseDate('2027-02-01'),
+      dateText: '1 February 2027',
+      title: 'Term I 2027 Begins: Monday 1 February 2027',
+      body: 'Term I of the 2027 academic year runs from Monday 1 February to Friday 30 April 2027, following the Ministry of Education and Sports provisional calendar. Please ensure school fees are settled via the School Pay System and uniforms are ready before the first day of term.',
       category: 'Academic Calendar',
-      campus: '', link: '',
-      ticker: 'Term II 2026 begins 25 May. All learners to report by 7:30 AM',
+      campus: '', link: '/calendar',
+      ticker: 'Term I 2027 begins Monday 1 February 2027',
       pinned: false, expires: null,
     },
     {
       id: 'a1',
       date: null,
       dateText: 'Ongoing',
-      title: 'Admissions Open for the 2026 Intake',
-      body: 'Mosai Schools is accepting applications from Toddler Class (day care) and the Nursery classes through to Primary Five. Spaces are limited. Visit either campus or contact us to begin the enrolment process.',
+      title: 'Applications 2027 Now Open',
+      body: 'MOSAI Schools is accepting applications from Toddler Class (day care) and the Nursery classes through to Primary Five. Spaces are limited. Visit either campus or contact us to begin the enrolment process.',
       category: 'Admissions',
       campus: '', link: '/admissions',
-      ticker: 'Admissions open: Toddler Class (day care) to Primary Five',
+      ticker: 'Applications 2027 open: Toddler Class (day care) to Primary Five',
       pinned: true, expires: null,
     },
     {
@@ -333,7 +345,7 @@ function fallbackAnnouncements() {
       date: null,
       dateText: 'All Year',
       title: 'Four Languages: English, Swahili, French and Chinese',
-      body: 'Mosai Schools offers instruction in four languages: English, Swahili, French, and Chinese, giving every learner a multilingual foundation for a globalised future.',
+      body: 'MOSAI Schools offers instruction in four languages: English, Swahili, French, and Chinese, giving every learner a multilingual foundation for a globalised future.',
       category: 'Languages',
       campus: '', link: '/programs',
       ticker: 'Four languages offered: English, Swahili, French and Chinese',
@@ -347,7 +359,7 @@ function fallbackAnnouncements() {
 export const EVERGREEN_TICKER = [
   'School fees payable via School Pay System only. No cash accepted',
   'Nalugala Campus (2025) and Bunono Campus (2026), both now open',
-  'Day and Boarding available for Nursery and Primary learners',
+  'Day school for Nursery · Day and Boarding for Primary learners',
   'Modern classrooms with digital interactive boards and computers',
   'Swimming pool on site with trained instructors',
   'Safe school transport covering key routes along Kampala to Entebbe Road',

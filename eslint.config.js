@@ -45,7 +45,7 @@ export default defineConfig([
        * and leave the pairs harder to follow. Naming the two hooks is the whole
        * of the concession. */
       'react-refresh/only-export-components': ['error', {
-        allowExportNames: ['useAuth', 'useCampus'],
+        allowExportNames: ['useAuth', 'useCampus', 'useTheme'],
       }],
     },
   },

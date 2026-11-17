@@ -26,16 +26,16 @@ import verandas   from './mosai-bunono-classroom-verandas.webp'
 const p = (img, alt, cap) => ({ img, alt, cap })
 
 export const BUN = {
-  exercise:   p(exercise,   'Mosai Bunono learners in house colour sports wear doing morning exercises with arms raised in the school compound', 'Morning exercise'),
-  stretching: p(stretching, 'Mosai Bunono learners stretching with arms outstretched during a physical education session', 'Stretch and warm up'),
-  houses:     p(houses,     'A cheerful group of Mosai Bunono learners in red, green, blue and white house colours posing in the compound', 'Proud in our house colours'),
-  group:      p(group,      'Mosai Bunono learners gathered for a group photo in their sports wear in front of the school building', 'Together as one school'),
-  gate:       p(gate,       'The Mosai Schools gate and boundary wall at Bunono Campus', 'The Mosai Schools gate'),
+  exercise:   p(exercise,   'MOSAI Bunono learners in house colour sports wear doing morning exercises with arms raised in the school compound', 'Morning exercise'),
+  stretching: p(stretching, 'MOSAI Bunono learners stretching with arms outstretched during a physical education session', 'Stretch and warm up'),
+  houses:     p(houses,     'A cheerful group of MOSAI Bunono learners in red, green, blue and white house colours posing in the compound', 'Proud in our house colours'),
+  group:      p(group,      'MOSAI Bunono learners gathered for a group photo in their sports wear in front of the school building', 'Together as one school'),
+  gate:       p(gate,       'The MOSAI Schools gate and boundary wall at Bunono Campus', 'The MOSAI Schools gate'),
   climbing:   p(climbing,   'Colourful climbing frames, swings and potted flowers in the Bunono playground, with painted murals behind', 'Our colourful playground'),
-  slides:     p(slides,     'Slides and a climbing tower in the Mosai Bunono playground', 'Slides and climbing tower'),
-  crest:      p(crest,      'The Mosai Bunono school building with the school crest and the Uganda coat of arms on its walls', 'Our school building'),
-  front:      p(front,      'The front of the Mosai Bunono school building behind the Mosai Schools gate, painted with murals', 'Welcome to Bunono'),
-  verandas:   p(verandas,   'Brightly painted classroom verandas with potted plants at Mosai Bunono', 'Our classroom verandas'),
+  slides:     p(slides,     'Slides and a climbing tower in the MOSAI Bunono playground', 'Slides and climbing tower'),
+  crest:      p(crest,      'The MOSAI Bunono school building with the school crest and the Uganda coat of arms on its walls', 'Our school building'),
+  front:      p(front,      'The front of the MOSAI Bunono school building behind the MOSAI Schools gate, painted with murals', 'Welcome to Bunono'),
+  verandas:   p(verandas,   'Brightly painted classroom verandas with potted plants at MOSAI Bunono', 'Our classroom verandas'),
 }
 
 /* For the scrapbook gallery, in display order. */

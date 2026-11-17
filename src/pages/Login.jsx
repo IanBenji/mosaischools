@@ -110,10 +110,10 @@ export default function Login() {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex flex-col items-center gap-2 group">
             <div className="w-16 h-16 bg-white group-hover:bg-gray-50 rounded-2xl flex items-center justify-center transition-colors duration-200 border border-white/20 p-1.5">
-              <img src={mosaiLogo} alt="Mosai Schools" className="w-full h-full object-contain" />
+              <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
             </div>
             <div className="text-center">
-              <p className="font-heading font-extrabold text-2xl text-white leading-none">Mosai Schools</p>
+              <p className="font-heading font-extrabold text-2xl text-white leading-none">MOSAI Schools</p>
               <p className="font-body text-xs text-blue-200 mt-1">Portal Login</p>
             </div>
           </Link>
@@ -241,7 +241,7 @@ export default function Login() {
         {/* Back to site */}
         <p className="text-center mt-4">
           <Link to="/" className="font-body text-sm text-white/60 hover:text-white transition-colors">
-            ← Back to Mosai Schools website
+            ← Back to MOSAI Schools website
           </Link>
         </p>
       </div>

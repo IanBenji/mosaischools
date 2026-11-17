@@ -16,7 +16,7 @@ import imgHeader from '../assets/bunono/bunono-44.webp'  // Bunono campus buildi
 
 /* Bunono ADMISSIONS — storybook design, reuses the shared AppForm. */
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 const INK  = 'text-[#43261A]'
 const INK2 = 'text-[#7A5C4A]'
 
@@ -41,9 +41,9 @@ export default function AdmissionsBunono() {
     <main className="bg-cream overflow-hidden">
       <PageHeader
         crumb="Admissions"
-        kicker="Now enrolling · 2026"
+        kicker="Applications 2027 · Now enrolling"
         title="Join the"
-        accentWord="Mosai Family"
+        accentWord="MOSAI Family"
         subtitle="Spaces at our brand new Bunono Campus are limited. Secure your child's place in a school where every learner is known, loved and inspired."
         image={imgHeader}
         nextBg={CREAM}
@@ -113,7 +113,8 @@ export default function AdmissionsBunono() {
                   <div className="text-center border-t sm:border-t-0 sm:border-l border-dashed pt-4 sm:pt-0" style={{ borderColor: f.color }}>
                     <GraduationCap className="w-5 h-5 mx-auto mb-1" style={{ color: f.color }} />
                     <p className="font-body text-xs text-gray-400 uppercase tracking-wide">Boarding</p>
-                    <p className={`font-heading font-extrabold text-base sm:text-lg whitespace-nowrap ${INK}`}>{feeRange(f.board)}</p>
+                    <p className={`font-heading font-extrabold text-base sm:text-lg whitespace-nowrap ${INK}`}>{f.board ? feeRange(f.board) : 'Not offered'}</p>
+                    {!f.board && <p className="font-body text-xs text-gray-400">Day school only</p>}
                   </div>
                 </div>
               </div>

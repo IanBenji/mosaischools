@@ -22,7 +22,7 @@ import imgHeader from '../assets/bunono/bunono-02.webp'   // assembly
  * Data arrives as props: News.jsx runs the hooks before it branches, so the
  * sheet is fetched exactly once. */
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 const INK  = 'text-[#43261A]'
 const INK2 = 'text-[#7A5C4A]'
 const CRAYONS = ['#FF8A6B', '#FFC93C', '#5FBB6E', '#6EC6F2', '#9B7EDE']

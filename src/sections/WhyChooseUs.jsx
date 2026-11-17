@@ -24,10 +24,10 @@ const pillars = [
     icon:     Shield,
     color:    '#FF8A6B',
     title:    'Safe and Nurturing',
-    intro:    'Every child deserves to feel completely safe. Mosai Schools is built around security, care and pastoral support.',
+    intro:    'Every child deserves to feel completely safe. MOSAI Schools is built around security, care and pastoral support.',
     points: [
       '24/7 security guards and CCTV cameras on campus',
-      'Comfortable boarding with supervised pastoral care',
+      'Comfortable Primary boarding with supervised pastoral care',
       'Nutritious, freshly prepared meals every school day',
       'School transport covering the Entebbe corridor',
     ],
@@ -38,7 +38,7 @@ const pillars = [
     icon:     Sparkles,
     color:    '#5FBB6E',
     title:    'Beyond the Classroom',
-    intro:    'Education at Mosai goes further than textbooks, as we nurture the whole child through sport, creativity and life skills.',
+    intro:    'Education at MOSAI goes further than textbooks, as we nurture the whole child through sport, creativity and life skills.',
     points: [
       'On site swimming pool with trained instructors',
       'Sports programme: soccer, netball, athletics, basketball',
@@ -58,7 +58,7 @@ export default function WhyChooseUs() {
           <span className="font-heading text-sm font-extrabold text-mosai-red uppercase tracking-widest">Our Difference</span>
           <h2 className="font-heading font-extrabold text-4xl sm:text-5xl text-mosai-blue-dark mt-2">
             Why{' '}
-            <span className="crayon-underline" style={{ '--crayon-color': '#FFC93C' }}>Mosai Schools?</span>
+            <span className="crayon-underline" style={{ '--crayon-color': '#FFC93C' }}>MOSAI Schools?</span>
           </h2>
           <p className="font-body text-gray-500 mt-4 max-w-xl mx-auto">
             Three big promises we keep for every child, every day, across both campuses.

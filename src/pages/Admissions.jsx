@@ -337,7 +337,7 @@ export function AppForm() {
       <div className="bg-gray-50 rounded-2xl px-5 py-4 flex gap-3 items-start">
         <AlertCircle className="w-4 h-4 text-mosai-blue mt-0.5 shrink-0" />
         <p className="font-body text-sm text-gray-500">
-          By submitting you confirm all information is accurate and consent to Mosai Schools processing this data for admission purposes.
+          By submitting you confirm all information is accurate and consent to MOSAI Schools processing this data for admission purposes.
         </p>
       </div>
 
@@ -383,9 +383,9 @@ function AdmissionsNalugala() {
       {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <PageHeader
         crumb="Admissions"
-        kicker="Now accepting applications for 2026"
+        kicker="Now accepting applications for 2027"
         title="Join the"
-        accentWord="Mosai Family"
+        accentWord="MOSAI Family"
         subtitle="Spaces are limited. Secure your child's place in a school where every learner is known, valued and inspired to grow."
         image={headerImg}
         nextBg="#153764"
@@ -408,7 +408,7 @@ function AdmissionsNalugala() {
               { v: '3',    l: 'Class Levels'       },
               { v: '3',    l: 'Terms per Year'      },
               { v: '5',    l: 'Steps to Enroll'     },
-              { v: 'Open', l: 'Applications 2026'   },
+              { v: 'Open', l: 'Applications 2027'   },
             ].map((s, i) => (
               <div key={i} className="text-center text-white py-7 px-4">
                 <p className="font-heading font-extrabold text-3xl">{s.v}</p>
@@ -579,12 +579,12 @@ function AdmissionsNalugala() {
                     </div>
                     <div>
                       <p className="font-heading font-bold text-sm text-mosai-blue-dark">Boarding</p>
-                      <p className="font-body text-xs text-gray-400">Baby Class and up; Toddler Class is day care only</p>
+                      <p className="font-body text-xs text-gray-400">Boarding is for Primary learners only</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">UGX {feeRange(FEES.nursery.boarding)}</p>
-                    <p className="font-body text-xs text-gray-400">per term</p>
+                    <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">Not offered</p>
+                    <p className="font-body text-xs text-gray-400">day school only</p>
                   </div>
                 </div>
               </div>
@@ -620,7 +620,7 @@ function AdmissionsNalugala() {
                     </div>
                     <div>
                       <p className="font-heading font-bold text-sm text-mosai-blue-dark">Boarding</p>
-                      <p className="font-body text-xs text-gray-400">Stays at school</p>
+                      <p className="font-body text-xs text-gray-400">Primary learners only</p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -641,7 +641,7 @@ function AdmissionsNalugala() {
                 { icon: CheckCircle,   text: 'All learning materials and printed books (provided by school)' },
                 { icon: GraduationCap, text: isBunono ? 'Access to playground and all campus facilities' : 'Access to playground, swimming pool and all school facilities' },
                 { icon: Users,         text: 'All extracurricular and sports activities' },
-                { icon: Home,          text: 'Boarding only: accommodation, meals and pastoral supervision' },
+                { icon: Home,          text: 'Boarding (Primary only): accommodation, meals and pastoral supervision' },
                 { icon: Shirt,         text: 'School uniform is mandatory and available for purchase at school' },
               ].map(({ text }, i) => (
                 <div key={i} className="flex items-start gap-2.5">
@@ -719,7 +719,7 @@ function AdmissionsNalugala() {
           <div className="max-w-2xl">
             <p className="font-heading font-extrabold text-2xl sm:text-3xl text-white leading-snug mb-3">
               "Every great journey begins with a single step.<br />
-              <span className="text-mosai-red">Let yours begin at Mosai Schools."</span>
+              <span className="text-mosai-red">Let yours begin at MOSAI Schools."</span>
             </p>
             <a href="#apply" className="inline-flex items-center gap-2 bg-mosai-red hover:bg-mosai-red-dark text-white font-heading font-bold text-sm px-6 py-2.5 rounded-full transition-colors duration-200">
               Start Your Application <ArrowRight className="w-4 h-4" />

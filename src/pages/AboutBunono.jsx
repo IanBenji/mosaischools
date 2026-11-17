@@ -23,7 +23,7 @@ import imgDirector   from '../assets/Director.webp'          // shared Director,
 
 /* Bunono ABOUT — storybook design, shares no layout with the Nalugala About. */
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 const INK   = 'text-[#43261A]'
 const INK2  = 'text-[#7A5C4A]'
 
@@ -108,7 +108,7 @@ export default function AboutBunono() {
               </div>
               <div className="relative bg-cream rounded-[2rem] p-8 shadow-sm border-2 border-dashed border-crayon-coral">
                 <span className="absolute -left-3 top-10 hidden md:block w-6 h-6 bg-cream border-l-2 border-b-2 border-dashed border-crayon-coral rotate-45" />
-                <p className="font-body text-lg font-bold text-mosai-red mb-2">Welcome to the Mosai family! 👋</p>
+                <p className="font-body text-lg font-bold text-mosai-red mb-2">Welcome to the MOSAI family! 👋</p>
                 <p className={`font-body leading-relaxed ${INK2}`}>{p.welcome}</p>
                 {p.staff && <p className={`font-body text-sm leading-relaxed mt-4 pt-4 border-t border-dashed border-crayon-coral ${INK2}`}>{p.staff}</p>}
               </div>
@@ -135,13 +135,13 @@ export default function AboutBunono() {
                 <img src={imgDirector} alt={p.director} className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
               <p className={`font-heading font-extrabold mt-4 ${INK}`}>{p.director}</p>
-              <p className="font-body text-sm text-mosai-blue font-semibold">Director, Mosai Schools</p>
+              <p className="font-body text-sm text-mosai-blue font-semibold">Director, MOSAI Schools</p>
             </div>
             <div className="relative bg-white rounded-[2rem] p-8 shadow-sm border-2 border-dashed border-crayon-sky">
               <span className="absolute -left-3 top-10 hidden md:block w-6 h-6 bg-white border-l-2 border-b-2 border-dashed border-crayon-sky rotate-45" />
               <div className={`space-y-4 font-body leading-relaxed ${INK2}`}>
                 <p>
-                  It is my honour to welcome you to our school, a learning community committed to excellence, integrity, and holistic education. At Mosai Schools, we believe that every child is unique and capable of achieving greatness when nurtured with care, vision, and purpose.
+                  It is my honour to welcome you to our school, a learning community committed to excellence, integrity, and holistic education. At MOSAI Schools, we believe that every child is unique and capable of achieving greatness when nurtured with care, vision, and purpose.
                 </p>
                 <p>
                   The message is <span className={`font-bold ${INK}`}>Self agency</span>, the core belief that the capacity for growth, transformation, and self improvement is largely internal. We teach our learners that real change starts by looking inward, and the main mandate of our school is identifying the unique potential of each child and building self confidence and self belief.
@@ -211,7 +211,7 @@ export default function AboutBunono() {
         </div>
       </section>
 
-      {/* Life at Mosai: Nutrition, Day and Boarding, Games and Sports */}
+      {/* Life at MOSAI: Nutrition, Day and Boarding, Games and Sports */}
       <AboutLifeBunono />
 
       {/* CTA */}
@@ -220,7 +220,7 @@ export default function AboutBunono() {
         <Doodles names={['star', 'flower']} count={2} />
         <div className="relative z-[3] max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="font-heading font-extrabold text-4xl text-white mb-4">Come Grow With Us</h2>
-          <p className="font-body text-white/90 mb-7">Applications for 2026 are open at Bunono Campus. We'd love to meet your family.</p>
+          <p className="font-body text-white/90 mb-7">Applications for 2027 are open at Bunono Campus. We'd love to meet your family.</p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link to="/admissions" className="inline-flex items-center gap-2 bg-cream text-mosai-red-dark font-heading font-extrabold px-8 py-4 rounded-full shadow-lg hover:-translate-y-0.5 transition-all">
               Enroll Your Child <ArrowRight className="w-5 h-5" />

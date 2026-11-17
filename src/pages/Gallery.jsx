@@ -1,11 +1,11 @@
-﻿import { useState, useEffect, useRef } from 'react'
+﻿import { useState, useEffect, useRef, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { X, ZoomIn, ChevronLeft, ChevronRight, MapPin, ArrowRight, Images } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import { useCampus } from '../context/CampusContext'
 import GalleryBunono from './GalleryBunono'
 import { NAL, NAL_GALLERY } from '../assets/nalugala-campus'
-import { BUN } from '../assets/bunono'
+import { BUN, BUN_GALLERY } from '../assets/bunono'
 
 // â”€â”€ Static imports give Vite-hashed URLs — no download until <img src> is set â”€â”€
 import imgCls1 from '../assets/TON_8855.webp'
@@ -30,7 +30,7 @@ import imgFac2 from '../assets/TON_8786.webp'
 import imgFac3 from '../assets/TON_8807.webp'
 
 // â”€â”€ Photo catalogue â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-const photos = [
+const nalugalaPhotos = [
   { src: imgCls1, cat: 'Graduation',   caption: 'Graduation celebration',   span: 'lg:col-span-2 lg:row-span-2' },
   { src: imgCls2, cat: 'Special Days', caption: 'Hosting the celebration',  span: '' },
   { src: imgCls3, cat: 'Performances', caption: 'Traditional dance',        span: '' },
@@ -43,7 +43,7 @@ const photos = [
   { src: imgEvt1, cat: 'Our Garden',   caption: 'Urban farming',            span: 'lg:col-span-2 lg:row-span-2' },
   { src: imgEvt2, cat: 'Performances', caption: 'Drama on stage',           span: '' },
   { src: imgEvt3, cat: 'Special Days', caption: 'Our MC for the day',       span: '' },
-  { src: imgEvt4, cat: 'Special Days', caption: 'Prize giving',             span: '' },
+  { src: imgEvt4, cat: 'Special Days', caption: 'School leaders address the families', span: '' },
   { src: imgEvt5, cat: 'Special Days', caption: 'A confident speech',       span: '' },
   { src: imgCmp1, cat: 'Special Days', caption: 'On stage',                 span: 'lg:col-span-2' },
   { src: imgCmp2, cat: 'Performances', caption: 'Marching display',         span: '' },
@@ -56,13 +56,24 @@ const photos = [
     src: ph.img, cat: ph.cat, caption: ph.cap, alt: ph.alt,
     span: i === 0 || i === 5 || i === 10 ? 'lg:col-span-2' : '',
   })),
-]
+].map(p => ({ ...p, campus: 'Nalugala Campus' }))
 
-const CATEGORIES = ['All', 'Our Campus', 'Boarding', 'Our Garden', 'Graduation', 'Performances', 'Special Days']
+// Bunono photos are only ever labelled Bunono; nothing is mixed between campuses.
+const bunonoGalleryPhotos = BUN_GALLERY.map((ph, i) => ({
+  src: ph.img, cat: 'Bunono Campus', caption: ph.cap, alt: ph.alt,
+  span: i === 0 || i === 5 ? 'lg:col-span-2' : '',
+  campus: 'Bunono Campus',
+}))
+
+const photos = [...nalugalaPhotos, ...bunonoGalleryPhotos]
+
+const CAMPUS_TABS = ['Nalugala Campus', 'Bunono Campus']
+const CATEGORIES  = ['All', ...CAMPUS_TABS, 'Boarding', 'Our Garden', 'Graduation', 'Performances', 'Special Days']
 const PAGE_SIZE   = 12
 
-const countFor = (cat) =>
-  cat === 'All' ? photos.length : photos.filter(p => p.cat === cat).length
+const inTab = (cat) => (p) =>
+  cat === 'All' ? true : CAMPUS_TABS.includes(cat) ? p.campus === cat : p.cat === cat
+const countFor = (cat) => photos.filter(inTab(cat)).length
 
 const campusTours = [
   {
@@ -135,7 +146,7 @@ function GalleryNalugala() {
   const [visibleCount,setVisible]  = useState(PAGE_SIZE)
   const [lightboxIdx, setLightbox] = useState(null)
 
-  const filtered = active === 'All' ? photos : photos.filter(p => p.cat === active)
+  const filtered = photos.filter(inTab(active))
   // Only the paginated slice is rendered
   const visible  = filtered.slice(0, visibleCount)
   const photo    = lightboxIdx !== null ? filtered[lightboxIdx] : null
@@ -176,14 +187,14 @@ function GalleryNalugala() {
         crumb="Gallery"
         title="Photo"
         accentWord="Gallery"
-        subtitle="Life at Mosai Schools. A glimpse into the daily joy, creativity and learning across our Nalugala and Bunono campuses."
+        subtitle="Life at MOSAI Schools. A glimpse into the daily joy, creativity and learning across our Nalugala and Bunono campuses."
         image={imgEvt1}
         nextBg="#F3F6FA"
       >
         <div className="flex items-center gap-3">
           <span className="font-body text-sm font-semibold text-white/80">{photos.length} photos</span>
           <span className="w-1 h-1 bg-white/50 rounded-full" />
-          <span className="font-body text-sm font-semibold text-white/80">{CATEGORIES.length - 1} categories</span>
+          <span className="font-body text-sm font-semibold text-white/80">{CATEGORIES.length - 1 - CAMPUS_TABS.length} categories</span>
           <span className="w-1 h-1 bg-white/50 rounded-full" />
           <span className="font-body text-sm font-semibold text-white/80">2 campuses</span>
         </div>
@@ -227,8 +238,15 @@ function GalleryNalugala() {
             <>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-[200px]">
                 {visible.map((p, i) => (
+                  <Fragment key={`${active}-${i}`}>
+                  {(i === 0 || visible[i - 1].campus !== p.campus) && (
+                    <h2 className={`col-span-full flex items-center gap-3 font-heading text-xl font-extrabold text-mosai-blue-dark ${i === 0 ? '' : 'mt-6'}`}>
+                      <MapPin className={`h-5 w-5 ${p.campus === 'Bunono Campus' ? 'text-mosai-red' : 'text-mosai-blue'}`} aria-hidden="true" />
+                      {p.campus}
+                      <span className="h-px flex-1 bg-gray-200" />
+                    </h2>
+                  )}
                   <div
-                    key={`${active}-${i}`}
                     className={`relative rounded-2xl overflow-hidden group cursor-pointer ${
                       active === 'All' ? p.span : ''
                     }`}
@@ -255,17 +273,18 @@ function GalleryNalugala() {
                     <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-200 z-20">
                       <div className="m-2 bg-black/60 backdrop-blur-sm rounded-xl px-3 py-2.5">
                         <p className="font-body text-xs text-white leading-snug">{p.caption}</p>
-                        <span className="font-body text-[10px] text-white/55 mt-0.5 block">{p.cat}</span>
+                        <span className="font-body text-[10px] text-white/55 mt-0.5 block">{p.campus}</span>
                       </div>
                     </div>
 
                     {/* Category badge */}
                     <div className="absolute top-3 left-3 z-10">
                       <span className="font-body text-[10px] font-bold uppercase tracking-wide px-2 py-1 bg-black/40 backdrop-blur-sm text-white rounded-full">
-                        {p.cat}
+                        {p.campus === 'Bunono Campus' ? 'Bunono' : `Nalugala · ${p.cat}`}
                       </span>
                     </div>
                   </div>
+                  </Fragment>
                 ))}
               </div>
 
@@ -314,7 +333,7 @@ function GalleryNalugala() {
                   <div className="relative h-56 overflow-hidden bg-zinc-200">
                     <LazyImg
                       src={campus.hero}
-                      alt={campus.name}
+                      alt={`MOSAI Schools ${campus.name}`}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-mosai-blue-dark/75 to-transparent" />
@@ -341,12 +360,12 @@ function GalleryNalugala() {
                           onClick={() => {
                             changeFilter('All')
                             const idx = photos.findIndex(p => p.src === thumb)
-                            if (idx !== -1) setLightbox(Math.min(idx, PAGE_SIZE - 1))
+                            if (idx !== -1) setLightbox(idx)
                           }}
                         >
                           <LazyImg
                             src={thumb}
-                            alt=""
+                            alt={`${campus.name} photo ${ti + 1}`}
                             className="absolute inset-0 w-full h-full object-cover"
                           />
                           <div className="absolute inset-0 bg-black/0 hover:bg-black/30 transition-colors duration-200 flex items-center justify-center z-10">
@@ -368,7 +387,7 @@ function GalleryNalugala() {
         <div className="max-w-xl mx-auto px-4">
           <h2 className="font-heading font-extrabold text-3xl text-mosai-blue-dark mb-3">Come See It in Person</h2>
           <p className="font-body text-sm text-gray-500 mb-7 leading-relaxed">
-            Photos are only the beginning. Book a visit to either our Nalugala or Bunono campus and experience the warmth of Mosai Schools first hand.
+            Photos are only the beginning. Book a visit to either our Nalugala or Bunono campus and experience the warmth of MOSAI Schools first hand.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link to="/contact" className="inline-flex items-center gap-2 bg-mosai-red hover:bg-mosai-red-dark text-white font-heading font-bold text-sm px-8 py-3.5 rounded-full transition-colors duration-200 shadow-md">
@@ -413,13 +432,14 @@ function GalleryNalugala() {
             <div className="mt-4 text-center">
               <p className="font-heading font-bold text-white text-base">{photo.caption}</p>
               <span className={`inline-block mt-1.5 font-body text-xs px-3 py-1 rounded-full ${
+                photo.campus === 'Bunono Campus' ? 'bg-mosai-red/80 text-white' :
                 photo.cat === 'Graduation'   ? 'bg-mosai-red/80 text-white'   :
                 photo.cat === 'Performances' ? 'bg-purple-600/80 text-white'  :
                 photo.cat === 'Our Garden'   ? 'bg-green-600/80 text-white'   :
                 photo.cat === 'Special Days' ? 'bg-mosai-blue/80 text-white'  :
                                                'bg-white/20 text-white'
               }`}>
-                {photo.cat}
+                {photo.campus === 'Bunono Campus' ? photo.campus : `${photo.campus} · ${photo.cat}`}
               </span>
             </div>
           </div>

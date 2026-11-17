@@ -27,8 +27,19 @@ function scallopPath() {
   return d
 }
 
+// The page surface colours are CSS variables (see index.css) so the edges
+// follow the light or dark theme. Any other colour is used as given.
+const SURFACES = {
+  '#FFFFFF': 'rgb(var(--rgb-surface))',
+  '#FFF':    'rgb(var(--rgb-surface))',
+  '#FFF8EE': 'rgb(var(--rgb-cream))',
+  '#F3F6FA': 'rgb(var(--rgb-mist))',
+  '#EBF0F6': 'rgb(var(--rgb-mist-deep))',
+}
+
 export default function WaveDivider({ variant = 'wave', color = '#FFFFFF', flip = false, className = '' }) {
   const d = variant === 'scallop' ? scallopPath() : wavePath()
+  const fill = SURFACES[String(color).toUpperCase()] || color
   return (
     <div
       className={`pointer-events-none w-full overflow-hidden leading-[0] ${className}`}
@@ -40,7 +51,7 @@ export default function WaveDivider({ variant = 'wave', color = '#FFFFFF', flip 
         preserveAspectRatio="none"
         className="block w-full h-[60px] sm:h-[90px]"
       >
-        <path d={d} fill={color} />
+        <path d={d} style={{ fill }} />
       </svg>
     </div>
   )

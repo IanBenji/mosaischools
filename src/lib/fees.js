@@ -12,12 +12,13 @@ export function feeRange(base, spread = FEE_SPREAD) {
 }
 
 // Termly tuition, in UGX — the single source for every fee shown on the site.
-// Nursery and Primary currently share the same bands at both campuses:
+// Nursery and Primary share the same day band at both campuses:
 //   Day       UGX 400,000 to 600,000
-//   Boarding  UGX 600,000 to 800,000
-// Toddler Class (Day Care) is day only, so it has no boarding fee.
+//   Boarding  UGX 600,000 to 800,000 (Primary only)
+// Boarding is for Primary learners only. Toddler Class (Day Care) and the
+// nursery classes are day school only, so they have no boarding fee.
 export const FEES = {
   toddler: { day: 500000, boarding: null },
-  nursery: { day: 500000, boarding: 700000 },
+  nursery: { day: 500000, boarding: null },
   primary: { day: 500000, boarding: 700000 },
 }

@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  // Dark theme is switched by a `dark` class on <html> (see ThemeContext).
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -31,12 +33,14 @@ export default {
           coral: '#FF8A6B',   // warm coral
           grape: '#9B7EDE',   // soft purple
         },
-        cream: '#FFF8EE',      // warm page background
+        // Page surfaces are CSS variables (src/index.css) so the dark theme can
+        // swap them in one place. The light values are unchanged.
+        cream: 'rgb(var(--rgb-cream) / <alpha-value>)',      // #FFF8EE warm page background
         // Soft page backgrounds that replace pure white section backgrounds
         // (cards stay white so they still lift off the page).
         mist: {
-          DEFAULT: '#F3F6FA',  // was bg-white
-          deep:    '#EBF0F6',  // was bg-gray-50, keeps the alternation
+          DEFAULT: 'rgb(var(--rgb-mist) / <alpha-value>)',      // #F3F6FA, was bg-white
+          deep:    'rgb(var(--rgb-mist-deep) / <alpha-value>)', // #EBF0F6, was bg-gray-50
         },
       },
       fontFamily: {

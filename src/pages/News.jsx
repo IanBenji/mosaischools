@@ -17,7 +17,7 @@ import NewsBunono from './NewsBunono'
 
 import headerImg from '../assets/IMG_8818.webp'   // talent show
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 
 export default function News() {
   const { campus, campusInfo } = useCampus()

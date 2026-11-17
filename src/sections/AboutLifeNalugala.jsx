@@ -6,9 +6,9 @@ import { NAL } from '../assets/nalugala-campus'
 import { bunonoPhotos } from '../assets/bunono'
 
 // Nalugala has no swimming photos yet, so the pool shot is borrowed from Bunono.
-const POOL = { img: bunonoPhotos[16], cap: 'Swimming lessons', alt: 'Mosai learners playing and learning to swim in the school pool' }
+const POOL = { img: bunonoPhotos[16], cap: 'Swimming lessons (Bunono pool)', alt: 'MOSAI learners playing and learning to swim in the Bunono Campus pool' }
 
-/* About › life at Mosai, Nalugala campus: Nutrition, Day and Boarding, Games
+/* About › life at MOSAI, Nalugala campus: Nutrition, Day and Boarding, Games
  * and Sports. Three deliberately different compositions in the flagship's
  * structured navy design: an editorial photo mosaic, two coordinated cards,
  * and an overlapping photo pair over a grid of benefit cards. */
@@ -140,7 +140,7 @@ function DayBoarding() {
         </div>
 
         <p className="text-center font-body text-sm text-gray-500 mt-8">
-          The same fees apply to the Nursery and Primary sections.{' '}
+          Nursery learners attend as day scholars; boarding is for Primary learners only.{' '}
           <Link to="/admissions#fees" className="font-semibold text-mosai-blue hover:text-mosai-blue-dark inline-flex items-center gap-1">
             See the full fee structure <ArrowRight className="w-3.5 h-3.5" />
           </Link>

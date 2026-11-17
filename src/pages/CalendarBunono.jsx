@@ -11,6 +11,7 @@ import {
 import { downloadIcs, slugify, whatsappShare } from '../lib/calendar'
 import { trackEvent } from '../lib/analytics'
 import PageHeader  from '../components/PageHeader'
+import TermDatesTable from '../components/TermDatesTable'
 import PhotoBand   from '../components/PhotoBand'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
@@ -22,7 +23,7 @@ import imgHeader from '../assets/bunono/bunono-47.webp'   // playground
 /* Bunono CALENDAR — a storybook timeline: months as scalloped bands, each date
  * a round crayon badge on a dotted spine. Same events as the Nalugala page. */
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 const INK  = 'text-[#43261A]'
 const INK2 = 'text-[#7A5C4A]'
 const CRAYONS = ['#FF8A6B', '#FFC93C', '#5FBB6E', '#6EC6F2', '#9B7EDE']
@@ -37,12 +38,12 @@ export default function CalendarBunono({ events }) {
   const tel      = campusInfo.phone.replace(/\s+/g, '')
 
   function addAll() {
-    downloadIcs(upcoming, 'mosai-bunono-calendar.ics', 'Mosai Schools, Bunono Campus')
+    downloadIcs(upcoming, 'mosai-bunono-calendar.ics', 'MOSAI Schools, Bunono Campus')
     trackEvent('calendar_download', { campus, scope: 'all', count: upcoming.length })
   }
 
   function addOne(event) {
-    downloadIcs(event, `${slugify(event.title)}.ics`, 'Mosai Schools')
+    downloadIcs(event, `${slugify(event.title)}.ics`, 'MOSAI Schools')
     trackEvent('calendar_download', { campus, scope: 'event' })
   }
 
@@ -54,7 +55,7 @@ export default function CalendarBunono({ events }) {
         title="Dates for"
         accentWord="Your Diary"
         kicker="Term dates & events"
-        subtitle="When term opens and closes, holidays, visitation days and every other date worth writing down at Bunono."
+        subtitle="The official 2027 term dates and holidays for Bunono, ready to write down or add to your phone."
         image={imgHeader}
         nextBg={CREAM}
       >
@@ -77,10 +78,18 @@ export default function CalendarBunono({ events }) {
         </div>
       </PageHeader>
 
+      {/* ── Official 2027 term dates ───────────────────────────────────── */}
+      <section className="relative pt-16">
+        <div className="relative z-[3] mx-auto max-w-4xl px-4 sm:px-6">
+          <TermDatesTable variant="bunono" />
+        </div>
+      </section>
+
       {/* ── Timeline ───────────────────────────────────────────────────── */}
       <section className="relative py-16">
         <Doodles names={['flower', 'leaf']} count={2} />
         <div className="relative z-[3] mx-auto max-w-3xl px-4 sm:px-6">
+          <h2 className={`mb-10 text-center font-heading text-3xl font-extrabold sm:text-4xl ${INK}`}>Coming up</h2>
 
           {events.loading ? (
             <LoadingRows count={4} bunono />

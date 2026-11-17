@@ -3,8 +3,8 @@ import { Save, CheckCircle, Building2, GraduationCap, CreditCard, CalendarDays, 
 
 const INITIAL = {
   school: {
-    name:       'Mosai Schools',
-    type:       'Private Day and Boarding Nursery & Primary School',
+    name:       'MOSAI Schools',
+    type:       'Private Nursery (Day) & Primary (Day and Boarding) School',
     location:   'Garuga Road, off Kampala-Entebbe Road, Katabi, Wakiso District, Uganda',
     phone:      '0745431412 / 0783926840',
     email:      'mosaischools@gmail.com',
@@ -20,7 +20,6 @@ const INITIAL = {
   },
   fees: {
     nurseryDay:     500000,
-    nurseryBoarding:700000,
     primaryDay:     500000,
     primaryBoarding:700000,
     admissionFee:   30000,
@@ -146,7 +145,7 @@ export default function Settings() {
             Changes here are for display only. Contact the system administrator to update live fee records.
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {[['nurseryDay','Nursery — Day Scholar'],['nurseryBoarding','Nursery — Boarding'],['primaryDay','Primary — Day Scholar'],['primaryBoarding','Primary — Boarding'],['admissionFee','Admission Fee (one-time)']].map(([key,lbl]) => (
+            {[['nurseryDay','Nursery — Day Scholar'],['primaryDay','Primary — Day Scholar'],['primaryBoarding','Primary — Boarding'],['admissionFee','Admission Fee (one-time)']].map(([key,lbl]) => (
               <div key={key}>
                 <label className="block font-body text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-1.5">{lbl}</label>
                 <div className="relative">
@@ -191,7 +190,7 @@ export default function Settings() {
         <div className="bg-white rounded-2xl border border-zinc-100 shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-zinc-100">
             <h2 className="font-heading font-bold text-base text-zinc-800">Class Management</h2>
-            <p className="font-body text-xs text-zinc-400 mt-0.5">Mosai Schools adds one class per year, expanding to P.7 over time.</p>
+            <p className="font-body text-xs text-zinc-400 mt-0.5">MOSAI Schools adds one class per year, expanding to P.7 over time.</p>
           </div>
           <div className="divide-y divide-zinc-100">
             {data.classes.map((c, i) => (

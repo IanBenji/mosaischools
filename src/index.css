@@ -267,3 +267,131 @@
     margin: 16mm;
   }
 }
+
+/* ── Theme surfaces ───────────────────────────────────────────────────────
+   The page backgrounds are variables so one switch changes every section.
+   Tailwind reads them as `bg-cream`, `bg-mist` and `bg-mist-deep`, and
+   WaveDivider maps the matching hex colours to the same variables. */
+:root {
+  --rgb-cream:     255 248 238;   /* #FFF8EE */
+  --rgb-mist:      243 246 250;   /* #F3F6FA */
+  --rgb-mist-deep: 235 240 246;   /* #EBF0F6 */
+  --rgb-surface:   255 255 255;   /* cards */
+  color-scheme: light;
+}
+
+/* ── Dark theme ───────────────────────────────────────────────────────────
+   Switched by `class="dark"` on <html> (ThemeContext, plus a tiny script in
+   index.html so there is no flash). The site's colours are mostly utility
+   classes, so rather than touch every page this layer remaps the shared
+   light surfaces and greys to the MOSAI navy palette. Brand blue, red and
+   green fills, photos and the dark blue sections stay exactly as they are. */
+html.dark {
+  --rgb-cream:     28 25 22;      /* warm dark paper for Bunono */
+  --rgb-mist:      13 22 37;      /* page */
+  --rgb-mist-deep: 10 17 30;      /* alternate sections */
+  --rgb-surface:   22 34 54;      /* cards */
+  color-scheme: dark;
+}
+html.dark body { background-color: rgb(var(--rgb-mist)); color: #DCE4EF; }
+
+/* Surfaces: cards, panels, the scrolled navbar and solid white overlays */
+html.dark .bg-white,
+html.dark .focus\:bg-white:focus,
+html.dark .hover\:bg-white:hover        { background-color: rgb(var(--rgb-surface)); }
+html.dark .bg-white\/95                 { background-color: rgb(var(--rgb-surface) / 0.95); }
+html.dark .bg-white\/90                 { background-color: rgb(var(--rgb-surface) / 0.9); }
+html.dark .bg-white\/80                 { background-color: rgb(var(--rgb-surface) / 0.8); }
+html.dark .bg-white\/70                 { background-color: rgb(var(--rgb-surface) / 0.7); }
+html.dark .bg-gray-50                   { background-color: #13203A; }
+html.dark .bg-gray-100,
+html.dark .hover\:bg-gray-100:hover     { background-color: #1E2C45; }
+html.dark .bg-gray-200,
+html.dark .hover\:bg-gray-200:hover     { background-color: #283852; }
+html.dark .bg-zinc-200                  { background-color: #1E2C45; }
+
+/* Brand tints become translucent glows on navy */
+html.dark .bg-mosai-blue-light,
+html.dark .hover\:bg-mosai-blue-light:hover { background-color: rgb(141 182 240 / 0.14); }
+html.dark .bg-mosai-red-light,
+html.dark .hover\:bg-mosai-red-light:hover  { background-color: rgb(255 138 128 / 0.14); }
+html.dark .bg-mosai-green-light             { background-color: rgb(124 200 130 / 0.14); }
+html.dark .bg-green-50                      { background-color: rgb(124 200 130 / 0.14); }
+html.dark .bg-red-50                        { background-color: rgb(255 138 128 / 0.12); }
+html.dark .bg-blue-50                       { background-color: rgb(141 182 240 / 0.12); }
+
+/* Text */
+html.dark .text-gray-900,
+html.dark .text-gray-800                { color: #EEF2F8; }
+html.dark .text-gray-700                { color: #D3DCE8; }
+html.dark .text-gray-600                { color: #C2CDDC; }
+html.dark .text-gray-500                { color: #A5B3C6; }
+html.dark .text-gray-400                { color: #8796AC; }
+html.dark .text-mosai-blue-dark,
+html.dark .hover\:text-mosai-blue-dark:hover { color: #DCE8F8; }
+html.dark .text-mosai-blue,
+html.dark .hover\:text-mosai-blue:hover { color: #8DB6F0; }
+html.dark .text-mosai-red               { color: #FF7A72; }
+html.dark .text-\[\#43261A\]            { color: #F6E7D8; }   /* Bunono ink */
+html.dark .text-\[\#7A5C4A\]            { color: #D8C3B1; }   /* Bunono ink, soft */
+
+/* A few fills stay light in dark mode: keep their text dark, or lift it */
+html.dark .bg-crayon-sun .text-mosai-blue-dark,
+html.dark .bg-crayon-sun.text-mosai-blue-dark { color: #153764; }
+html.dark .bg-white.text-mosai-red-dark,
+html.dark .bg-white .text-mosai-red-dark      { color: #FF7A72; }
+
+/* Lines and form fields */
+html.dark .border-gray-100              { border-color: rgb(255 255 255 / 0.07); }
+html.dark .border-gray-200              { border-color: rgb(255 255 255 / 0.12); }
+html.dark .border-gray-300              { border-color: rgb(255 255 255 / 0.18); }
+html.dark .divide-gray-100 > * + *      { border-color: rgb(255 255 255 / 0.07); }
+html.dark input,
+html.dark select,
+html.dark textarea                      { color: #EEF2F8; }
+html.dark input::placeholder,
+html.dark textarea::placeholder         { color: #7D8BA0; }
+html.dark select option                 { background-color: rgb(var(--rgb-surface)); }
+
+/* Shadows read as smudges on navy; soften them */
+html.dark .shadow-sm, html.dark .shadow, html.dark .shadow-md { --tw-shadow-color: rgb(0 0 0 / 0.35); }
+
+/* Theme switch should not animate every colour on the page */
+html.theme-switching *, html.theme-switching *::before, html.theme-switching *::after {
+  transition: none !important;
+}
+
+/* The remaps above outrank plain hover utilities, so restore the brand hovers */
+html.dark .hover\:bg-mosai-blue:hover      { background-color: #1E4D8C; }
+html.dark .hover\:bg-mosai-blue-dark:hover { background-color: #153764; }
+html.dark .hover\:bg-mosai-red:hover       { background-color: #D32F2F; }
+html.dark .hover\:text-white:hover,
+html.dark .group:hover .group-hover\:text-white { color: #FFFFFF; }
+html.dark .hover\:text-mosai-red:hover,
+html.dark .hover\:text-mosai-red-dark:hover { color: #FF9A93; }
+html.dark .text-white                       { color: #FFFFFF; }
+
+/* Bunono's warm paper tones */
+html.dark .bg-\[\#F5EADE\]              { background-color: #2A241E; }
+html.dark .bg-\[\#EFE2D2\]              { background-color: #332B23; }
+html.dark .text-\[\#A98B77\]            { color: #CDB49F; }
+html.dark .border-\[\#E8D9C8\],
+html.dark .border-\[\#E7D8C6\],
+html.dark .border-\[\#E2CDB6\]          { border-color: rgb(255 240 220 / 0.14); }
+html.dark .text-\[\#3B2A6B\]            { color: #D9CCFF; }
+
+/* The crest is artwork on white: keep its white backing in dark mode */
+html.dark .bg-white:has(> img[src*="mosailogo"]) { background-color: #FFFFFF; }
+
+/* Translucent tints and their borders (campus chip, mobile drawer) */
+html.dark .bg-mosai-blue-light\/50,
+html.dark .bg-mosai-blue-light\/60      { background-color: rgb(141 182 240 / 0.12); }
+html.dark .bg-mosai-red-light\/50,
+html.dark .bg-mosai-red-light\/60       { background-color: rgb(255 138 128 / 0.12); }
+html.dark .bg-gray-50\/70               { background-color: rgb(19 32 58 / 0.7); }
+html.dark .border-mosai-blue-light      { border-color: rgb(141 182 240 / 0.3); }
+html.dark .border-mosai-red-light       { border-color: rgb(255 138 128 / 0.3); }
+html.dark .ring-gray-100                { --tw-ring-color: rgb(255 255 255 / 0.08); }
+
+/* Dark red text on the yellow crayon badges stays dark */
+html.dark .bg-crayon-sun.text-mosai-red-dark { color: #7A1414; }

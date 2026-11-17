@@ -1,5 +1,11 @@
 import { MapPin, CalendarDays, ArrowRight } from 'lucide-react'
+import { CAMPUSES } from '../lib/campus'
+import { NAL } from '../assets/nalugala-campus'
+import { BUN } from '../assets/bunono'
 
+const directions = (q) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`
+
+// Nalugala first, then Bunono, the order the school asked for everywhere.
 const campuses = [
   {
     name: 'Nalugala Campus',
@@ -7,10 +13,13 @@ const campuses = [
     location: 'Garuga Road, off Kampala to Entebbe Road',
     district: 'Katabi, Wakiso District',
     description:
-      'Our flagship campus, set along the scenic Garuga Road off the Kampala to Entebbe Highway. Nalugala Campus offers modern classrooms, a swimming pool, boarding facilities, and expansive grounds for outdoor learning and play.',
-    tags: ['Day & Boarding', 'Swimming Pool', 'Digital Classrooms', 'Transport Available'],
+      'Our flagship campus, set along the scenic Garuga Road off the Kampala to Entebbe Highway. Nalugala Campus offers modern classrooms, a swimming pool, boarding facilities for Primary learners, and expansive grounds for outdoor learning and play.',
+    tags: ['Day & Primary Boarding', 'Swimming Pool', 'Digital Classrooms', 'Transport Available'],
     accent: 'blue',
     badge: 'Flagship Campus',
+    photo: NAL.compound.img,
+    photoAlt: 'MOSAI Schools Nalugala Campus: the open school compound',
+    map: CAMPUSES.nalugala.mapQuery,
   },
   {
     name: 'Bunono Campus',
@@ -18,10 +27,13 @@ const campuses = [
     location: 'Katabi, Wakiso District',
     district: 'Off Kampala to Entebbe Road',
     description:
-      'Our newest campus in Katabi brings the Mosai Schools experience to more families in the greater Entebbe area. Bunono Campus features the same high standards of care, safety, and academic excellence as our flagship.',
-    tags: ['Day & Boarding', 'Modern Facilities', 'Qualified Staff', 'Safe Environment'],
+      'Our newest campus in Katabi brings the MOSAI Schools experience to more families in the greater Entebbe area. Bunono Campus features the same high standards of care, safety, and academic excellence as our flagship.',
+    tags: ['Day & Primary Boarding', 'Modern Facilities', 'Qualified Staff', 'Safe Environment'],
     accent: 'red',
     badge: 'New in 2026',
+    photo: BUN.front.img,
+    photoAlt: 'MOSAI Schools Bunono Campus: the front entrance',
+    map: CAMPUSES.bunono.mapQuery,
   },
 ]
 
@@ -42,13 +54,27 @@ export default function Campuses() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {campuses.map((campus, i) => {
+          {campuses.map((campus) => {
             const isBlue = campus.accent === 'blue'
             return (
               <div
-                key={i}
-                className="group bg-cream rounded-3xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                key={campus.name}
+                className="group bg-cream rounded-3xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
+                {/* Campus photo */}
+                <div className="relative aspect-[16/9] overflow-hidden">
+                  <img
+                    src={campus.photo}
+                    alt={campus.photoAlt}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-3 py-1 font-heading text-xs font-extrabold text-mosai-blue-dark shadow-sm">
+                    {campus.name}
+                  </span>
+                </div>
+
                 <div className="p-8">
                   {/* Badge + Name */}
                   <div className="flex items-start justify-between gap-4 mb-4">
@@ -92,11 +118,16 @@ export default function Campuses() {
                     ))}
                   </div>
 
-                  <button className={`inline-flex items-center gap-2 text-sm font-semibold group-hover:gap-3 transition-all ${
-                    isBlue ? 'text-mosai-blue' : 'text-mosai-red'
-                  }`}>
+                  <a
+                    href={directions(campus.map)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`inline-flex items-center gap-2 text-sm font-semibold group-hover:gap-3 transition-all ${
+                      isBlue ? 'text-mosai-blue' : 'text-mosai-red'
+                    }`}
+                  >
                     Get Directions <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </a>
                 </div>
               </div>
             )

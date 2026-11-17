@@ -20,7 +20,7 @@ export default function CTABanner() {
           Ready to Give Your Child the Best Start?
         </h2>
         <p className="font-body text-lg text-red-50 mb-9 max-w-xl mx-auto">
-          Join the Mosai Schools family at Nalugala and Bunono. Spaces are limited, so secure your child's place today.
+          Join the MOSAI Schools family at Nalugala and Bunono. Spaces are limited, so secure your child's place today.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
           <Link

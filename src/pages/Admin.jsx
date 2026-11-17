@@ -130,7 +130,7 @@ export default function Admin() {
 
   // Keep this page out of search results.
   useEffect(() => {
-    document.title = 'Content check | Mosai Schools staff'
+    document.title = 'Content check | MOSAI Schools staff'
     const meta = document.createElement('meta')
     meta.name = 'robots'
     meta.content = 'noindex, nofollow'
@@ -823,7 +823,7 @@ export default function Admin() {
             that appears when the page is printed. See index.css. */}
         <section className="print-guide hidden">
           <h1 style={{ fontFamily: 'Nunito, sans-serif', fontSize: '22pt', fontWeight: 800, margin: 0 }}>
-            Updating the Mosai Schools website
+            Updating the MOSAI Schools website
           </h1>
           <p style={{ fontSize: '11pt', margin: '4pt 0 0' }}>
             {schema.label}. This updates {schema.feeds}.

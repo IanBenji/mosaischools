@@ -14,22 +14,35 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Dark theme is switched off for now. To restore it, uncomment this script
+         (it applies the saved light/dark theme before first paint).
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('mosai.theme');
+          var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (dark) { document.documentElement.classList.add('dark'); document.documentElement.style.colorScheme = 'dark'; }
+        } catch (e) { /* storage blocked: stay light */ }
+      })();
+    </script>
+    -->
+
     <!-- Primary meta tags -->
-    <title>Mosai Schools: Where Every Child Shines! | Katabi, Wakiso, Uganda</title>
+    <title>MOSAI Schools: Where Every Child Shines! | Katabi, Wakiso, Uganda</title>
     <meta
       name="description"
-      content="Mosai Schools is a God fearing, nurturing school in Katabi, Wakiso District, Uganda, offering quality early years and primary education across our Nalugala and Bunono campuses. Apply today."
+      content="MOSAI Schools is a God fearing, nurturing school in Katabi, Wakiso District, Uganda, offering quality early years and primary education across our Nalugala and Bunono campuses. Apply today."
     />
-    <meta name="author" content="Mosai Schools" />
+    <meta name="author" content="MOSAI Schools" />
     <meta name="theme-color" content="#0b2a5b" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.mosaischools.ug/" />
 
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Mosai Schools" />
+    <meta property="og:site_name" content="MOSAI Schools" />
     <meta property="og:url" content="https://www.mosaischools.ug/" />
-    <meta property="og:title" content="Mosai Schools: Where Every Child Shines!" />
+    <meta property="og:title" content="MOSAI Schools: Where Every Child Shines!" />
     <meta
       property="og:description"
       content="A God fearing, nurturing school in Katabi, Wakiso District, Uganda. Quality early years and primary education across our Nalugala and Bunono campuses."
@@ -39,7 +52,7 @@
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Mosai Schools: Where Every Child Shines!" />
+    <meta name="twitter:title" content="MOSAI Schools: Where Every Child Shines!" />
     <meta
       name="twitter:description"
       content="A God fearing, nurturing school in Katabi, Wakiso District, Uganda. Quality early years and primary education."

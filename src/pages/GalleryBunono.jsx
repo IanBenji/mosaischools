@@ -12,7 +12,7 @@ import { bunonoPhotos, BUN_GALLERY } from '../assets/bunono'
 /* Bunono GALLERY — a joyful tilted "scrapbook" wall of real Bunono photos.
  * Captions follow the actual content of each photo (assembly / pool / campus). */
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 const INK = 'text-[#43261A]'
 
 const ROTS = ['-3deg', '2deg', '-2deg', '3deg', '-4deg', '2deg', '-2deg', '3deg']
@@ -43,6 +43,7 @@ export default function GalleryBunono() {
         crumb="Gallery"
         title="Our"
         accentWord="Scrapbook"
+        kicker="Bunono Campus Gallery"
         subtitle="Snapshots of the joy, play and learning that fill every day at Bunono Campus. Tap any photo to take a closer look."
         image={imgHeader}
         nextBg={CREAM}

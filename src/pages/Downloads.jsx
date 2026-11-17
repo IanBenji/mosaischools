@@ -13,7 +13,7 @@ import DownloadsBunono from './DownloadsBunono'
 
 import headerImg from '../assets/IMG_8647.webp'
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 
 // File formats that open in the browser rather than saving to the device.
 const VIEWABLE = ['LINK', 'PAGE']

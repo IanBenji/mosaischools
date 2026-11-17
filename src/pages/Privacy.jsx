@@ -33,7 +33,7 @@ export default function Privacy() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 prose-mosai space-y-8">
 
           <p className="font-body text-gray-600 leading-relaxed">
-            Mosai Schools ("we", "us", or "our") is committed to protecting the privacy of
+            MOSAI Schools ("we", "us", or "our") is committed to protecting the privacy of
             parents, learners, staff, and visitors. This policy explains what information we
             collect through our website, how we use it, and the choices you have. By using
             this website, you agree to the practices described below.

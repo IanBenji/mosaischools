@@ -1,6 +1,6 @@
-# Mosai Schools — Website
+# MOSAI Schools — Website
 
-Marketing website for **Mosai Schools**, Katabi, Wakiso District, Uganda — a
+Marketing website for **MOSAI Schools**, Katabi, Wakiso District, Uganda — a
 fast, responsive, SEO-ready single-page application built with
 **React 19 + Vite + Tailwind CSS**.
 

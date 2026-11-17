@@ -100,9 +100,9 @@ export default function CampusPicker() {
         {/* Header */}
         <div className="bg-mosai-blue-dark px-7 pt-9 pb-8 text-center text-white sm:px-10">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white p-1.5">
-            <img src={mosaiLogo} alt="Mosai Schools" className="h-full w-full object-contain" />
+            <img src={mosaiLogo} alt="MOSAI Schools" className="h-full w-full object-contain" />
           </div>
-          <p className="font-body text-xs font-bold uppercase tracking-[0.25em] text-blue-300">Welcome to Mosai Schools</p>
+          <p className="font-body text-xs font-bold uppercase tracking-[0.25em] text-blue-300">Welcome to MOSAI Schools</p>
           <h2 id="campus-picker-title" className="mt-2 font-heading text-2xl font-extrabold sm:text-3xl">
             Which campus is your child at?
           </h2>

@@ -12,12 +12,13 @@ import {
 import { downloadIcs, slugify, whatsappShare } from '../lib/calendar'
 import { trackEvent } from '../lib/analytics'
 import PageHeader from '../components/PageHeader'
+import TermDatesTable from '../components/TermDatesTable'
 import { LoadingRows, EmptyState, StaleNotice } from '../components/DataState'
 import CalendarBunono from './CalendarBunono'
 
 import headerImg from '../assets/TON_8742.webp'
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 
 export default function Calendar() {
   const { campus, campusInfo } = useCampus()
@@ -32,12 +33,12 @@ export default function Calendar() {
   const tel      = campusInfo.phone.replace(/\s+/g, '')
 
   function addAll() {
-    downloadIcs(upcoming, 'mosai-schools-calendar.ics', `Mosai Schools, ${campusInfo.name} Campus`)
+    downloadIcs(upcoming, 'mosai-schools-calendar.ics', `MOSAI Schools, ${campusInfo.name} Campus`)
     trackEvent('calendar_download', { campus, scope: 'all', count: upcoming.length })
   }
 
   function addOne(event) {
-    downloadIcs(event, `${slugify(event.title)}.ics`, 'Mosai Schools')
+    downloadIcs(event, `${slugify(event.title)}.ics`, 'MOSAI Schools')
     trackEvent('calendar_download', { campus, scope: 'event' })
   }
 
@@ -49,7 +50,7 @@ export default function Calendar() {
         title="Term Dates &"
         accentWord="Events"
         kicker="School calendar"
-        subtitle={`When term opens and closes, holidays, exams, visitation and everything else worth putting in your diary at our ${campusInfo.name} Campus.`}
+        subtitle={`The official 2027 term dates and holidays for our ${campusInfo.name} Campus, ready to put in your diary.`}
         image={headerImg}
         nextBg="#F3F6FA"
       >
@@ -72,8 +73,15 @@ export default function Calendar() {
         </div>
       </PageHeader>
 
+      <section className="bg-mist py-16 sm:py-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <TermDatesTable />
+        </div>
+      </section>
+
       <section className="bg-mist-deep py-16 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-8 font-heading text-3xl font-extrabold text-mosai-blue-dark sm:text-4xl">Coming up</h2>
 
           {events.loading ? (
             <LoadingRows count={4} />
@@ -223,7 +231,7 @@ export default function Calendar() {
               {
                 icon: Phone,
                 title: 'Check anything with us',
-                text: `Dates occasionally shift. If something matters, whether a trip, an exam or a visit, ring the office on ${campusInfo.phone} and we will confirm it.`,
+                text: `The 2027 calendar is provisional and dates occasionally shift. If something matters, ring the office on ${campusInfo.phone} and we will confirm it.`,
               },
             ].map((card) => {
               const Icon = card.icon

@@ -9,13 +9,13 @@ import imgGarden     from '../assets/IMG_8647.webp'  // learners presenting the 
 const tiles = [
   {
     img: imgGraduation, span: 'row-span-2', big: true,
-    alt: 'Mosai nursery graduates in caps and gowns celebrating with a cake on graduation day',
+    alt: 'MOSAI nursery graduates in caps and gowns celebrating with a cake on graduation day',
     kicker: 'Celebrating Success',
     text: 'We celebrate every learner\'s milestones together on our big days.',
   },
   {
     img: imgDance,
-    alt: 'Mosai learners in traditional costume performing a cultural dance on stage',
+    alt: 'MOSAI learners in traditional costume performing a cultural dance on stage',
     kicker: 'Song & Dance',
     text: 'Music, movement and dance build confidence and coordination.',
   },
@@ -23,11 +23,11 @@ const tiles = [
     img: NAL.dormBunks.img,
     alt: NAL.dormBunks.alt,
     kicker: 'Boarding',
-    text: 'A clean, cared for home away from home for our boarders.',
+    text: 'A clean, cared for home away from home for our Primary boarders.',
   },
   {
     img: imgSpeech,
-    alt: 'A Mosai learner speaking confidently into a microphone in the school garden',
+    alt: 'A MOSAI learner speaking confidently into a microphone in the school garden',
     kicker: 'Public Speaking',
     text: 'Children grow in confidence speaking in front of an audience.',
   },
@@ -39,7 +39,7 @@ const tiles = [
   },
   {
     img: imgGarden, span: 'col-span-2 md:col-span-3', big: true,
-    alt: 'Mosai learners presenting the school vegetable garden to visiting parents and guests',
+    alt: 'MOSAI learners presenting the school vegetable garden to visiting parents and guests',
     kicker: 'Learning by Doing',
     text: 'From urban farming to hands on projects, learning comes alive beyond the classroom.',
   },
@@ -56,7 +56,7 @@ export default function SchoolLife() {
             <span className="font-heading text-sm font-extrabold text-mosai-red uppercase tracking-widest">Every Day Matters</span>
             <h2 className="font-heading font-extrabold text-4xl sm:text-5xl text-mosai-blue-dark mt-2">
               Life at{' '}
-              <span className="crayon-underline" style={{ '--crayon-color': '#6EC6F2' }}>Mosai Schools</span>
+              <span className="crayon-underline" style={{ '--crayon-color': '#6EC6F2' }}>MOSAI Schools</span>
             </h2>
             <p className="font-body text-gray-500 mt-4 max-w-lg text-sm leading-relaxed">
               From morning assembly to the school garden, every moment is a chance to learn, grow and belong.

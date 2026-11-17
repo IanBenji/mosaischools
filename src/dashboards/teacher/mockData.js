@@ -1,4 +1,4 @@
-// Teacher mock data — reflects real Mosai Schools structure
+// Teacher mock data — reflects real MOSAI Schools structure
 
 export const mockTeacher = {
   name: 'Ms. Nakato Grace',
@@ -13,17 +13,17 @@ export const mockTeacher = {
 
 export const mockStudents = [
   { id: 1,  name: 'Aisha Nankunda',     age: 5, gender: 'F', type: 'Day Scholar', parentName: 'Sarah Nankunda',      parentPhone: '+256 772 100 001', admNo: 'MOS-2025-042' },
-  { id: 2,  name: 'Brian Ssemakula',    age: 6, gender: 'M', type: 'Boarding',    parentName: 'David Ssemakula',     parentPhone: '+256 772 100 002', admNo: 'MOS-2025-043' },
+  { id: 2,  name: 'Brian Ssemakula',    age: 6, gender: 'M', type: 'Day Scholar', parentName: 'David Ssemakula',     parentPhone: '+256 772 100 002', admNo: 'MOS-2025-043' },
   { id: 3,  name: 'Christine Akello',   age: 5, gender: 'F', type: 'Day Scholar', parentName: 'Grace Akello',        parentPhone: '+256 772 100 003', admNo: 'MOS-2025-044' },
-  { id: 4,  name: 'Daniel Mugisha',     age: 6, gender: 'M', type: 'Boarding',    parentName: 'Robert Mugisha',      parentPhone: '+256 772 100 004', admNo: 'MOS-2025-045' },
+  { id: 4,  name: 'Daniel Mugisha',     age: 6, gender: 'M', type: 'Day Scholar', parentName: 'Robert Mugisha',      parentPhone: '+256 772 100 004', admNo: 'MOS-2025-045' },
   { id: 5,  name: 'Esther Nalubega',    age: 5, gender: 'F', type: 'Day Scholar', parentName: 'Joan Nalubega',       parentPhone: '+256 772 100 005', admNo: 'MOS-2025-046' },
   { id: 6,  name: 'Frank Okello',       age: 6, gender: 'M', type: 'Day Scholar', parentName: 'Patrick Okello',     parentPhone: '+256 772 100 006', admNo: 'MOS-2025-047' },
-  { id: 7,  name: 'Gloria Namukasa',    age: 5, gender: 'F', type: 'Boarding',    parentName: 'Joseph Namukasa',     parentPhone: '+256 772 100 007', admNo: 'MOS-2025-048' },
+  { id: 7,  name: 'Gloria Namukasa',    age: 5, gender: 'F', type: 'Day Scholar', parentName: 'Joseph Namukasa',     parentPhone: '+256 772 100 007', admNo: 'MOS-2025-048' },
   { id: 8,  name: 'Henry Bwire',        age: 6, gender: 'M', type: 'Day Scholar', parentName: 'Agnes Bwire',         parentPhone: '+256 772 100 008', admNo: 'MOS-2025-049' },
-  { id: 9,  name: 'Irene Namutebi',     age: 5, gender: 'F', type: 'Boarding',    parentName: 'Charles Namutebi',   parentPhone: '+256 772 100 009', admNo: 'MOS-2025-050' },
+  { id: 9,  name: 'Irene Namutebi',     age: 5, gender: 'F', type: 'Day Scholar', parentName: 'Charles Namutebi',   parentPhone: '+256 772 100 009', admNo: 'MOS-2025-050' },
   { id: 10, name: 'James Kato',         age: 6, gender: 'M', type: 'Day Scholar', parentName: 'Mary Kato',           parentPhone: '+256 772 100 010', admNo: 'MOS-2025-051' },
   { id: 11, name: 'Keza Uwimana',       age: 5, gender: 'F', type: 'Day Scholar', parentName: 'Eric Uwimana',        parentPhone: '+256 772 100 011', admNo: 'MOS-2025-052' },
-  { id: 12, name: 'Lawrence Opio',      age: 6, gender: 'M', type: 'Boarding',    parentName: 'Florence Opio',       parentPhone: '+256 772 100 012', admNo: 'MOS-2025-053' },
+  { id: 12, name: 'Lawrence Opio',      age: 6, gender: 'M', type: 'Day Scholar', parentName: 'Florence Opio',       parentPhone: '+256 772 100 012', admNo: 'MOS-2025-053' },
 ]
 
 // Pre-seeded attendance for today — most present, 2 absent

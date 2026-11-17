@@ -79,10 +79,9 @@ export default function PaymentsOverview() {
       {/* Fee structure reference */}
       <div className="bg-mosai-blue-dark text-white rounded-2xl p-6">
         <h3 className="font-heading font-bold text-base mb-4">Fee Structure Reference — {CURRENT_TERM}</h3>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { label:'Nursery Day Scholar',  amount: FEE_STRUCTURE.Nursery['Day Scholar'] },
-            { label:'Nursery Boarding',     amount: FEE_STRUCTURE.Nursery.Boarding       },
             { label:'Primary Day Scholar',  amount: FEE_STRUCTURE.Primary['Day Scholar'] },
             { label:'Primary Boarding',     amount: FEE_STRUCTURE.Primary.Boarding       },
           ].map(f => (

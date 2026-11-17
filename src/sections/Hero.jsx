@@ -25,7 +25,7 @@ export default function Hero() {
 
   const facts = [
     { icon: GraduationCap, label: 'Classes',           value: p.classesShort },
-    { icon: House,         label: 'Day and boarding',  value: 'Nursery and Primary' },
+    { icon: House,         label: 'Boarding',          value: 'Primary learners only' },
     { icon: Wallet,        label: 'Fees per term',     value: `From UGX ${feeRange(FEES.nursery.day).split(' to ')[0]}`, to: '/admissions#fees' },
     { icon: Phone,         label: 'Call the school', value: campusInfo.phone, href: `tel:${campusInfo.phone}` },
   ]

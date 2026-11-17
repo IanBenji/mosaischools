@@ -18,7 +18,7 @@ import imgHeader from '../assets/bunono/bunono-06.webp'   // assembly
 /* Bunono SCHOLARSHIPS — storybook design. Same words as the Nalugala page
  * (from lib/giving.js), wholly different layout and furniture. */
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 const INK  = 'text-[#43261A]'
 const INK2 = 'text-[#7A5C4A]'
 const CRAYONS = ['#FF8A6B', '#FFC93C', '#5FBB6E', '#6EC6F2', '#9B7EDE']
@@ -74,7 +74,7 @@ export default function ScholarshipsBunono() {
             <p className={`font-heading text-xl leading-relaxed font-bold sm:text-2xl ${INK}`}>
               {SCHOLARSHIPS.statement}
             </p>
-            <p className={`mt-4 font-body text-sm ${INK2}`}>Mosai Schools management</p>
+            <p className={`mt-4 font-body text-sm ${INK2}`}>MOSAI Schools management</p>
           </div>
         </div>
       </section>

@@ -76,7 +76,7 @@ export default function ChildProfile() {
           ))}
         </div>
         <p className="font-body text-xs text-slate-400 mt-4">
-          Mosai Schools teaches all four languages as part of its blended international curriculum.
+          MOSAI Schools teaches all four languages as part of its blended international curriculum.
         </p>
       </div>
 

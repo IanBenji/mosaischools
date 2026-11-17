@@ -18,7 +18,7 @@ const ICONS = {
   BookOpen, Home, ShieldCheck, Smile, CalendarCheck, Handshake,
 }
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 
 export default function Scholarships() {
   const { campus, campusInfo } = useCampus()
@@ -33,7 +33,7 @@ export default function Scholarships() {
       {/* ── 1. Page header ─────────────────────────────────────────────── */}
       <PageHeader
         crumb="Scholarships"
-        title="Mosai"
+        title="MOSAI"
         accentWord="Scholarships"
         kicker="Limited places · Awarded on merit and need"
         subtitle="A limited number of scholarships for vulnerable and disadvantaged, yet able and gifted children, so that ability, not circumstance, decides how far a child goes."
@@ -66,7 +66,7 @@ export default function Scholarships() {
             <p className="font-heading text-xl leading-relaxed font-bold text-mosai-blue-dark sm:text-2xl">
               {SCHOLARSHIPS.statement}
             </p>
-            <p className="mt-4 font-body text-sm text-gray-500">Mosai Schools management</p>
+            <p className="mt-4 font-body text-sm text-gray-500">MOSAI Schools management</p>
           </div>
 
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -84,7 +84,7 @@ export default function Scholarships() {
             <div className="relative">
               <img
                 src={purposeImg}
-                alt="Mosai Schools learners"
+                alt="MOSAI Schools learners"
                 className="h-80 w-full rounded-3xl object-cover shadow-xl sm:h-96"
                 loading="lazy"
                 decoding="async"

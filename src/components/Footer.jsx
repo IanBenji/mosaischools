@@ -56,10 +56,10 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-11 h-11 bg-white rounded-2xl flex items-center justify-center p-1">
-                <img src={mosaiLogo} alt="Mosai Schools" className="w-full h-full object-contain" />
+                <img src={mosaiLogo} alt="MOSAI Schools" className="w-full h-full object-contain" />
               </div>
               <span className="font-heading font-extrabold text-lg leading-tight">
-                Mosai Schools
+                MOSAI Schools
                 <span className={`block text-xs font-bold ${muted2}`}>{campusInfo.name} Campus</span>
               </span>
             </div>
@@ -155,7 +155,7 @@ export default function Footer() {
           <div>
             <h3 className="font-heading font-extrabold text-base mb-4">Stay Updated</h3>
             <p className={`font-body text-sm mb-4 ${muted}`}>
-              For the latest Mosai Schools news, email us to join our mailing list or follow us on social media.
+              For the latest MOSAI Schools news, email us to join our mailing list or follow us on social media.
             </p>
             <a
               href={`mailto:${campusInfo.email}?subject=Newsletter%20Sign-up`}
@@ -171,7 +171,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className={`font-body text-xs text-center sm:text-left ${muted2}`}>
-            &copy; 2026 Mosai Schools. Licensed by the Ministry of Education and Sports, Uganda.
+            &copy; 2026 MOSAI Schools. Licensed by the Ministry of Education and Sports, Uganda.
           </p>
           <div className="flex items-center gap-4">
             <Link to="/privacy" className={`font-body text-xs ${muted2} hover:text-white transition-colors`}>Privacy Policy</Link>

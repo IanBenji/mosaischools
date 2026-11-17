@@ -11,7 +11,7 @@ import imgHeader from '../assets/bunono/bunono-45.webp'  // Bunono classroom blo
 
 /* Bunono CONTACT — storybook design, reuses the shared ContactForm logic. */
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 const INK  = 'text-[#43261A]'
 const INK2 = 'text-[#7A5C4A]'
 
@@ -68,7 +68,7 @@ export default function ContactBunono() {
       </section>
 
       {/* scattered photo */}
-      <PhotoBand img={BUN.gate.img} cap="Find us at the Mosai Schools gate" alt={BUN.gate.alt} bg="bg-cream" />
+      <PhotoBand img={BUN.gate.img} cap="Find us at the MOSAI Schools gate" alt={BUN.gate.alt} bg="bg-cream" />
 
       {/* Form + map */}
       <section className="relative bg-mist py-16">

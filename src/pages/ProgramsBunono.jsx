@@ -15,7 +15,7 @@ import imgHeader from '../assets/bunono/bunono-09.webp'  // learners at Bunono
 
 /* Bunono PROGRAMS — storybook design. */
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 const INK  = 'text-[#43261A]'
 const INK2 = 'text-[#7A5C4A]'
 

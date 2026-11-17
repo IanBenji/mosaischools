@@ -7,7 +7,7 @@ export default function StatsBar() {
     { icon: MapPin,     label: 'Campuses',    value: 'Nalugala 2025 · Bunono 2026',   color: '#FF8A6B' },
     { icon: BookOpen,   label: 'Programs',    value: 'Day Care to Primary Five',       color: '#FFC93C' },
     { icon: Globe,      label: 'Languages',   value: 'English · Swahili · French · Chinese', color: '#6EC6F2' },
-    { icon: Home,       label: 'Enrolment',   value: 'Day & Boarding available',       color: '#9B7EDE' },
+    { icon: Home,       label: 'Enrolment',   value: 'Day, plus Primary boarding',       color: '#9B7EDE' },
   ]
 
   return (

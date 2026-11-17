@@ -1,4 +1,4 @@
-// Copy for the About page's "life at Mosai" sections: Nutrition, Day and
+// Copy for the About page's "life at MOSAI" sections: Nutrition, Day and
 // Boarding, and Games and Sports. Shared by both campuses; each About page
 // lays it out in its own design and with its own campus photos.
 //
@@ -20,7 +20,7 @@ export const NUTRITION = {
   kicker: 'Healthy Bodies, Bright Minds',
   title: 'Nutrition',
   intro:
-    'Children learn best when they are well fed. A balanced meal gives growing bodies the energy, protein and vitamins they need, and steadies the concentration a full school day asks of them. At Mosai, nutritious, freshly prepared meals are part of every school day, and good eating habits are something we teach as well as serve.',
+    'Children learn best when they are well fed. A balanced meal gives growing bodies the energy, protein and vitamins they need, and steadies the concentration a full school day asks of them. At MOSAI, nutritious, freshly prepared meals are part of every school day, and good eating habits are something we teach as well as serve.',
   points: [
     { icon: Sprout, title: 'Growth and development',
       text: 'Balanced meals provide the energy, protein, vitamins and minerals children need to grow strong and stay healthy.' },
@@ -39,7 +39,7 @@ export const DAY_BOARDING = {
   kicker: 'Two Ways to Belong',
   title: 'Day and Boarding',
   intro:
-    'Mosai is a day and boarding school, so every family can choose the arrangement that suits their child and their home. Whichever you choose, your child learns in the same classes, follows the same curriculum and belongs to the same Mosai family.',
+    'MOSAI is a day and boarding school. Our Toddler and Nursery classes are day school only, and boarding is available to Primary learners, so families of primary children can choose the arrangement that suits their child and their home. Whichever you choose, your child learns in the same classes, follows the same curriculum and belongs to the same MOSAI family.',
   day: {
     title: 'Day School',
     tag: 'Home every evening',
@@ -54,9 +54,9 @@ export const DAY_BOARDING = {
   },
   boarding: {
     title: 'Boarding',
-    tag: 'A home away from home',
+    tag: 'Primary learners only',
     text:
-      'For boarders, Mosai becomes a home away from home. A structured daily routine of lessons, meals, supervised study, rest and play gives children security and rhythm. Living and learning alongside their friends, boarders grow in independence, responsibility and the confidence to look after themselves and one another, with caring adults looking after them throughout.',
+      'Boarding is offered to Primary learners only. For boarders, MOSAI becomes a home away from home. A structured daily routine of lessons, meals, supervised study, rest and play gives children security and rhythm. Living and learning alongside their friends, boarders grow in independence, responsibility and the confidence to look after themselves and one another, with caring adults looking after them throughout.',
     points: [
       { icon: CalendarClock, text: 'A structured routine that balances learning, rest and play' },
       { icon: BookOpenCheck, text: 'Supervised study time and pastoral care' },
@@ -70,7 +70,7 @@ export const GAMES_SPORTS = {
   kicker: 'Play With Purpose',
   title: 'Games and Sports',
   intro:
-    'Games and sport are part of a Mosai education, not an extra. Time to run, play and compete helps children grow strong and healthy, and teaches lessons no textbook can: how to work as a team, how to win and lose graciously, and how to keep going when something is hard.',
+    'Games and sport are part of a MOSAI education, not an extra. Time to run, play and compete helps children grow strong and healthy, and teaches lessons no textbook can: how to work as a team, how to win and lose graciously, and how to keep going when something is hard.',
   benefits: [
     { icon: HeartPulse, title: 'Physical development',
       text: 'Running, jumping, swimming and ball games build strength, coordination, balance and healthy growth.' },

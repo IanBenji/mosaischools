@@ -15,15 +15,10 @@ import {
 } from 'lucide-react'
 
 import imgHeader  from '../assets/IMG_8647.webp'
-import imgBaby    from '../assets/TON_8855.webp'
-import imgMid     from '../assets/IMG_8738.webp'   // young learners dancing
-import imgTop     from '../assets/IMG_8754.webp'   // nursery cultural dance
-import imgGames1  from '../assets/TON_8742.webp'
-import imgGames2  from '../assets/IMG_8677.webp'
-import imgGames3  from '../assets/TON_8779.webp'
-import imgGames4  from '../assets/IMG_8738.webp'
-import imgGames5  from '../assets/TON_8794.webp'
-import imgGames6  from '../assets/TON_8786.webp'
+import imgBaby    from '../assets/IMG_8738.webp'   // little ones dancing
+import imgMid     from '../assets/IMG_8754.webp'   // nursery cultural dance
+import imgTop     from '../assets/TON_8855.webp'   // Top Class graduation (sashes read Top Class)
+import imgToddler from '../assets/TON_8742.webp'   // youngest learners dressed up on stage
 
 // â”€â”€ Nursery programs data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const nurseryPrograms = [
@@ -32,8 +27,8 @@ const nurseryPrograms = [
     id: 'toddler-class',
     name: 'Toddler Class (Day Care)',
     age: 'Ages 1 to 2',
-    image: imgGames1,
-    imageAlt: 'Young Mosai nursery learners dressed up on stage at a school celebration',
+    image: imgToddler,
+    imageAlt: 'Young MOSAI nursery learners dressed up on stage at a school celebration',
     accent: 'blue',
     time: '7:30 AM to 5:00 PM',
     tagline: 'Safe, loving day care for our very youngest',
@@ -62,7 +57,7 @@ const nurseryPrograms = [
     name: 'Baby Class',
     age: 'Ages 2 to 3',
     image: imgBaby,
-    imageAlt: 'Mosai nursery graduates in caps and gowns celebrating on graduation day',
+    imageAlt: 'Young MOSAI nursery learners dancing together at a school celebration',
     accent: 'red',
     time: '7:30 AM to 2:00 PM',
     tagline: 'A warm, gentle introduction to school life',
@@ -91,7 +86,7 @@ const nurseryPrograms = [
     name: 'Middle Class',
     age: 'Ages 3 to 4',
     image: imgMid,
-    imageAlt: 'Young Mosai learners dancing together at a school celebration',
+    imageAlt: 'MOSAI nursery learners in traditional dress performing a cultural dance',
     accent: 'blue',
     time: '7:30 AM to 2:30 PM',
     tagline: 'Building curiosity, confidence and early skills',
@@ -120,7 +115,7 @@ const nurseryPrograms = [
     name: 'Top Class',
     age: 'Ages 5 to 6',
     image: imgTop,
-    imageAlt: 'Mosai nursery learners in traditional dress performing a cultural dance',
+    imageAlt: 'MOSAI Top Class graduates in caps and gowns celebrating on graduation day',
     accent: 'red',
     time: '7:30 AM to 3:00 PM',
     tagline: 'Fully prepared and ready for Primary 1',
@@ -186,42 +181,36 @@ const nurseryGames = [
     icon: Rabbit,
     title: 'Animal Walks',
     desc: 'Bear crawls, frog hops and crab walks develop gross motor strength, coordination and body awareness in a fun, imaginative way.',
-    image: imgGames1,
     accent: 'red',
   },
   {
     icon: Target,
     title: 'Target Games',
     desc: 'Tossing bean bags into buckets and hoops sharpens hand and eye coordination and introduces spatial reasoning through active play.',
-    image: imgGames2,
     accent: 'blue',
   },
   {
     icon: Volleyball,
     title: 'Balloon Volleyball',
     desc: 'Lightweight balloon games build reaction time, teamwork and early striking skills in a relaxed and enjoyable environment.',
-    image: imgGames3,
     accent: 'red',
   },
   {
     icon: Cone,
     title: 'Obstacle Courses',
     desc: 'Courses using cones, tunnels, mats and hula hoops challenge learners to think, move and persevere through physical challenges.',
-    image: imgGames4,
     accent: 'blue',
   },
   {
     icon: CircleDot,
     title: 'Ball Skills',
     desc: 'Mini soccer, throwing and catching games lay the foundation for sports participation and develop fine and gross motor skills.',
-    image: imgGames5,
     accent: 'red',
   },
   {
     icon: Trophy,
     title: 'Relay Races',
     desc: 'Egg and spoon and sack races develop balance, speed and the joy of friendly competition as part of a cheering team.',
-    image: imgGames6,
     accent: 'blue',
   },
 ]
@@ -375,7 +364,7 @@ function ProgramsNalugala() {
                       ) : (
                         <>
                           <p className="font-heading font-extrabold text-lg text-mosai-red">Not offered</p>
-                          <p className="font-body text-xs text-gray-400">day care only</p>
+                          <p className="font-body text-xs text-gray-400">boarding is for Primary only</p>
                         </>
                       )}
                     </div>
@@ -679,17 +668,24 @@ function ProgramsNalugala() {
                   key={i}
                   className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
                 >
-                  {/* Image */}
-                  <div className="h-44 overflow-hidden relative">
-                    <img
-                      src={game.image}
-                      alt={game.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className={`absolute inset-0 ${isRed ? 'bg-mosai-red/50' : 'bg-mosai-blue/50'} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-                    <div className={`absolute top-4 left-4 w-10 h-10 rounded-xl flex items-center justify-center ${isRed ? 'bg-mosai-red' : 'bg-mosai-blue'}`}>
-                      <Icon className="w-5 h-5 text-white" />
-                    </div>
+                  {/* Illustration. There are no photos of these games yet, and the
+                      school asked that no unrelated photo stand in for an activity.
+                      Swap in a real photo (an `image` field) once one is taken. */}
+                  <div className={`h-44 relative flex items-center justify-center overflow-hidden ${isRed ? 'bg-mosai-red-light' : 'bg-mosai-blue-light'}`}>
+                    {game.image ? (
+                      <img
+                        src={game.image}
+                        alt={game.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <>
+                        <Icon aria-hidden="true" className={`absolute -right-6 -bottom-6 w-40 h-40 opacity-10 ${isRed ? 'text-mosai-red' : 'text-mosai-blue'}`} />
+                        <div className={`w-20 h-20 rounded-3xl flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300 ${isRed ? 'bg-mosai-red' : 'bg-mosai-blue'}`}>
+                          <Icon aria-hidden="true" className="w-10 h-10 text-white" />
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   <div className="p-6">

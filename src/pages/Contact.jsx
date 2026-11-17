@@ -103,7 +103,7 @@ export function ContactForm({ defaultSubject = '' }) {
       </div>
       <h3 className="font-heading font-extrabold text-2xl text-mosai-blue-dark mb-2">Message Sent!</h3>
       <p className="font-body text-sm text-gray-500 max-w-xs mb-2">
-        Thank you for reaching out to Mosai Schools. We will respond within one working day.
+        Thank you for reaching out to MOSAI Schools. We will respond within one working day.
       </p>
       <p className="font-body text-xs text-gray-400 mb-8">
         Confirmation sent to <span className="font-semibold text-mosai-blue">{form.email}</span>
@@ -214,7 +214,7 @@ export function ContactForm({ defaultSubject = '' }) {
       <div className="flex items-start gap-2.5 bg-mosai-blue-light rounded-xl px-4 py-3">
         <AlertCircle className="w-4 h-4 text-mosai-blue mt-0.5 shrink-0" />
         <p className="font-body text-xs text-gray-600 leading-relaxed">
-          By submitting this form you consent to Mosai Schools processing your data to respond to your inquiry. We will not share your information with third parties.
+          By submitting this form you consent to MOSAI Schools processing your data to respond to your inquiry. We will not share your information with third parties.
         </p>
       </div>
 
@@ -396,7 +396,7 @@ export default function Contact() {
               <div className="rounded-2xl overflow-hidden shadow-md border border-gray-100" style={{ height: '280px' }}>
                 <iframe
                   key={campus}
-                  title={`Mosai Schools ${campusInfo.name} Campus, ${campusInfo.mapQuery}`}
+                  title={`MOSAI Schools ${campusInfo.name} Campus, ${campusInfo.mapQuery}`}
                   src={mapSrc}
                   width="100%"
                   height="280"

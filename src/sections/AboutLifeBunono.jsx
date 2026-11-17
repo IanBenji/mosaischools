@@ -9,13 +9,13 @@ import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
 import Lightbox    from '../components/Lightbox'
 
-/* About › life at Mosai, Bunono campus, in the storybook design.
+/* About › life at MOSAI, Bunono campus, in the storybook design.
  *
  * Bunono has no photographs of its garden or boarding rooms yet, so per the
  * school's rule these borrow Nalugala's. Neither campus has a photo of meals;
  * swap one in here when the school has it. */
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 const INK   = 'text-[#43261A]'
 const INK2  = 'text-[#7A5C4A]'
 const COLORS = ['#FF8A6B', '#5FBB6E', '#FFC93C', '#6EC6F2', '#9B7EDE', '#FF8A6B']
@@ -164,7 +164,7 @@ function DayBoarding() {
         </div>
 
         <p className={`text-center font-body text-sm mt-10 ${INK2}`}>
-          The same fees apply to Nursery and Primary.{' '}
+          Nursery is day school only; boarding is for Primary learners.{' '}
           <Link to="/admissions#fees" className="font-bold text-mosai-red hover:underline inline-flex items-center gap-1">
             See all fees <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -178,7 +178,7 @@ function DayBoarding() {
 const GAME_SHOTS = [
   { ...BUN.exercise,   rot: '-3deg' },
   { ...BUN.houses,     rot: '2deg'  },
-  { img: bunonoPhotos[16], cap: 'Swimming lessons', alt: 'Mosai Bunono learners playing and learning to swim in the school pool', rot: '-2deg' },
+  { img: bunonoPhotos[16], cap: 'Swimming lessons', alt: 'MOSAI Bunono learners playing and learning to swim in the school pool', rot: '-2deg' },
   { ...BUN.stretching, rot: '3deg'  },
 ]
 

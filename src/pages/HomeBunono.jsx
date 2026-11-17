@@ -24,7 +24,7 @@ import { BUN } from '../assets/bunono'
  * Deliberately shares NO layout with the Nalugala (flagship) home.
  * ════════════════════════════════════════════════════════════════════ */
 
-const CREAM = '#FFF8EE'
+const CREAM = 'rgb(var(--rgb-cream))'   // #FFF8EE, follows the theme
 
 // warm storybook text tones (distinct from Nalugala's navy)
 const INK  = 'text-[#43261A]'
@@ -45,9 +45,9 @@ const VALUE_ICONS = { 'God fearing': Shield, 'Love': Heart, 'Humility': Sparkles
 const VALUE_COLORS = ['#FF8A6B', '#5FBB6E', '#FFC93C', '#6EC6F2']
 
 const SCRAPBOOK = [
-  { img: imgC,             cap: 'Morning assembly', alt: 'Mosai Bunono learners in uniform gathered for morning assembly', rot: '-4deg' },
+  { img: imgC,             cap: 'Morning assembly', alt: 'MOSAI Bunono learners in uniform gathered for morning assembly', rot: '-4deg' },
   { img: BUN.stretching.img, cap: BUN.stretching.cap, alt: BUN.stretching.alt,                                           rot: '3deg'  },
-  { img: imgD,             cap: 'Our playground',   alt: 'The colourful playground at Mosai Bunono, beside the classroom blocks', rot: '-2deg' },
+  { img: imgD,             cap: 'Our playground',   alt: 'The colourful playground at MOSAI Bunono, beside the classroom blocks', rot: '-2deg' },
   { img: BUN.verandas.img, cap: BUN.verandas.cap,   alt: BUN.verandas.alt,                                                 rot: '4deg'  },
 ]
 
@@ -125,7 +125,7 @@ export default function HomeBunono() {
                 {[
                   { icon: Users,         label: '100 Learners',   color: '#FFC93C' },
                   { icon: GraduationCap, label: 'Toddler to P.5', color: '#5FBB6E' },
-                  { icon: HomeIcon,      label: 'Day & Boarding', color: '#6EC6F2' },
+                  { icon: HomeIcon,      label: 'Day & Primary Boarding', color: '#6EC6F2' },
                   { icon: Phone,         label: campusInfo.phone, color: '#FF8A6B', href: `tel:${tel}` },
                 ].map((s) => {
                   const Icon = s.icon
@@ -188,7 +188,7 @@ export default function HomeBunono() {
               {/* speech bubble */}
               <div className="relative bg-white rounded-[2rem] p-8 shadow-md border-2 border-dashed border-crayon-coral">
                 <span className="absolute -left-3 top-10 hidden md:block w-6 h-6 bg-white border-l-2 border-b-2 border-dashed border-crayon-coral rotate-45" />
-                <p className="font-body text-lg font-bold text-mosai-red mb-2">Welcome to the Mosai family! 👋</p>
+                <p className="font-body text-lg font-bold text-mosai-red mb-2">Welcome to the MOSAI family! 👋</p>
                 <p className={`font-body leading-relaxed ${INK2}`}>{p.welcome}</p>
               </div>
             </div>
@@ -307,7 +307,7 @@ export default function HomeBunono() {
             Come and See Us in Bunono!
           </h2>
           <p className="font-body text-white/90 text-lg mb-3 leading-relaxed">
-            We'd love to show you around our new campus in {p.address}. Applications for 2026 are open now.
+            We'd love to show you around our new campus in {p.address}. Applications for 2027 are open now.
           </p>
           <p className="font-body text-white/80 mb-8 flex items-center justify-center gap-2">
             <MapPin className="w-4 h-4" /> {p.area}, Wakiso District

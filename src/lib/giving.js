@@ -8,19 +8,19 @@
 export const SCHOLARSHIPS = {
   // The school's own wording — quoted verbatim on both pages.
   statement:
-    'Mosai Schools provides a limited number of scholarships to vulnerable and disadvantaged, yet able and gifted children. Scholarships are awarded based on assessment criteria established and approved by the school management.',
+    'MOSAI Schools provides a limited number of scholarships to vulnerable and disadvantaged, yet able and gifted children. Scholarships are awarded based on assessment criteria established and approved by the school management.',
 
   purpose: [
     'Talent is spread evenly across every village; opportunity is not. Some of the brightest children in Katabi are held back by circumstances entirely outside their control: the loss of a parent, a household income that cannot stretch to school fees, or a disability that made earlier schooling difficult.',
     'Our scholarship programme exists to remove that barrier for a small number of those children each year. It is not a discount scheme and it is not first come first served: it is a deliberate investment in able, gifted learners who would otherwise never sit in a classroom like ours.',
-    'A scholarship learner joins the Mosai family on exactly the same footing as every other child, with the same classes, the same uniform, the same teachers and the same expectations. No child is ever singled out or labelled for the support they receive.',
+    'A scholarship learner joins the MOSAI family on exactly the same footing as every other child, with the same classes, the same uniform, the same teachers and the same expectations. No child is ever singled out or labelled for the support they receive.',
   ],
 
   // What the programme is intended to achieve.
   aims: [
     { icon: 'GraduationCap', title: 'Keep gifted children learning', text: 'Ensure that ability, not the family bank balance, decides how far a child goes in school.' },
     { icon: 'HeartHandshake', title: 'Support the most vulnerable', text: 'Prioritise orphans, children of single guardians, and families facing genuine hardship.' },
-    { icon: 'Sparkles',       title: 'Grow the whole child',        text: 'Academics, character, faith and confidence, the same holistic education every Mosai learner receives.' },
+    { icon: 'Sparkles',       title: 'Grow the whole child',        text: 'Academics, character, faith and confidence, the same holistic education every MOSAI learner receives.' },
     { icon: 'Users',          title: 'Strengthen the community',    text: 'Every child educated here returns skill, self reliance and hope to Katabi and Wakiso District.' },
   ],
 
@@ -97,13 +97,13 @@ export const SCHOLARSHIPS = {
     'Awards may be full or partial, and a partial award reduces fees rather than removing them entirely.',
     'A scholarship is awarded to a named child and cannot be transferred to a sibling or another family.',
     'Awards are renewed termly, subject to attendance, effort and conduct.',
-    'There is no fee to apply. Mosai Schools never charges for a scholarship application, and no member of staff is permitted to request payment in exchange for an award.',
+    'There is no fee to apply. MOSAI Schools never charges for a scholarship application, and no member of staff is permitted to request payment in exchange for an award.',
   ],
 }
 
 export const DONATE = {
   intro: [
-    'School fees at Mosai Schools are kept deliberately affordable so that ordinary families in Katabi can send their children to a good school. That affordability is only possible because friends of the school help carry part of the cost.',
+    'School fees at MOSAI Schools are kept deliberately affordable so that ordinary families in Katabi can send their children to a good school. That affordability is only possible because friends of the school help carry part of the cost.',
     'Every shilling given goes towards the things that change a child’s day: a place for a scholarship learner, a hot lunch, exercise books and pens, a safe classroom, clean water and somewhere to play.',
   ],
 
@@ -219,7 +219,7 @@ export const DONATE = {
     },
     {
       title: 'We send you the details',
-      text: 'Within one working day the office replies with the school’s official payment instructions for bank transfer or mobile money, issued directly by Mosai Schools.',
+      text: 'Within one working day the office replies with the school’s official payment instructions for bank transfer or mobile money, issued directly by MOSAI Schools.',
     },
     {
       title: 'You give, we receipt it',
@@ -271,13 +271,85 @@ export const DONATION_PURPOSES = [
   'Volunteering my time',
 ]
 
-export const DONATION_FREQUENCIES = ['A single gift', 'Every month', 'Every term', 'Once a year', 'Not sure yet']
+// Step 1 of the donation form: how often.
+export const DONATION_TYPES = [
+  { id: 'one-time', label: 'One time' },
+  { id: 'monthly',  label: 'Monthly'  },
+  { id: 'termly',   label: 'Every term' },
+  { id: 'annual',   label: 'Annual'   },
+]
 
-export const DONATION_AMOUNTS = [
-  'UGX 50,000',
-  'UGX 150,000',
-  'UGX 400,000',
-  'UGX 750,000',
-  'Another amount',
-  'I would rather discuss it',
+// Step 2: preset amounts, each tied to what it buys (from DONATE.tiers).
+export const DONATION_PRESETS = [
+  { ugx: 50000,  what: 'Books and pens for a term' },
+  { ugx: 150000, what: 'A uniform and shoes' },
+  { ugx: 400000, what: 'A term of daily meals' },
+  { ugx: 750000, what: 'A term of school', featured: true },
+]
+
+export const MIN_CUSTOM_GIFT = 5000
+
+// Step 5: how the donor would like to pay. Nothing is paid on this website;
+// the office replies with the school's official details for the chosen method.
+export const DONATION_METHODS = [
+  { id: 'mtn',    label: 'MTN Mobile Money', short: 'MTN MoMo',  mobile: true,  color: '#FFCB05' },
+  { id: 'airtel', label: 'Airtel Money',     short: 'Airtel',    mobile: true,  color: '#E40000' },
+  { id: 'bank',   label: 'Bank transfer',    short: 'Bank',      mobile: false, color: '#1E4D8C' },
+]
+
+export const formatUGX = (n) => `UGX ${Number(n).toLocaleString('en-US')}`
+
+// Questions donors ask, answered from the school's own giving policy above.
+// `contact: true` marks the answer that lists the office's phone and email.
+export const DONATE_FAQ = [
+  {
+    q: 'Why should I give to MOSAI Schools?',
+    a: DONATE.intro,
+  },
+  {
+    q: 'What does my gift pay for?',
+    a: [
+      'You can choose: the Scholarship Fund, meals and nutrition, books and learning materials, classrooms and facilities, uniforms and essentials, or sport, music and talent.',
+      DONATE.assurances[2].text,
+    ],
+  },
+  {
+    q: 'How do I actually pay?',
+    a: [
+      'This website does not take payments. When you send your pledge, the school office replies within one working day with the school’s official payment instructions for MTN Mobile Money, Airtel Money or bank transfer, issued directly by MOSAI Schools.',
+      DONATE.howItWorks[2].text,
+    ],
+  },
+  {
+    q: 'Is it safe? What details will you ask for?',
+    a: [
+      DONATE.assurances[0].text,
+      'Never share a mobile money PIN or card number with anyone, including anyone who says they are calling from the school.',
+    ],
+  },
+  {
+    q: 'Will I receive a receipt?',
+    a: [DONATE.assurances[1].text],
+  },
+  {
+    q: 'Can I give every month or every term, or sponsor a child?',
+    a: [
+      DONATE.ways[1].text,
+      DONATE.ways[2].text,
+      'Because nothing is charged through this website, you can change or stop a regular gift at any time by telling the school office.',
+    ],
+  },
+  {
+    q: 'Can I give goods, time or a partnership instead of money?',
+    a: [DONATE.ways[3].text, DONATE.ways[5].text, DONATE.ways[4].text],
+  },
+  {
+    q: 'Can I see how my gift was used?',
+    a: [DONATE.howItWorks[3].text, DONATE.assurances[3].text],
+  },
+  {
+    q: 'I have a question about giving. Who should I contact?',
+    a: ['The school office is happy to help, Monday to Friday, 8:00 AM to 4:00 PM.'],
+    contact: true,
+  },
 ]
