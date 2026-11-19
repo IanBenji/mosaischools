@@ -15,12 +15,7 @@ import Lightbox    from '../components/Lightbox'
 import { BUN, bunonoPhotos } from '../assets/bunono'
 
 import imgHeader     from '../assets/bunono/bunono-02.webp'  // morning assembly, Bunono
-/* Optimised into src/assets/bunono/ rather than read from the originals folder,
- * which .gitignore excludes. Importing from there built fine on any machine that
- * had the originals and failed everywhere else, including on the deploy host.
- * Deliberately not named bunono-NN.webp, so the gallery glob does not pick up a
- * staff portrait. */
-import imgHeadmaster from '../assets/bunono/headmaster.webp'
+import mosaiLogo     from '../assets/mosailogo-removebg-preview.png'
 import imgDirector   from '../assets/Director.webp'          // shared Director, same as Nalugala
 
 /* Bunono ABOUT — storybook design, shares no layout with the Nalugala About. */
@@ -113,8 +108,9 @@ export default function AboutBunono() {
           <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 items-start">
               <div className="mx-auto text-center">
-                <div className="w-64 sm:w-72 lg:w-80 aspect-[3/4] rounded-[2rem] overflow-hidden bg-mosai-red shadow-lg ring-8 ring-cream mx-auto">
-                  <img src={imgHeadmaster} alt="The Headteacher of MOSAI Schools, Bunono Campus" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                {/* No name or portrait, at the school's request */}
+                <div className="w-28 h-28 rounded-full bg-white flex items-center justify-center shadow-lg ring-8 ring-mosai-red mx-auto">
+                  <img src={mosaiLogo} alt="MOSAI Schools crest" className="w-24 h-24 object-contain" loading="lazy" decoding="async" />
                 </div>
                 <p className={`font-heading font-extrabold mt-4 ${INK}`}>Headteacher</p>
                 <p className="font-body text-sm text-mosai-red font-semibold">MOSAI Schools, Bunono Campus</p>
