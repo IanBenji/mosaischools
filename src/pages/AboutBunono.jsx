@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   CalendarDays, School, MapPin, UserCog, Users, GraduationCap,
@@ -10,7 +11,8 @@ import PhotoBand   from '../components/PhotoBand'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
 import AboutLifeBunono from '../sections/AboutLifeBunono'
-import { bunonoPhotos } from '../assets/bunono'
+import Lightbox    from '../components/Lightbox'
+import { BUN, bunonoPhotos } from '../assets/bunono'
 
 import imgHeader     from '../assets/bunono/bunono-02.webp'  // morning assembly, Bunono
 /* Optimised into src/assets/bunono/ rather than read from the originals folder,
@@ -30,9 +32,20 @@ const INK2  = 'text-[#7A5C4A]'
 const VALUE_ICONS  = { 'God fearing': Shield, 'Love': Heart, 'Humility': Sparkles, 'Excellence': Award }
 const VALUE_COLORS = ['#FF8A6B', '#5FBB6E', '#FFC93C', '#6EC6F2']
 
+// Only genuine Bunono Campus photos here.
+const CAMPUS_SPACES = [
+  { img: BUN.front.img,     alt: BUN.front.alt,    label: 'Our school building', sub: 'Welcoming, brightly painted blocks' },
+  { img: BUN.verandas.img,  alt: BUN.verandas.alt, label: 'Classrooms',          sub: 'Colourful verandas and learning spaces' },
+  { img: BUN.climbing.img,  alt: BUN.climbing.alt, label: 'Playground',          sub: 'Climbing frames, swings and slides' },
+  { img: bunonoPhotos[12],  alt: 'MOSAI Bunono learners enjoying a swimming session in the school pool', label: 'Swimming', sub: 'Splash time in the school pool' },
+  { img: BUN.exercise.img,  alt: BUN.exercise.alt, label: 'Sports & PE',         sub: 'Morning exercise in house colours' },
+  { img: BUN.gate.img,      alt: BUN.gate.alt,     label: 'A secure compound',   sub: 'Walled grounds behind the school gate' },
+]
+
 export default function AboutBunono() {
   const { campusInfo } = useCampus()
   const p = campusInfo.profile
+  const [spaceIdx, setSpaceIdx] = useState(null)
 
   const facts = [
     { icon: CalendarDays,  label: 'Opened',      value: p.opened,      color: '#FF8A6B' },
@@ -101,10 +114,10 @@ export default function AboutBunono() {
             <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 items-start">
               <div className="mx-auto text-center">
                 <div className="w-64 sm:w-72 lg:w-80 aspect-[3/4] rounded-[2rem] overflow-hidden bg-mosai-red shadow-lg ring-8 ring-cream mx-auto">
-                  <img src={imgHeadmaster} alt={p.headteacher} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                  <img src={imgHeadmaster} alt="The Headteacher of MOSAI Schools, Bunono Campus" className="w-full h-full object-cover" loading="lazy" decoding="async" />
                 </div>
-                <p className={`font-heading font-extrabold mt-4 ${INK}`}>{p.headteacher}</p>
-                <p className="font-body text-sm text-mosai-red font-semibold">Headteacher</p>
+                <p className={`font-heading font-extrabold mt-4 ${INK}`}>Headteacher</p>
+                <p className="font-body text-sm text-mosai-red font-semibold">MOSAI Schools, Bunono Campus</p>
               </div>
               <div className="relative bg-cream rounded-[2rem] p-8 shadow-sm border-2 border-dashed border-crayon-coral">
                 <span className="absolute -left-3 top-10 hidden md:block w-6 h-6 bg-cream border-l-2 border-b-2 border-dashed border-crayon-coral rotate-45" />
@@ -214,9 +227,43 @@ export default function AboutBunono() {
       {/* Life at MOSAI: Nutrition, Day and Boarding, Games and Sports */}
       <AboutLifeBunono />
 
+      {/* Our campus — real Bunono photos of the spaces learners use */}
+      <section id="campus" className="relative bg-mist py-16 scroll-mt-20">
+        <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
+        <div className="relative z-[3] max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <p className="font-heading font-extrabold text-mosai-red uppercase tracking-widest text-sm">Take a look around</p>
+            <h2 className={`font-heading font-extrabold text-4xl sm:text-5xl mt-2 ${INK}`}>
+              Our{' '}
+              <span className="crayon-underline" style={{ '--crayon-color': '#6EC6F2' }}>Campus</span>
+            </h2>
+            <p className={`font-body mt-3 max-w-xl mx-auto ${INK2}`}>
+              Bright, safe and colourful spaces where every learner can grow.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            {CAMPUS_SPACES.map((sp, i) => (
+              <figure
+                key={sp.label}
+                onClick={() => setSpaceIdx(i)}
+                className="group relative cursor-pointer rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden aspect-[4/3] bg-zinc-200 shadow-md"
+              >
+                <img src={sp.img} alt={sp.alt} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#43261A]/80 via-[#43261A]/10 to-transparent" />
+                <figcaption className="absolute bottom-0 left-0 right-0 p-3 sm:p-5">
+                  <p className="font-heading font-extrabold text-white text-sm sm:text-lg leading-tight">{sp.label}</p>
+                  <p className="hidden sm:block font-body text-sm text-white/85 mt-0.5">{sp.sub}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+        <Lightbox photos={CAMPUS_SPACES.map(sp => ({ img: sp.img, cap: sp.label }))} index={spaceIdx} setIndex={setSpaceIdx} />
+      </section>
+
       {/* CTA */}
       <section className="relative pt-20 pb-16" style={{ background: 'linear-gradient(180deg, #E14B4B 0%, #B71C1C 100%)' }}>
-        <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
+        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 left-0 right-0" />
         <Doodles names={['star', 'flower']} count={2} />
         <div className="relative z-[3] max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="font-heading font-extrabold text-4xl text-white mb-4">Come Grow With Us</h2>

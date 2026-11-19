@@ -127,7 +127,7 @@ export const CAMPUSES = {
     profile: {
       status:      'New Campus · 2026',
       director:    'IRUMBA Amos',
-      headteacher: 'UWINTIJE Jean Paul',
+      headteacher: null,                 // name removed at the school's request (Nov 2026); the role title is still shown
       opened:      '10 February 2026',
       openedShort: '2026',
       enrolment:   '100 learners',

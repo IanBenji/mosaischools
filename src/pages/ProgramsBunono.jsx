@@ -1,15 +1,18 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Baby, BookOpen, Star, GraduationCap, Clock, Heart,
-  Dumbbell, Palette, FlaskConical, Utensils, ArrowRight,
+  Dumbbell, Palette, FlaskConical, Utensils, ArrowRight, Sun, Moon,
 } from 'lucide-react'
+import { feeRange, FEES } from '../lib/fees'
+import Lightbox    from '../components/Lightbox'
 import { useCampus } from '../context/CampusContext'
 import PageHeader  from '../components/PageHeader'
 import PhotoBand   from '../components/PhotoBand'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
 import PrimaryJourney from '../components/PrimaryJourney'
-import { bunonoPhotos } from '../assets/bunono'
+import { BUN, bunonoPhotos } from '../assets/bunono'
 
 import imgHeader from '../assets/bunono/bunono-09.webp'  // learners at Bunono
 
@@ -26,16 +29,23 @@ const ACTIVITY_GROUPS = [
   { icon: Utensils,     title: 'Life Skills',    color: '#FFC93C', items: ['Baking', 'Cooking', 'Urban Farming'] },
 ]
 
+const INSIDE = [
+  { img: BUN.verandas.img, cap: 'Our classrooms',   alt: BUN.verandas.alt },
+  { img: bunonoPhotos[1],  cap: 'Morning assembly', alt: 'MOSAI Bunono learners in school uniform gathered in the compound for morning assembly' },
+  { img: BUN.slides.img,   cap: 'Time to play',     alt: BUN.slides.alt },
+]
+
 export default function ProgramsBunono() {
   const { campusInfo } = useCampus()
   const p = campusInfo.profile
+  const [shotIdx, setShotIdx] = useState(null)
 
   const classes = [
-    { icon: Heart,         name: 'Toddler Class', age: 'Ages 1 to 2', time: '7:30 to 5:00', color: '#9B7EDE', note: 'Loving day care with play, songs, meals and naps, for children from their first birthday.' },
-    { icon: Baby,         name: 'Baby Class',   age: 'Ages 2 to 3', time: '7:30 to 2:00', color: '#FF8A6B', note: 'Gentle first steps into school through play, songs and stories.' },
-    { icon: BookOpen,      name: 'Middle Class', age: 'Ages 3 to 4', time: '7:30 to 2:30', color: '#FFC93C', note: 'Curiosity blooms with early phonics, numbers and lots of discovery.' },
-    { icon: Star,          name: 'Top Class',    age: 'Ages 5 to 6', time: '7:30 to 3:00', color: '#5FBB6E', note: 'Reading, writing and confidence, fully ready for Primary 1.' },
-    { icon: GraduationCap, name: 'Primary',      age: p.primaryRange, time: 'Full day',  color: '#6EC6F2', note: 'A joyful, rigorous primary journey, adding a class every year to P.7.' },
+    { icon: Heart,         name: 'Toddler Class', age: 'Ages 1 to 2', time: '7:30 to 5:00', color: '#9B7EDE', fee: FEES.toddler, note: 'Loving day care with play, songs, meals and naps, for children from their first birthday.' },
+    { icon: Baby,         name: 'Baby Class',   age: 'Ages 2 to 3', time: '7:30 to 2:00', color: '#FF8A6B', fee: FEES.nursery, note: 'Gentle first steps into school through play, songs and stories.' },
+    { icon: BookOpen,      name: 'Middle Class', age: 'Ages 3 to 4', time: '7:30 to 2:30', color: '#FFC93C', fee: FEES.nursery, note: 'Curiosity blooms with early phonics, numbers and lots of discovery.' },
+    { icon: Star,          name: 'Top Class',    age: 'Ages 5 to 6', time: '7:30 to 3:00', color: '#5FBB6E', fee: FEES.nursery, note: 'Reading, writing and confidence, fully ready for Primary 1.' },
+    { icon: GraduationCap, name: 'Primary',      age: p.primaryRange, time: 'Full day',  color: '#6EC6F2', fee: FEES.primary, note: 'A joyful, rigorous primary journey, adding a class every year to P.7.' },
   ]
 
   return (
@@ -79,11 +89,34 @@ export default function ProgramsBunono() {
                     </div>
                     <p className="flex items-center gap-1.5 font-body text-xs text-gray-400 mt-1"><Clock className="w-3.5 h-3.5" /> {c.time}</p>
                     <p className={`font-body text-sm mt-2 ${INK2}`}>{c.note}</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      <span className={`inline-flex items-center gap-1.5 font-body text-xs font-semibold px-3 py-1 rounded-full bg-cream ${INK}`}>
+                        <Sun className="w-3.5 h-3.5 text-crayon-sun" /> Day: UGX {feeRange(c.fee.day)}
+                      </span>
+                      <span className={`inline-flex items-center gap-1.5 font-body text-xs font-semibold px-3 py-1 rounded-full bg-cream ${c.fee.boarding ? INK : 'text-gray-400'}`}>
+                        <Moon className="w-3.5 h-3.5 text-mosai-blue" /> {c.fee.boarding ? `Boarding: UGX ${feeRange(c.fee.boarding)}` : 'Day only'}
+                      </span>
+                    </div>
                   </div>
                 </div>
               )
             })}
           </div>
+          <p className={`text-center font-body text-sm mt-6 ${INK2}`}>
+            Fees are per term, paid through the School Pay System.{' '}
+            <Link to="/#fees" className="font-bold text-mosai-red underline underline-offset-2">See the full fees structure</Link>
+          </p>
+
+          {/* Inside Bunono — real campus photos */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 mt-14">
+            {INSIDE.map((ph, i) => (
+              <figure key={ph.cap} onClick={() => setShotIdx(i)} className="group relative cursor-pointer rounded-[2rem] overflow-hidden aspect-[4/3] bg-zinc-200 shadow-md">
+                <img src={ph.img} alt={ph.alt} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
+                <figcaption className="absolute bottom-3 left-3 bg-black/50 backdrop-blur-sm rounded-full px-4 py-1.5 font-heading font-bold text-white text-sm">{ph.cap}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <Lightbox photos={INSIDE} index={shotIdx} setIndex={setShotIdx} />
 
           {/* Primary, class by class */}
           <div id="primary" className="mt-16 scroll-mt-36">

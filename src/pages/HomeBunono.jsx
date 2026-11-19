@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import {
   Sparkles, ArrowRight, Baby, BookOpen, Star, GraduationCap,
   Heart, Shield, Award, Phone, MessageCircle, MapPin, Sun,
-  Users, Home as HomeIcon, ZoomIn,
+  Users, Home as HomeIcon, ZoomIn, Wallet, Moon, CreditCard,
 } from 'lucide-react'
 import { useCampus }   from '../context/CampusContext'
 import { MOSAI_ETHOS } from '../lib/campus'
+import { feeRange, FEES } from '../lib/fees'
 import Doodles     from '../components/Doodles'
 import WaveDivider from '../components/WaveDivider'
 import Lightbox    from '../components/Lightbox'
@@ -15,7 +16,8 @@ import useSlideshow from '../hooks/useSlideshow'
 
 import imgC   from '../assets/bunono/bunono-06.webp'  // morning assembly
 import imgD    from '../assets/bunono/bunono-47.webp'  // campus playground
-import { BUN } from '../assets/bunono'
+import { BUN, bunonoPhotos } from '../assets/bunono'
+import mosaiLogo from '../assets/mosailogo-removebg-preview.png'
 
 /* ══════════════════════════════════════════════════════════════════════
  * BUNONO HOME — a wholly separate "storybook garden" design.
@@ -49,6 +51,18 @@ const SCRAPBOOK = [
   { img: BUN.stretching.img, cap: BUN.stretching.cap, alt: BUN.stretching.alt,                                           rot: '3deg'  },
   { img: imgD,             cap: 'Our playground',   alt: 'The colourful playground at MOSAI Bunono, beside the classroom blocks', rot: '-2deg' },
   { img: BUN.verandas.img, cap: BUN.verandas.cap,   alt: BUN.verandas.alt,                                                 rot: '4deg'  },
+  { img: bunonoPhotos[25], cap: 'Splash and play',   alt: 'MOSAI Bunono learners swimming and playing in the curved school pool', rot: '3deg'  },
+  { img: bunonoPhotos[36], cap: 'Fun in the pool',   alt: 'MOSAI Bunono learners smiling together in the school swimming pool', rot: '-3deg' },
+  { img: bunonoPhotos[3],  cap: 'Ready for the day', alt: 'MOSAI Bunono learners in school uniform cheering in the compound beside the painted murals', rot: '2deg' },
+  { img: BUN.group.img,    cap: BUN.group.cap,      alt: BUN.group.alt,                                                    rot: '-4deg' },
+]
+
+/* Term fees for Bunono Campus. Figures come from lib/fees.js, which the school
+ * confirmed apply at both campuses. Boarding is for Primary learners only. */
+const FEE_ROWS = [
+  { name: 'Toddler Class (Day Care)', sub: 'Ages 1 to 2',              day: FEES.toddler.day, board: FEES.toddler.boarding, color: '#9B7EDE' },
+  { name: 'Nursery Section',          sub: 'Baby, Middle & Top Class', day: FEES.nursery.day, board: FEES.nursery.boarding, color: '#FF8A6B' },
+  { name: 'Primary Section',          sub: 'P.1 to P.5',               day: FEES.primary.day, board: FEES.primary.boarding, color: '#6EC6F2' },
 ]
 
 export default function HomeBunono() {
@@ -126,6 +140,7 @@ export default function HomeBunono() {
                   { icon: Users,         label: '100 Learners',   color: '#FFC93C' },
                   { icon: GraduationCap, label: 'Toddler to P.5', color: '#5FBB6E' },
                   { icon: HomeIcon,      label: 'Day & Primary Boarding', color: '#6EC6F2' },
+                  { icon: Wallet,        label: `Fees from UGX ${feeRange(FEES.nursery.day).split(' to ')[0]}`, color: '#9B7EDE', href: '#fees' },
                   { icon: Phone,         label: campusInfo.phone, color: '#FF8A6B', href: `tel:${tel}` },
                 ].map((s) => {
                   const Icon = s.icon
@@ -176,13 +191,11 @@ export default function HomeBunono() {
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 items-center">
               <div className="mx-auto text-center">
-                <div className="w-28 h-28 rounded-full bg-mosai-red flex items-center justify-center shadow-lg ring-8 ring-white">
-                  <span className="font-heading font-extrabold text-4xl text-white">
-                    {p.headteacher.split(' ').map(w => w[0]).slice(0, 2).join('')}
-                  </span>
+                <div className="w-28 h-28 rounded-full bg-white flex items-center justify-center shadow-lg ring-8 ring-mosai-red mx-auto">
+                  <img src={mosaiLogo} alt="MOSAI Schools crest" className="w-24 h-24 object-contain" loading="lazy" decoding="async" />
                 </div>
-                <p className={`font-heading font-extrabold mt-3 ${INK}`}>{p.headteacher}</p>
-                <p className="font-body text-sm text-mosai-red font-semibold">Headteacher</p>
+                <p className={`font-heading font-extrabold mt-4 ${INK}`}>Headteacher</p>
+                <p className="font-body text-sm text-mosai-red font-semibold">MOSAI Schools, Bunono Campus</p>
               </div>
 
               {/* speech bubble */}
@@ -234,9 +247,88 @@ export default function HomeBunono() {
         </div>
       </section>
 
-      {/* ═══ 4 · SCRAPBOOK — tilted polaroids of school life ═══ */}
-      <section className="relative bg-cream py-20">
+      {/* ═══ 3b · FEES STRUCTURE — termly fees for Bunono Campus ═══ */}
+      <section id="fees" className="relative bg-cream py-20 scroll-mt-28">
         <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 left-0 right-0" />
+        <div className="hidden md:block"><Doodles names={['star', 'leaf']} count={2} /></div>
+        <div className="relative z-[3] max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <p className="font-heading font-extrabold text-mosai-red uppercase tracking-widest text-sm">Bunono Campus · Per term</p>
+            <h2 className={`font-heading font-extrabold text-4xl sm:text-5xl mt-2 ${INK}`}>
+              Fees{' '}
+              <span className="crayon-underline" style={{ '--crayon-color': '#5FBB6E' }}>Structure</span>
+            </h2>
+            <p className={`font-body mt-3 max-w-xl mx-auto ${INK2}`}>
+              Termly tuition in Uganda Shillings (UGX). Boarding is offered to Primary learners only.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr),minmax(0,7fr)] gap-10 items-center">
+            {/* photo */}
+            <figure className="relative -rotate-2 bg-white p-3 pb-4 rounded-2xl shadow-xl max-w-md mx-auto w-full">
+              <div className="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200">
+                <img src={BUN.crest.img} alt={BUN.crest.alt} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+              </div>
+              <figcaption className={`font-heading font-bold text-center mt-3 ${INK}`}>{BUN.crest.cap}</figcaption>
+            </figure>
+
+            {/* fee table */}
+            <div className="bg-white rounded-[2rem] shadow-md border-2 border-dashed border-crayon-coral overflow-hidden">
+              <div className="hidden sm:grid grid-cols-[1fr,10rem,10rem] gap-4 px-7 py-4 bg-mist font-body text-xs font-bold uppercase tracking-widest text-gray-500">
+                <span>Class</span>
+                <span className="flex items-center gap-1.5"><Sun className="w-4 h-4 text-crayon-sun" /> Day (UGX)</span>
+                <span className="flex items-center gap-1.5"><Moon className="w-4 h-4 text-mosai-blue" /> Boarding (UGX)</span>
+              </div>
+              <ul className="divide-y divide-dashed divide-gray-200">
+                {FEE_ROWS.map((r) => (
+                  <li key={r.name} className="grid grid-cols-2 sm:grid-cols-[1fr,10rem,10rem] gap-x-4 gap-y-3 px-5 sm:px-7 py-5 items-center">
+                    <div className="col-span-2 sm:col-span-1 flex items-center gap-3">
+                      <span className="w-2.5 h-10 rounded-full shrink-0" style={{ backgroundColor: r.color }} />
+                      <div>
+                        <p className={`font-heading font-extrabold leading-tight ${INK}`}>{r.name}</p>
+                        <p className={`font-body text-sm ${INK2}`}>{r.sub}</p>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="sm:hidden font-body text-[11px] font-bold uppercase tracking-widest text-gray-400">Day (UGX)</p>
+                      <p className={`font-heading font-extrabold text-sm sm:text-base whitespace-nowrap ${INK}`}>{feeRange(r.day)}</p>
+                    </div>
+                    <div>
+                      <p className="sm:hidden font-body text-[11px] font-bold uppercase tracking-widest text-gray-400">Boarding (UGX)</p>
+                      {r.board
+                        ? <p className={`font-heading font-extrabold text-sm sm:text-base whitespace-nowrap ${INK}`}>{feeRange(r.board)}</p>
+                        : <p className="font-body text-sm text-gray-400">Day school only</p>}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <div className="px-5 sm:px-7 py-5 bg-cream border-t-2 border-dashed border-crayon-coral space-y-2">
+                <p className={`flex items-start gap-2 font-body text-sm ${INK2}`}>
+                  <GraduationCap className="w-4 h-4 mt-0.5 text-mosai-red shrink-0" />
+                  <span><span className={`font-bold ${INK}`}>One time admission fee:</span> UGX 30,000</span>
+                </p>
+                <p className={`flex items-start gap-2 font-body text-sm ${INK2}`}>
+                  <CreditCard className="w-4 h-4 mt-0.5 text-mosai-red shrink-0" />
+                  <span>All fees are per term and paid through the School Pay System only. No cash is accepted at school.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-4 justify-center mt-10">
+            <Link to="/admissions" className="inline-flex items-center gap-2 bg-mosai-red text-white font-heading font-extrabold px-7 py-3.5 rounded-full shadow-lg hover:-translate-y-0.5 transition-all">
+              How to Apply <ArrowRight className="w-5 h-5" />
+            </Link>
+            <a href={`tel:${tel}`} className="inline-flex items-center gap-2 border-2 border-mosai-red text-mosai-red font-heading font-extrabold px-7 py-3.5 rounded-full hover:bg-mosai-red-light transition-all">
+              <Phone className="w-5 h-5" /> Ask about fees
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ 4 · SCRAPBOOK — tilted polaroids of school life ═══ */}
+      <section className="relative bg-mist py-20">
+        <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
         <div className="relative z-[3] max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <h2 className={`font-heading font-extrabold text-4xl sm:text-5xl ${INK}`}>
@@ -244,15 +336,15 @@ export default function HomeBunono() {
               <span className="crayon-underline" style={{ '--crayon-color': '#6EC6F2' }}>Bunono</span>
             </h2>
           </div>
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {SCRAPBOOK.map((ph, i) => (
               <figure
                 key={i}
                 onClick={() => setShotIdx(i)}
-                className="group cursor-pointer bg-white p-3 pb-5 rounded-lg shadow-xl w-56 hover:-translate-y-2 hover:rotate-0 transition-transform duration-200"
+                className="group cursor-pointer bg-white p-2 pb-3 sm:p-3 sm:pb-5 rounded-lg shadow-xl w-[calc(50%-0.5rem)] sm:w-56 hover:-translate-y-2 hover:rotate-0 transition-transform duration-200"
                 style={{ transform: `rotate(${ph.rot})` }}
               >
-                <div className="relative w-full h-44 rounded-md overflow-hidden bg-zinc-200">
+                <div className="relative w-full h-32 sm:h-44 rounded-md overflow-hidden bg-zinc-200">
                   <img src={ph.img} alt={ph.alt} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-200 flex items-center justify-center">
                     <span className="w-10 h-10 rounded-full bg-white/20 border border-white/40 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -260,7 +352,7 @@ export default function HomeBunono() {
                     </span>
                   </div>
                 </div>
-                <figcaption className={`font-heading font-bold text-center mt-3 ${INK}`}>{ph.cap}</figcaption>
+                <figcaption className={`font-heading font-bold text-sm sm:text-base text-center mt-2 sm:mt-3 ${INK}`}>{ph.cap}</figcaption>
               </figure>
             ))}
           </div>
@@ -268,8 +360,8 @@ export default function HomeBunono() {
       </section>
 
       {/* ═══ 5 · CORE VALUES — big friendly circles ═══ */}
-      <section className="relative bg-mist py-20">
-        <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
+      <section className="relative bg-cream py-20">
+        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 left-0 right-0" />
         <div className="relative z-[3] max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-14">
             <p className="font-heading font-extrabold text-mosai-red uppercase tracking-widest text-sm">What we grow by</p>
@@ -300,7 +392,7 @@ export default function HomeBunono() {
 
       {/* ═══ 6 · VISIT — coral scallop CTA with real contacts ═══ */}
       <section className="relative pt-24 pb-20" style={{ background: 'linear-gradient(180deg, #E14B4B 0%, #B71C1C 100%)' }}>
-        <WaveDivider variant="scallop" color="#F3F6FA" flip className="absolute top-0 left-0 right-0" />
+        <WaveDivider variant="scallop" color={CREAM} flip className="absolute top-0 left-0 right-0" />
         <Doodles names={['star', 'flower']} count={2} />
         <div className="relative z-[3] max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="font-heading font-extrabold text-4xl sm:text-5xl text-white mb-4">

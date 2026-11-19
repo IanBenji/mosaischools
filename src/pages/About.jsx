@@ -20,6 +20,7 @@ import imgStory2   from '../assets/TON_8713.webp'
 import imgStory3   from '../assets/IMG_8563.webp'
 import imgDirector from '../assets/Director.webp'
 import imgCta      from '../assets/TON_8807.webp'
+import mosaiLogo   from '../assets/mosailogo-removebg-preview.png'
 
 const coreValues = [
   {
@@ -225,12 +226,10 @@ export default function About() {
               {/* Identity card */}
               <div className="lg:col-span-4">
                 <div className={`rounded-3xl p-8 text-center ${isBunono ? 'bg-mosai-red-light' : 'bg-mosai-blue-light'}`}>
-                  <div className={`w-24 h-24 rounded-full mx-auto flex items-center justify-center mb-4 ${isBunono ? 'bg-mosai-red' : 'bg-mosai-blue'}`}>
-                    <span className="font-heading font-extrabold text-3xl text-white">
-                      {p.headteacher.split(' ').map(w => w[0]).slice(0, 2).join('')}
-                    </span>
+                  <div className="w-24 h-24 rounded-full mx-auto flex items-center justify-center mb-4 bg-white shadow-sm">
+                    <img src={mosaiLogo} alt="MOSAI Schools crest" className="w-20 h-20 object-contain" loading="lazy" decoding="async" />
                   </div>
-                  <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">{p.headteacher}</p>
+                  {p.headteacher && <p className="font-heading font-extrabold text-lg text-mosai-blue-dark">{p.headteacher}</p>}
                   <p className={`font-body text-sm font-semibold ${isBunono ? 'text-mosai-red' : 'text-mosai-blue'}`}>Headteacher</p>
                   <p className="font-body text-xs text-gray-500 mt-1">{campusInfo.name} Campus</p>
                 </div>
