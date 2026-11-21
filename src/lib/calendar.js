@@ -52,7 +52,7 @@ function fold(line) {
 function vevent(event, stamp) {
   const lines = [
     'BEGIN:VEVENT',
-    `UID:${event.id}-${dateStamp(event.start)}@mosaischools.ug`,
+    `UID:${event.id}-${dateStamp(event.start)}@mosaischools.com`,
     `DTSTAMP:${stamp}`,
   ]
 

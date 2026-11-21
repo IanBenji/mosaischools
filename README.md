@@ -361,7 +361,7 @@ from `dist/` after `npm run build`.
   `try_files` fallback) so deep links don't 404.
 - **Domain/SEO:** update the domain in `public/robots.txt`,
   `public/sitemap.xml`, and the canonical / Open Graph URLs in `index.html` if
-  it isn't `www.mosaischools.ug`.
+  it isn't `www.mosaischools.com`.
 - **Link previews:** add a `public/og-image.jpg` (1200×630) for rich previews —
   referenced by the Open Graph / Twitter tags in `index.html`.
 - **Environment:** set the `VITE_*` variables in your host's build settings so

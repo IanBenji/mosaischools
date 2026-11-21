@@ -8,7 +8,7 @@ const INITIAL = {
     location:   'Garuga Road, off Kampala-Entebbe Road, Katabi, Wakiso District, Uganda',
     phone:      '0745431412 / 0783926840',
     email:      'mosaischools@gmail.com',
-    website:    'www.mosaischools.ug',
+    website:    'www.mosaischools.com',
     licensed:   'Ministry of Education and Sports, Uganda',
   },
   academic: {
