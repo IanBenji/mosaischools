@@ -96,15 +96,22 @@ async function handleContact(request, env) {
     `Press Reply to answer ${name} directly.`,
   ].join('\n')
 
-  const to = env.MAIL_TO
-  const raw = buildMime({ to, replyName: name, replyEmail: email, subject: `[Website] ${subject}`, text })
-
-  try {
-    await env.MAIL.send(new EmailMessage(FROM_ADDR, to, raw))
-  } catch (err) {
-    console.error('send_email failed:', err?.message || err)
-    return json(502, { ok: false, error: 'send_failed' })
+  // Try the school inbox first; if that fails (e.g. the address is not yet a
+  // verified Email Routing destination), fall back to the optional
+  // MAIL_FALLBACK secret so no message is lost.
+  const inboxes = [env.MAIL_TO, env.MAIL_FALLBACK].filter(Boolean)
+  let sent = false
+  for (const to of inboxes) {
+    try {
+      const raw = buildMime({ to, replyName: name, replyEmail: email, subject: `[Website] ${subject}`, text })
+      await env.MAIL.send(new EmailMessage(FROM_ADDR, to, raw))
+      sent = true
+      break
+    } catch (err) {
+      console.error(`send_email to ${to} failed:`, err?.message || err)
+    }
   }
+  if (!sent) return json(502, { ok: false, error: 'send_failed' })
   return json(200, { ok: true })
 }
 
