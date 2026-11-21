@@ -4,7 +4,7 @@ import {
   ShieldCheck, ReceiptText, Target, Eye, Heart, Phone, MessageCircle, Mail, Send,
   CheckCircle, AlertCircle, ArrowRight, ChevronDown, Info,
 } from 'lucide-react'
-import emailjs from '@emailjs/browser'
+import { sendForm } from '../lib/sendForm'
 import SimpleCaptcha from '../components/SimpleCaptcha'
 import { checkRateLimit, sanitize } from '../lib/formSecurity'
 import { trackEvent } from '../lib/analytics'
@@ -155,10 +155,7 @@ export function DonationForm({ theme = 'nalugala' }) {
     }
     setLoading(true)
     try {
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE,
-        {
+      await sendForm({
           from_name:  sanitize(form.name),
           from_email: sanitize(form.email),
           phone:      sanitize(form.phone),
@@ -173,9 +170,7 @@ export function DonationForm({ theme = 'nalugala' }) {
             ``,
             sanitize(form.message, 2000) || '(no additional message)',
           ].join('\n'),
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      )
+        })
       trackEvent('donation_pledge', { type: form.type, method: form.method, purpose: form.purpose })
       setSent(true)
     } catch {

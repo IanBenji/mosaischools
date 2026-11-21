@@ -5,7 +5,7 @@ import {
   Building2, CheckCircle, AlertCircle, Calendar,
   GraduationCap, CreditCard, BookOpen, MessageCircle,
 } from 'lucide-react'
-import emailjs from '@emailjs/browser'
+import { sendForm } from '../lib/sendForm'
 import SimpleCaptcha from '../components/SimpleCaptcha'
 import { checkRateLimit, sanitize } from '../lib/formSecurity'
 import { useCampus } from '../context/CampusContext'
@@ -74,18 +74,13 @@ export function ContactForm({ defaultSubject = '' }) {
     }
     setLoading(true)
     try {
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE,
-        {
+      await sendForm({
           from_name: sanitize(form.name),
           from_email: sanitize(form.email),
           phone:      sanitize(form.phone),
           subject:    sanitize(form.subject),
           message:    sanitize(form.message, 2000),
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      )
+        })
       setSent(true)
     } catch {
       setErrs({ captcha: 'Failed to send message. Please try again or email us directly.' })
@@ -106,7 +101,7 @@ export function ContactForm({ defaultSubject = '' }) {
         Thank you for reaching out to MOSAI Schools. We will respond within one working day.
       </p>
       <p className="font-body text-xs text-gray-400 mb-8">
-        Confirmation sent to <span className="font-semibold text-mosai-blue">{form.email}</span>
+        We will reply to <span className="font-semibold text-mosai-blue">{form.email}</span>
       </p>
       <button
         onClick={() => { setForm(blank); setSent(false); setErrs({}); setCaptchaOk(false); setCaptchaSeed(s => s + 1) }}
