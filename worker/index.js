@@ -14,7 +14,7 @@
 import { EmailMessage } from 'cloudflare:email'
 
 const FROM_ADDR = 'website@mosaischools.com'
-const FROM_NAME = 'MOSAI Schools Website'
+const FROM_NAME = 'MOSAI Schools'
 const ALLOWED_ORIGINS = [
   'https://mosaischools.com',
   'https://www.mosaischools.com',
